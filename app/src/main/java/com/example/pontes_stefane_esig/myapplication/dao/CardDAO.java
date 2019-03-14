@@ -7,22 +7,28 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 
+import com.example.pontes_stefane_esig.myapplication.model.Card;
 import com.example.pontes_stefane_esig.myapplication.model.Project;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProjectDAO extends DAO {
+public class CardDAO extends DAO {
 
-    private final String TABLE = "project";
+    private final String TABLE = "card";
 
-    public ProjectDAO(Context context) {
+    public CardDAO(Context context) {
         super(context);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "CREATE TABLE " + TABLE + " (id INTEGER PRIMARY KEY, name TEXT)";
+        String sql = "CREATE TABLE " + TABLE + " (" +
+                "id INTEGER PRIMARY KEY, " +
+                "name TEXT, points REAL, " +
+                "project_id INTEGER, " +
+                "FOREIN KEY(project_id) REFERENCES projet(id)" +
+                ")";
         db.execSQL(sql);
     }
 
@@ -33,47 +39,52 @@ public class ProjectDAO extends DAO {
         onCreate(db);
     }
 
-    public List<Project> getAll() {
-        String sql = "SELECT * FROM " + TABLE;
+    public List<Card> getAll(Project project) {
+        String sql = "SELECT * FROM " + TABLE + " WHERE project_id = ?";
         SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.rawQuery(sql, null);
-        List<Project> projects = new ArrayList<>();
+        String[] args = new String[]{String.valueOf(project.getId())};
+        Cursor c = db.rawQuery(sql, args);
+
+        List<Card> cards = new ArrayList<>();
         while (c.moveToNext()) {
             int id = c.getInt(c.getColumnIndex("id"));
             String name = c.getString(c.getColumnIndex("name"));
-            Project project = new Project();
-            project.setId(id);
-            project.setName(name);
-            projects.add(project);
+            double points = c.getDouble(c.getColumnIndex("points"));
+            long project_id = c.getLong(c.getColumnIndex("project_id"));
+
+            Card card = new Card(id, name, points, project_id);
+            cards.add(card);
         }
         c.close();
-        return projects;
+        return cards;
     }
 
-    public void insert(Project project) {
+    public void insert(Card project) {
         SQLiteDatabase db = getWritableDatabase();
         long id = db.insert(TABLE, null, getValues(project));
         project.setId(id);
     }
 
     @NonNull
-    private ContentValues getValues(Project project) {
+    private ContentValues getValues(Card project) {
         ContentValues data = new ContentValues();
         data.put("name", project.getName());
+        data.put("points", project.getPoints());
+        data.put("project_id", project.getProject_id());
         return data;
     }
 
-    public void delete(Project project) {
+    public void delete(Card project) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(TABLE, "id = ?", getPK(project));
     }
 
     @NonNull
-    private String[] getPK(Project project) {
+    private String[] getPK(Card project) {
         return new String[]{String.valueOf(project.getId())};
     }
 
-    public void update(Project project) {
+    public void update(Card project) {
         SQLiteDatabase db = getWritableDatabase();
         db.update(TABLE, getValues(project), "id = ?", getPK(project));
     }

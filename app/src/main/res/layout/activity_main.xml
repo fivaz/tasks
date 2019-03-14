@@ -20,6 +20,6 @@
         android:id="@+id/bt_new_project"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Créer Projet" />
+        android:text="Créer Projet"/>
 
 </LinearLayout>
