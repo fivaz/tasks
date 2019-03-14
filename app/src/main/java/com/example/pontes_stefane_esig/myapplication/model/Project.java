@@ -37,8 +37,27 @@ public class Project implements Serializable {
         this.name = name;
     }
 
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
+    }
+
+    public void addCard(Card card) {
+        this.cards.add(card);
+    }
+
+    public double getTotal() {
+        double total = 0;
+        for (Card card : cards)
+            total += card.getPoints();
+        return total;
+    }
+
     @Override
     public String toString() {
-        return id + " - " + name;
+        return name;
     }
 }

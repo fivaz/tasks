@@ -58,6 +58,6 @@ public class Card implements Serializable {
 
     @Override
     public String toString() {
-        return id + " " + name + " " + points;
+        return name + " - " + points;
     }
 }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.dao.CardDAO;
@@ -16,12 +17,11 @@ import com.example.pontes_stefane_esig.myapplication.dao.ProjectDAO;
 import com.example.pontes_stefane_esig.myapplication.model.Card;
 import com.example.pontes_stefane_esig.myapplication.model.Project;
 
-import java.util.List;
-
 public class ProjectActivity extends AppCompatActivity {
 
     private ListView lvCards;
     private Project project;
+    private TextView tvProjectInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +29,7 @@ public class ProjectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_project);
 
         lvCards = findViewById(R.id.lv_cards);
+        tvProjectInfo = findViewById(R.id.tv_project_info);
 
         Intent intent = getIntent();
         project = (Project) intent.getSerializableExtra("project");
@@ -79,12 +80,19 @@ public class ProjectActivity extends AppCompatActivity {
     }
 
     void loadCards() {
+        //TODO put the DAO in the Model
         CardDAO dao = new CardDAO(this);
-        List<Card> cards = dao.getAll(project);
+        project.setCards(dao.getAll(project));
         dao.close();
 
-        ArrayAdapter<Card> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, cards);
+        update();
+    }
+
+    private void update() {
+        ArrayAdapter<Card> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, project.getCards());
         lvCards.setAdapter(adapter);
+
+        tvProjectInfo.setText(project.getName() + " " + project.getTotal());
     }
 
     public void goToForm(View view) {
