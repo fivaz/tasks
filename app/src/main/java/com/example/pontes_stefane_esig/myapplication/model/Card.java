@@ -1,6 +1,8 @@
 package com.example.pontes_stefane_esig.myapplication.model;
 
-public class Card {
+import java.io.Serializable;
+
+public class Card implements Serializable {
 
     private long id;
     private String name;
@@ -10,14 +12,13 @@ public class Card {
     public Card() {
     }
 
-    public Card(long id, String name, double points, long project_id) {
-        this.id = id;
+    public Card(String name, double points) {
         this.name = name;
         this.points = points;
-        this.project_id = project_id;
     }
 
-    public Card(String name, double points, long project_id) {
+    public Card(long id, String name, double points, long project_id) {
+        this.id = id;
         this.name = name;
         this.points = points;
         this.project_id = project_id;
@@ -53,5 +54,10 @@ public class Card {
 
     public void setProject_id(long project_id) {
         this.project_id = project_id;
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + name + " " + points;
     }
 }

@@ -1,11 +1,13 @@
 package com.example.pontes_stefane_esig.myapplication.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Project implements Serializable {
 
     private long id;
     private String name;
+    private List<Card> cards;
 
     public Project() {
     }

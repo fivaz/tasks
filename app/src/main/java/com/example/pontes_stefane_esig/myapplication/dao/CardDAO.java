@@ -13,21 +13,22 @@ import com.example.pontes_stefane_esig.myapplication.model.Project;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CardDAO extends DAO {
+public class CardDAO extends SQLiteOpenHelper {
 
     private final String TABLE = "card";
 
     public CardDAO(Context context) {
-        super(context);
+        super(context, "project", null, 2);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sql = "CREATE TABLE " + TABLE + " (" +
                 "id INTEGER PRIMARY KEY, " +
-                "name TEXT, points REAL, " +
+                "name TEXT, " +
+                "points REAL, " +
                 "project_id INTEGER, " +
-                "FOREIN KEY(project_id) REFERENCES projet(id)" +
+                "FOREIGN KEY(project_id) REFERENCES projet(id)" +
                 ")";
         db.execSQL(sql);
     }
@@ -40,10 +41,11 @@ public class CardDAO extends DAO {
     }
 
     public List<Card> getAll(Project project) {
-        String sql = "SELECT * FROM " + TABLE + " WHERE project_id = ?";
+        String sql = "SELECT * FROM " + TABLE + " WHERE project_id = " + project.getId();
         SQLiteDatabase db = getReadableDatabase();
-        String[] args = new String[]{String.valueOf(project.getId())};
-        Cursor c = db.rawQuery(sql, args);
+//        String[] args = new String[]{String.valueOf(project.getId())};
+//        Cursor c = db.rawQuery(sql, args);
+        Cursor c = db.rawQuery(sql, null);
 
         List<Card> cards = new ArrayList<>();
         while (c.moveToNext()) {
@@ -59,33 +61,33 @@ public class CardDAO extends DAO {
         return cards;
     }
 
-    public void insert(Card project) {
+    public void insert(Card card) {
         SQLiteDatabase db = getWritableDatabase();
-        long id = db.insert(TABLE, null, getValues(project));
-        project.setId(id);
+        long id = db.insert(TABLE, null, getValues(card));
+        card.setId(id);
     }
 
     @NonNull
-    private ContentValues getValues(Card project) {
+    private ContentValues getValues(Card card) {
         ContentValues data = new ContentValues();
-        data.put("name", project.getName());
-        data.put("points", project.getPoints());
-        data.put("project_id", project.getProject_id());
+        data.put("name", card.getName());
+        data.put("points", card.getPoints());
+        data.put("project_id", card.getProject_id());
         return data;
     }
 
-    public void delete(Card project) {
+    public void delete(Card card) {
         SQLiteDatabase db = getWritableDatabase();
-        db.delete(TABLE, "id = ?", getPK(project));
+        db.delete(TABLE, "id = ?", getPK(card));
     }
 
     @NonNull
-    private String[] getPK(Card project) {
-        return new String[]{String.valueOf(project.getId())};
+    private String[] getPK(Card card) {
+        return new String[]{String.valueOf(card.getId())};
     }
 
-    public void update(Card project) {
+    public void update(Card card) {
         SQLiteDatabase db = getWritableDatabase();
-        db.update(TABLE, getValues(project), "id = ?", getPK(project));
+        db.update(TABLE, getValues(card), "id = ?", getPK(card));
     }
 }

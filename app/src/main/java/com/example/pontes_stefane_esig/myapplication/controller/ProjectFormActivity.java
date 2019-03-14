@@ -28,7 +28,7 @@ public class ProjectFormActivity extends AppCompatActivity {
             helper.setProject(project);
     }
 
-    public void submit(View view) {
+    public void projectSubmit(View view) {
         Project project = helper.getProject();
 
         ProjectDAO dao = new ProjectDAO(this);

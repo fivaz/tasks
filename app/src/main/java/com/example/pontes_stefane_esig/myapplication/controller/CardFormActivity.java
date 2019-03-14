@@ -10,10 +10,12 @@ import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.dao.CardDAO;
 import com.example.pontes_stefane_esig.myapplication.helper.CardFormHelper;
 import com.example.pontes_stefane_esig.myapplication.model.Card;
+import com.example.pontes_stefane_esig.myapplication.model.Project;
 
 public class CardFormActivity extends AppCompatActivity {
 
     private CardFormHelper helper;
+    private Project project;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,13 +25,15 @@ public class CardFormActivity extends AppCompatActivity {
         helper = new CardFormHelper(this);
 
         Intent intent = getIntent();
-        Card project = (Card) intent.getSerializableExtra("card");
-        if (project != null)
-            helper.setCard(project);
+        project = (Project) intent.getSerializableExtra("project");
+        Card card = (Card) intent.getSerializableExtra("card");
+        if (card != null)
+            helper.setCard(card);
     }
 
-    public void submit(View view) {
+    public void cardSubmit(View view) {
         Card card = helper.getCard();
+        card.setProject_id(project.getId());
 
         CardDAO dao = new CardDAO(this);
         if (card.getId() != 0)
@@ -44,6 +48,7 @@ public class CardFormActivity extends AppCompatActivity {
 
     void goToProjectPage() {
         Intent projectPage = new Intent(this, ProjectActivity.class);
+        projectPage.putExtra("project", project);
         startActivity(projectPage);
     }
 }
