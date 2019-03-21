@@ -1,5 +1,6 @@
 package com.example.pontes_stefane_esig.myapplication.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Project extends Model{
@@ -8,15 +9,18 @@ public class Project extends Model{
     private List<Listt> lists;
 
     public Project() {
+        lists = new ArrayList<>();
     }
 
     public Project(String name) {
         this.name = name;
+        lists = new ArrayList<>();
     }
 
     public Project(int id, String name) {
         this.id = id;
         this.name = name;
+        lists = new ArrayList<>();
     }
 
     public String getName() {

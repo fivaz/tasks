@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.dao.ListtDAO;
@@ -17,6 +18,10 @@ import com.example.pontes_stefane_esig.myapplication.dao.ProjectDAO;
 import com.example.pontes_stefane_esig.myapplication.model.Card;
 import com.example.pontes_stefane_esig.myapplication.model.Listt;
 import com.example.pontes_stefane_esig.myapplication.model.Project;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ProjectActivity extends AppCompatActivity {
 
@@ -91,13 +96,16 @@ public class ProjectActivity extends AppCompatActivity {
 
     private void updateView() {
         tvProjectInfo.setText(project.getName() + " " + project.getTotal());
+
         ArrayAdapter<Listt> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, project.getLists());
+//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.listt_item, list);
         lvLists.setAdapter(adapter);
     }
 
-    public void goToForm(View view) {
-        Intent intentGoToProjectForm = new Intent(this, CardFormActivity.class);
-        intentGoToProjectForm.putExtra("project", project);
-        startActivity(intentGoToProjectForm);
+    public void goToListForm(View view) {
+//        Toast.makeText(this, "Test", Toast.LENGTH_SHORT).show();
+        Intent intentGoToListForm = new Intent(this, ListtFormActivity.class);
+//        intentGoToListForm.putExtra("project", project);
+        startActivity(intentGoToListForm);
     }
 }

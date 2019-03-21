@@ -22,8 +22,17 @@ public class HomeActivity extends AppCompatActivity {
     private ListView lvProjects;
     private List<Project> projects;
 
+    //TODO test it later
+    /*//delete all databases
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.deleteDatabase("project");
+    }*/
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -40,7 +49,6 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(goToProject);
             }
         });
-
 
         btNew.setOnClickListener(new View.OnClickListener() {
             @Override

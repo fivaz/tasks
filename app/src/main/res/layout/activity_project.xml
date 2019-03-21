@@ -14,25 +14,21 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-    <ListView
-        android:id="@+id/lv_lists"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:onClick="goToForm"
-        android:id="@+id/bt_new_card"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Créer Card"/>
+        <ListView
+            android:id="@+id/lv_lists"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_new_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="goToListForm"
+        android:text="Créer List" />
 
 </LinearLayout>
