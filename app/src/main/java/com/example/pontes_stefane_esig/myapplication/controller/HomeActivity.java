@@ -20,6 +20,7 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity {
 
     private ListView lvProjects;
+    private List<Project> projects;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         loadProjects();
+        updateView();
     }
 
     @Override
@@ -95,9 +97,11 @@ public class HomeActivity extends AppCompatActivity {
 
     void loadProjects() {
         ProjectDAO dao = new ProjectDAO(this);
-        List<Project> projects = dao.getAll();
+        projects = dao.getAll();
         dao.close();
+    }
 
+    private void updateView() {
         ArrayAdapter<Project> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, projects);
         lvProjects.setAdapter(adapter);
     }

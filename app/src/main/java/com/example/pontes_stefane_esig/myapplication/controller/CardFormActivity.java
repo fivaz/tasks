@@ -33,7 +33,7 @@ public class CardFormActivity extends AppCompatActivity {
 
     public void cardSubmit(View view) {
         Card card = helper.getCard();
-        card.setProject_id(project.getId());
+        card.setList_id(project.getId());
 
         CardDAO dao = new CardDAO(this);
         if (card.getId() != 0)

@@ -1,13 +1,11 @@
 package com.example.pontes_stefane_esig.myapplication.model;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class Project implements Serializable {
+public class Project extends Model{
 
-    private long id;
     private String name;
-    private List<Card> cards;
+    private List<Listt> lists;
 
     public Project() {
     }
@@ -21,14 +19,6 @@ public class Project implements Serializable {
         this.name = name;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
@@ -37,22 +27,22 @@ public class Project implements Serializable {
         this.name = name;
     }
 
-    public List<Card> getCards() {
-        return cards;
+    public List<Listt> getLists() {
+        return lists;
     }
 
-    public void setCards(List<Card> cards) {
-        this.cards = cards;
+    public void setLists(List<Listt> lists) {
+        this.lists = lists;
     }
 
-    public void addCard(Card card) {
-        this.cards.add(card);
+    public void addList(Listt listt) {
+        this.lists.add(listt);
     }
 
     public double getTotal() {
         double total = 0;
-        for (Card card : cards)
-            total += card.getPoints();
+        for (Listt listt : lists)
+            total += listt.getTotal();
         return total;
     }
 

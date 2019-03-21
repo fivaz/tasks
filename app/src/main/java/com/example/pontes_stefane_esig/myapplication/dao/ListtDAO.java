@@ -8,15 +8,16 @@ import android.support.annotation.NonNull;
 
 import com.example.pontes_stefane_esig.myapplication.model.Card;
 import com.example.pontes_stefane_esig.myapplication.model.Listt;
+import com.example.pontes_stefane_esig.myapplication.model.Project;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CardDAO extends DAO {
+public class ListtDAO extends DAO {
 
-    private final String TABLE = "card";
+    private final String TABLE = "listt";
 
-    public CardDAO(Context context) {
+    public ListtDAO(Context context) {
         super(context, 2);
     }
 
@@ -25,9 +26,8 @@ public class CardDAO extends DAO {
         String sql = "CREATE TABLE " + TABLE + " (" +
                 "id INTEGER PRIMARY KEY, " +
                 "name TEXT, " +
-                "points REAL, " +
-                "list_id INTEGER, " +
-                "FOREIGN KEY(project_id) REFERENCES list(id)" +
+                "project_id INTEGER, " +
+                "FOREIGN KEY(project_id) REFERENCES projet(id)" +
                 ")";
         db.execSQL(sql);
     }
@@ -39,43 +39,38 @@ public class CardDAO extends DAO {
         onCreate(db);
     }
 
-    public List<Card> getAll(Listt list) {
-        String sql = "SELECT * FROM " + TABLE + " WHERE project_id = " + list.getId();
+    public List<Listt> getAll(Project project) {
+        String sql = "SELECT * FROM " + TABLE + " WHERE project_id = " + project.getId();
         SQLiteDatabase db = getReadableDatabase();
         //TODO prepared statement
 //        String[] args = new String[]{String.valueOf(project.getId())};
-//        Cursor cursor = db.rawQuery(sql, args);
-        Cursor cursor = db.rawQuery(sql, null);
-        List<Card> cards = new ArrayList<>();
-        while (cursor.moveToNext())
-            cards.add(buildCard(cursor));
-        cursor.close();
+//        Cursor c = db.rawQuery(sql, args);
+        Cursor c = db.rawQuery(sql, null);
 
-        return cards;
+        List<Listt> lists = new ArrayList<>();
+        while (c.moveToNext()) {
+            int id = c.getInt(c.getColumnIndex("id"));
+            String name = c.getString(c.getColumnIndex("name"));
+            long project_id = c.getLong(c.getColumnIndex("project_id"));
+
+            Listt list = new Listt(id, name, project_id);
+            lists.add(list);
+        }
+        c.close();
+        return lists;
     }
 
-    @NonNull
-    private Card buildCard(Cursor cursor) {
-        int id = cursor.getInt(cursor.getColumnIndex("id"));
-        String name = cursor.getString(cursor.getColumnIndex("name"));
-        double points = cursor.getDouble(cursor.getColumnIndex("points"));
-        long project_id = cursor.getLong(cursor.getColumnIndex("project_id"));
-
-        return new Card(id, name, points, project_id);
-    }
-
-    public void insert(Card card) {
+    public void insert(Listt list) {
         SQLiteDatabase db = getWritableDatabase();
-        long id = db.insert(TABLE, null, getValues(card));
-        card.setId(id);
+        long id = db.insert(TABLE, null, getValues(list));
+        list.setId(id);
     }
 
     @NonNull
-    private ContentValues getValues(Card card) {
+    private ContentValues getValues(Listt list) {
         ContentValues data = new ContentValues();
-        data.put("name", card.getName());
-        data.put("points", card.getPoints());
-        data.put("project_id", card.getList_id());
+        data.put("name", list.getName());
+        data.put("project_id", list.getProject_id());
         return data;
     }
 
@@ -90,18 +85,18 @@ public class CardDAO extends DAO {
 //        return data;
 //    }
 
-    public void delete(Card card) {
+    public void delete(Listt list) {
         SQLiteDatabase db = getWritableDatabase();
-        db.delete(TABLE, "id = ?", getPK(card));
+        db.delete(TABLE, "id = ?", getPK(list));
     }
 
     @NonNull
-    private String[] getPK(Card card) {
-        return new String[]{String.valueOf(card.getId())};
+    private String[] getPK(Listt list) {
+        return new String[]{String.valueOf(list.getId())};
     }
 
-    public void update(Card card) {
+    public void update(Listt list) {
         SQLiteDatabase db = getWritableDatabase();
-        db.update(TABLE, getValues(card), "id = ?", getPK(card));
+        db.update(TABLE, getValues(list), "id = ?", getPK(list));
     }
 }

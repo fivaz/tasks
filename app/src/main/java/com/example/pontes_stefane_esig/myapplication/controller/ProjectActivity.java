@@ -12,14 +12,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
-import com.example.pontes_stefane_esig.myapplication.dao.CardDAO;
+import com.example.pontes_stefane_esig.myapplication.dao.ListtDAO;
 import com.example.pontes_stefane_esig.myapplication.dao.ProjectDAO;
 import com.example.pontes_stefane_esig.myapplication.model.Card;
+import com.example.pontes_stefane_esig.myapplication.model.Listt;
 import com.example.pontes_stefane_esig.myapplication.model.Project;
 
 public class ProjectActivity extends AppCompatActivity {
 
-    private ListView lvCards;
+    private ListView lvLists;
     private Project project;
     private TextView tvProjectInfo;
 
@@ -28,19 +29,20 @@ public class ProjectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project);
 
-        lvCards = findViewById(R.id.lv_cards);
+        lvLists = findViewById(R.id.lv_lists);
         tvProjectInfo = findViewById(R.id.tv_project_info);
 
         Intent intent = getIntent();
         project = (Project) intent.getSerializableExtra("project");
 
-        registerForContextMenu(lvCards);
+        registerForContextMenu(lvLists);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        loadCards();
+        loadLists();
+        updateView();
     }
 
     @Override
@@ -53,7 +55,7 @@ public class ProjectActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-                Card card = (Card) lvCards.getItemAtPosition(info.position);
+                Card card = (Card) lvLists.getItemAtPosition(info.position);
 
                 Intent goToForm = new Intent(ProjectActivity.this, CardFormActivity.class);
                 goToForm.putExtra("project", project);
@@ -67,32 +69,30 @@ public class ProjectActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-                Project project = (Project) lvCards.getItemAtPosition(info.position);
+                Project project = (Project) lvLists.getItemAtPosition(info.position);
 
                 ProjectDAO dao = new ProjectDAO(ProjectActivity.this);
                 dao.delete(project);
                 dao.close();
 
-                loadCards();
+                loadLists();
+                updateView();
                 return false;
             }
         });
     }
 
-    void loadCards() {
+    void loadLists() {
         //TODO put the DAO in the Model
-        CardDAO dao = new CardDAO(this);
-        project.setCards(dao.getAll(project));
+        ListtDAO dao = new ListtDAO(this);
+        project.setLists(dao.getAll(project));
         dao.close();
-
-        update();
     }
 
-    private void update() {
-        ArrayAdapter<Card> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, project.getCards());
-        lvCards.setAdapter(adapter);
-
+    private void updateView() {
         tvProjectInfo.setText(project.getName() + " " + project.getTotal());
+        ArrayAdapter<Listt> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, project.getLists());
+        lvLists.setAdapter(adapter);
     }
 
     public void goToForm(View view) {
