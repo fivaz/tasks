@@ -38,7 +38,7 @@ public class ProjectFormActivity extends AppCompatActivity {
             dao.insert(project);
         dao.close();
 
-        Toast.makeText(ProjectFormActivity.this, project.toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, project.toString(), Toast.LENGTH_SHORT).show();
         goToHomePage();
     }
 

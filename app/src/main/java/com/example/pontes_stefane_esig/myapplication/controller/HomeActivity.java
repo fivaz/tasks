@@ -64,8 +64,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadProjects();
-        updateView();
+        refreshView();
     }
 
     @Override
@@ -97,10 +96,15 @@ public class HomeActivity extends AppCompatActivity {
                 dao.delete(project);
                 dao.close();
 
-                loadProjects();
+                refreshView();
                 return false;
             }
         });
+    }
+
+    void refreshView(){
+        loadProjects();
+        updateView();
     }
 
     void loadProjects() {
