@@ -5,8 +5,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 abstract class DAO extends SQLiteOpenHelper {
 
-    DAO(Context context) {
-        super(context, "trello", null, 1);
+    DAO(Context context, int version) {
+        super(context, "trello", null, version);
     }
 
     /*

@@ -17,7 +17,7 @@ public class ProjectDAO extends DAO {
     private final String TABLE = "project";
 
     public ProjectDAO(Context context) {
-        super(context);
+        super(context, 2);
     }
 
     @Override
