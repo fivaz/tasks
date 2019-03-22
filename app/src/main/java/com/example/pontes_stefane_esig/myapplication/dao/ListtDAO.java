@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 
+import com.example.pontes_stefane_esig.myapplication.model.Card;
 import com.example.pontes_stefane_esig.myapplication.model.Listt;
 import com.example.pontes_stefane_esig.myapplication.model.Project;
 
@@ -15,48 +16,75 @@ import java.util.List;
 public class ListtDAO extends DAO {
 
     private final String TABLE = "listt";
+    private Context context;
 
     public ListtDAO(Context context) {
-        super(context, 2);
+        super(context);
+        this.context = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "CREATE TABLE " + TABLE + " (" +
+        //TODO use forein keys
+        String sql = "CREATE TABLE listt (" +
                 "id INTEGER PRIMARY KEY, " +
                 "name TEXT, " +
-                "project_id INTEGER, " +
-                "FOREIGN KEY(project_id) REFERENCES projet(id)" +
+                "project_id INTEGER" +
                 ")";
         db.execSQL(sql);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String sql = "DROP TABLE IF EXISTS " + TABLE;
+        String sql = "DROP TABLE IF EXISTS listt";
         db.execSQL(sql);
         onCreate(db);
     }
 
     public List<Listt> getAll(Project project) {
-        String sql = "SELECT * FROM " + TABLE + " WHERE project_id = " + project.getId();
+        String sql = "SELECT * FROM listt WHERE project_id = 30";
         SQLiteDatabase db = getReadableDatabase();
         //TODO prepared statement
 //        String[] args = new String[]{String.valueOf(project.getId())};
 //        Cursor c = db.rawQuery(sql, args);
         Cursor c = db.rawQuery(sql, null);
 
-        List<Listt> lists = new ArrayList<>();
+        List<Listt> listts = new ArrayList<>();
+
         while (c.moveToNext()) {
             int id = c.getInt(c.getColumnIndex("id"));
             String name = c.getString(c.getColumnIndex("name"));
             long project_id = c.getLong(c.getColumnIndex("project_id"));
 
             Listt listt = new Listt(id, name, project_id);
-            lists.add(listt);
+            listts.add(listt);
         }
         c.close();
-        return lists;
+        return listts;
+    }
+
+    public List<Listt> getAllCascade(Project project) {
+        String sql = "SELECT * FROM " + TABLE + " WHERE project_id = " + project.getId();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery(sql, null);
+
+        List<Listt> listts = new ArrayList<>();
+
+        while (c.moveToNext()) {
+            int id = c.getInt(c.getColumnIndex("id"));
+            String name = c.getString(c.getColumnIndex("name"));
+            long project_id = c.getLong(c.getColumnIndex("project_id"));
+
+            Listt listt = new Listt(id, name, project_id);
+
+            CardDAO dao = new CardDAO(context);
+            listt.setCards(dao.getAll(listt));
+            dao.close();
+
+            listts.add(listt);
+        }
+        c.close();
+        return listts;
     }
 
     public void insert(Listt listt) {

@@ -14,37 +14,34 @@ import java.util.List;
 
 public class CardDAO extends DAO {
 
-    private final String TABLE = "card";
+    private final String TABLE = "cardd";
 
     public CardDAO(Context context) {
-        super(context, 1);
+        super(context);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "CREATE TABLE " + TABLE + " (" +
+        //TODO use forein keys
+        String sql = "CREATE TABLE cardd (" +
                 "id INTEGER PRIMARY KEY, " +
                 "name TEXT, " +
                 "points REAL, " +
-                "listt_id INTEGER, " +
-                "FOREIGN KEY(listt_id) REFERENCES listt(id)" +
+                "listt_id INTEGER " +
                 ")";
         db.execSQL(sql);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String sql = "DROP TABLE IF EXISTS " + TABLE;
+        String sql = "DROP TABLE IF EXISTS cardd";
         db.execSQL(sql);
         onCreate(db);
     }
 
     public List<Card> getAll(Listt listt) {
-        String sql = "SELECT * FROM " + TABLE + " WHERE listt_id = " + listt.getId();
+        String sql = "SELECT * FROM cardd WHERE listt_id = 10";
         SQLiteDatabase db = getReadableDatabase();
-        //TODO prepared statement
-//        String[] args = new String[]{String.valueOf(listt.getId())};
-//        Cursor c = db.rawQuery(sql, args);
         Cursor c = db.rawQuery(sql, null);
 
         List<Card> cards = new ArrayList<>();
