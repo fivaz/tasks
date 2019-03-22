@@ -16,9 +16,10 @@ import com.example.pontes_stefane_esig.myapplication.activities.CardFormActivity
 import com.example.pontes_stefane_esig.myapplication.models.Card;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 
+import java.util.Collections;
 import java.util.List;
 
-public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder> {
+public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder> implements ItemTouchHelperAdapter {
 
     private Context context;
     private List<Listt> listts;
@@ -58,8 +59,7 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
 
         ArrayAdapter<Card> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, listt.getCards());
         holder.lvCards.setAdapter(adapter);
-
-        holder.btNewCard.setOnClickListener(new View.OnClickListener(){
+        holder.btNewCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, CardFormActivity.class);
@@ -67,11 +67,32 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
                 context.startActivity(intent);
             }
         });
-
     }
 
     @Override
     public int getItemCount() {
         return listts.size();
+    }
+
+    //Drag and Drop
+    @Override
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(listts, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(listts, i, i - 1);
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition);
+        return true;
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+//        listts.remove(position);
+//        notifyItemRemoved(position);
     }
 }
