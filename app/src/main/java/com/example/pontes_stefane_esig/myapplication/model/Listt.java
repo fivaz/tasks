@@ -1,12 +1,12 @@
 package com.example.pontes_stefane_esig.myapplication.model;
 
-public class Listt extends Model{
+import java.util.List;
+
+public class Listt extends Model {
 
     private long project_id;
     private String name;
-
-    public Listt() {
-    }
+    private List<Card> cards;
 
     public Listt(String name) {
         this.name = name;
@@ -32,6 +32,14 @@ public class Listt extends Model{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
     }
 
     @Override
