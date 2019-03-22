@@ -16,7 +16,7 @@
         android:textSize="30sp" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/lv_listts"
+        android:id="@+id/rv_listts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="vertical" />

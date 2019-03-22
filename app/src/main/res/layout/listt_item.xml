@@ -15,7 +15,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/listt_item_name"
+            android:id="@+id/tv_name"
             android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:hint="Name"
@@ -28,5 +28,10 @@
             android:text="Créer Card" />
 
     </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_cards"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

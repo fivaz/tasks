@@ -25,7 +25,7 @@ public class ProjectActivity extends AppCompatActivity {
 
         project = (Project) getIntent().getSerializableExtra("project");
 
-        lvLists = findViewById(R.id.lv_lists);
+        lvLists = findViewById(R.id.rv_listts);
 
         lvLists.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
@@ -54,7 +54,7 @@ public class ProjectActivity extends AppCompatActivity {
         TextView tvProjectInfo = findViewById(R.id.tv_project_info);
         tvProjectInfo.setText(project.getName());
 
-        ListtAdapter adapter = new ListtAdapter(project.getListts());
+        ListtAdapter adapter = new ListtAdapter(this, project.getListts());
         lvLists.setAdapter(adapter);
     }
 
