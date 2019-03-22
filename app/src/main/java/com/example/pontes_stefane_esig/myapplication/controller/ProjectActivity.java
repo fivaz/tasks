@@ -46,7 +46,7 @@ public class ProjectActivity extends AppCompatActivity {
     void loadLists() {
         //TODO put the DAO in the Model
         ListtDAO dao = new ListtDAO(this);
-        project.setLists(dao.getAll(project));
+        project.setListts(dao.getAll(project));
         dao.close();
     }
 
@@ -54,7 +54,7 @@ public class ProjectActivity extends AppCompatActivity {
         TextView tvProjectInfo = findViewById(R.id.tv_project_info);
         tvProjectInfo.setText(project.getName());
 
-        ListtAdapter adapter = new ListtAdapter(project.getLists());
+        ListtAdapter adapter = new ListtAdapter(project.getListts());
         lvLists.setAdapter(adapter);
     }
 

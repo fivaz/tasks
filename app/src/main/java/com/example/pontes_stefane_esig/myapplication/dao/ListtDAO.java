@@ -52,24 +52,24 @@ public class ListtDAO extends DAO {
             String name = c.getString(c.getColumnIndex("name"));
             long project_id = c.getLong(c.getColumnIndex("project_id"));
 
-            Listt list = new Listt(id, name, project_id);
-            lists.add(list);
+            Listt listt = new Listt(id, name, project_id);
+            lists.add(listt);
         }
         c.close();
         return lists;
     }
 
-    public void insert(Listt list) {
+    public void insert(Listt listt) {
         SQLiteDatabase db = getWritableDatabase();
-        long id = db.insert(TABLE, null, getValues(list));
-        list.setId(id);
+        long id = db.insert(TABLE, null, getValues(listt));
+        listt.setId(id);
     }
 
     @NonNull
-    private ContentValues getValues(Listt list) {
+    private ContentValues getValues(Listt listt) {
         ContentValues data = new ContentValues();
-        data.put("name", list.getName());
-        data.put("project_id", list.getProject_id());
+        data.put("name", listt.getName());
+        data.put("project_id", listt.getProject_id());
         return data;
     }
 
@@ -84,18 +84,18 @@ public class ListtDAO extends DAO {
 //        return data;
 //    }
 
-    public void delete(Listt list) {
+    public void delete(Listt listt) {
         SQLiteDatabase db = getWritableDatabase();
-        db.delete(TABLE, "id = ?", getPK(list));
+        db.delete(TABLE, "id = ?", getPK(listt));
     }
 
     @NonNull
-    private String[] getPK(Listt list) {
-        return new String[]{String.valueOf(list.getId())};
+    private String[] getPK(Listt listt) {
+        return new String[]{String.valueOf(listt.getId())};
     }
 
-    public void update(Listt list) {
+    public void update(Listt listt) {
         SQLiteDatabase db = getWritableDatabase();
-        db.update(TABLE, getValues(list), "id = ?", getPK(list));
+        db.update(TABLE, getValues(listt), "id = ?", getPK(listt));
     }
 }

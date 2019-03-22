@@ -6,10 +6,10 @@ import java.util.List;
 public class Project extends Model {
 
     private String name;
-    private List<Listt> lists;
+    private List<Listt> listts;
 
     public Project() {
-        lists = new ArrayList<>();
+        listts = new ArrayList<>();
     }
 
     public String getName() {
@@ -20,16 +20,16 @@ public class Project extends Model {
         this.name = name;
     }
 
-    public List<Listt> getLists() {
-        return lists;
+    public List<Listt> getListts() {
+        return listts;
     }
 
-    public void setLists(List<Listt> lists) {
-        this.lists = lists;
+    public void setListts(List<Listt> listts) {
+        this.listts = listts;
     }
 
     public void addList(Listt listt) {
-        this.lists.add(listt);
+        this.listts.add(listt);
     }
 
     @Override
