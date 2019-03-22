@@ -32,6 +32,8 @@ public class ProjectActivity extends AppCompatActivity {
         lvLists.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         lvLists.setLayoutManager(layoutManager);
+
+        lvLists.setOnClickListener();
     }
 
     @Override
@@ -48,10 +50,6 @@ public class ProjectActivity extends AppCompatActivity {
     void loadAll(){
         loadLists();
         loadCards();
-
-//        ListtDAO dao = new ListtDAO(this);
-//        project.setListts(dao.getAllCascade(project));
-//        dao.close();
     }
 
     void loadLists() {
@@ -78,8 +76,8 @@ public class ProjectActivity extends AppCompatActivity {
     }
 
     public void goToListForm(View view) {
-        Intent goToListForm = new Intent(this, ListtFormActivity.class);
-        goToListForm.putExtra("project", project);
-        startActivity(goToListForm);
+        Intent intent = new Intent(this, ListtFormActivity.class);
+        intent.putExtra("project", project);
+        startActivity(intent);
     }
 }
