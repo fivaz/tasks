@@ -1,5 +1,6 @@
 package com.example.pontes_stefane_esig.myapplication.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -31,5 +32,12 @@ public class ListtFormActivity extends AppCompatActivity {
         dao.close();
 
         Toast.makeText(this, listt.toString(), Toast.LENGTH_SHORT).show();
+        goToProject();
+    }
+
+    void goToProject(){
+        Intent intent = new Intent(this, ProjectActivity.class);
+        intent.putExtra("project", project);
+        startActivity(intent);
     }
 }
