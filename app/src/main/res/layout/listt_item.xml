@@ -8,7 +8,7 @@
     android:layout_margin="10dp"
     android:layout_marginTop="0dp"
     android:orientation="vertical"
-    tools:context="com.example.pontes_stefane_esig.myapplication.controller.ProjectActivity">
+    tools:context="com.example.pontes_stefane_esig.myapplication.activities.ProjectActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"

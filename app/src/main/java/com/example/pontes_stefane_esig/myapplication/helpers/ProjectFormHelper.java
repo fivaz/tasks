@@ -1,10 +1,10 @@
-package com.example.pontes_stefane_esig.myapplication.helper;
+package com.example.pontes_stefane_esig.myapplication.helpers;
 
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 
 import com.example.pontes_stefane_esig.myapplication.R;
-import com.example.pontes_stefane_esig.myapplication.model.Project;
+import com.example.pontes_stefane_esig.myapplication.models.Project;
 
 public class ProjectFormHelper {
 

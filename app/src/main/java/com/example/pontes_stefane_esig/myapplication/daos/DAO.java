@@ -1,4 +1,4 @@
-package com.example.pontes_stefane_esig.myapplication.dao;
+package com.example.pontes_stefane_esig.myapplication.daos;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

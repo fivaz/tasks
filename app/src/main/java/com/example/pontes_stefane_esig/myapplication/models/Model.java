@@ -1,4 +1,4 @@
-package com.example.pontes_stefane_esig.myapplication.model;
+package com.example.pontes_stefane_esig.myapplication.models;
 
 import java.io.Serializable;
 

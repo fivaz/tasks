@@ -1,4 +1,4 @@
-package com.example.pontes_stefane_esig.myapplication.controller;
+package com.example.pontes_stefane_esig.myapplication.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.pontes_stefane_esig.myapplication.R;
-import com.example.pontes_stefane_esig.myapplication.dao.ProjectDAO;
-import com.example.pontes_stefane_esig.myapplication.helper.ProjectFormHelper;
-import com.example.pontes_stefane_esig.myapplication.model.Project;
+import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
+import com.example.pontes_stefane_esig.myapplication.helpers.ProjectFormHelper;
+import com.example.pontes_stefane_esig.myapplication.models.Project;
 
 public class ProjectFormActivity extends AppCompatActivity {
 

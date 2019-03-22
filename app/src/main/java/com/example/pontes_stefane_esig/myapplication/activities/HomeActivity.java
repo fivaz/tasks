@@ -1,4 +1,4 @@
-package com.example.pontes_stefane_esig.myapplication.controller;
+package com.example.pontes_stefane_esig.myapplication.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,8 +12,8 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
-import com.example.pontes_stefane_esig.myapplication.dao.ProjectDAO;
-import com.example.pontes_stefane_esig.myapplication.model.Project;
+import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
+import com.example.pontes_stefane_esig.myapplication.models.Project;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.pontes_stefane_esig.myapplication.controller;
+package com.example.pontes_stefane_esig.myapplication.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,11 +9,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
-import com.example.pontes_stefane_esig.myapplication.adapter.ListtAdapter;
-import com.example.pontes_stefane_esig.myapplication.dao.CardDAO;
-import com.example.pontes_stefane_esig.myapplication.dao.ListtDAO;
-import com.example.pontes_stefane_esig.myapplication.model.Listt;
-import com.example.pontes_stefane_esig.myapplication.model.Project;
+import com.example.pontes_stefane_esig.myapplication.adapters.ListtAdapter;
+import com.example.pontes_stefane_esig.myapplication.daos.CardDAO;
+import com.example.pontes_stefane_esig.myapplication.daos.ListtDAO;
+import com.example.pontes_stefane_esig.myapplication.models.Listt;
+import com.example.pontes_stefane_esig.myapplication.models.Project;
 
 public class ProjectActivity extends AppCompatActivity {
 
@@ -32,8 +32,6 @@ public class ProjectActivity extends AppCompatActivity {
         lvLists.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         lvLists.setLayoutManager(layoutManager);
-
-        lvLists.setOnClickListener();
     }
 
     @Override

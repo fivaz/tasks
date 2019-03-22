@@ -1,4 +1,4 @@
-package com.example.pontes_stefane_esig.myapplication.dao;
+package com.example.pontes_stefane_esig.myapplication.daos;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,8 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 
-import com.example.pontes_stefane_esig.myapplication.model.Card;
-import com.example.pontes_stefane_esig.myapplication.model.Listt;
+import com.example.pontes_stefane_esig.myapplication.models.Card;
+import com.example.pontes_stefane_esig.myapplication.models.Listt;
 
 import java.util.ArrayList;
 import java.util.List;
