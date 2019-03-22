@@ -10,6 +10,7 @@
     android:id="@+id/listt_item">
 
     <TextView
+        android:id="@+id/listt_item_name"
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:hint="Name"

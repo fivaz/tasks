@@ -3,8 +3,9 @@ package com.example.pontes_stefane_esig.myapplication.controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
@@ -14,7 +15,7 @@ import com.example.pontes_stefane_esig.myapplication.model.Project;
 
 public class ProjectActivity extends AppCompatActivity {
 
-    private ListView lvLists;
+    private RecyclerView lvLists;
     private Project project;
 
     @Override
@@ -22,8 +23,13 @@ public class ProjectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project);
 
-        lvLists = findViewById(R.id.lv_lists);
         project = (Project) getIntent().getSerializableExtra("project");
+
+        lvLists = findViewById(R.id.lv_lists);
+
+        lvLists.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
+        lvLists.setLayoutManager(layoutManager);
     }
 
     @Override
@@ -48,7 +54,7 @@ public class ProjectActivity extends AppCompatActivity {
         TextView tvProjectInfo = findViewById(R.id.tv_project_info);
         tvProjectInfo.setText(project.getName());
 
-        ListtAdapter adapter = new ListtAdapter(this, project.getLists());
+        ListtAdapter adapter = new ListtAdapter(project.getLists());
         lvLists.setAdapter(adapter);
     }
 
