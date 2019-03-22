@@ -47,7 +47,7 @@ public class ProjectActivity extends AppCompatActivity {
 
     void loadAll(){
         loadLists();
-//        loadCards();
+        loadCards();
 
 //        ListtDAO dao = new ListtDAO(this);
 //        project.setListts(dao.getAllCascade(project));

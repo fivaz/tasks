@@ -1,6 +1,6 @@
 package com.example.pontes_stefane_esig.myapplication.model;
 
-public class Card extends Model{
+public class Card extends Model {
 
     private String name;
     private double points;
@@ -35,5 +35,10 @@ public class Card extends Model{
 
     public void setListt_id(long listt_id) {
         this.listt_id = listt_id;
+    }
+
+    @Override
+    public String toString() {
+        return name + " - " + points;
     }
 }

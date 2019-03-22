@@ -1,5 +1,6 @@
 package com.example.pontes_stefane_esig.myapplication.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Listt extends Model {
@@ -10,12 +11,14 @@ public class Listt extends Model {
 
     public Listt(String name) {
         this.name = name;
+        cards = new ArrayList<>();
     }
 
     public Listt(long id, String name, long project_id) {
         this.id = id;
         this.name = name;
         this.project_id = project_id;
+        cards = new ArrayList<>();
     }
 
     public long getProject_id() {

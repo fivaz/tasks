@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
+import com.example.pontes_stefane_esig.myapplication.model.Card;
 import com.example.pontes_stefane_esig.myapplication.model.Listt;
 
 import java.util.List;
@@ -50,8 +51,7 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
         Listt listt = listts.get(position);
         holder.tvName.setText(listt.getName());
 
-        String[] cards = {"Card 1", "Card 2"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1,cards);
+        ArrayAdapter<Card> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, listt.getCards());
         holder.lvCards.setAdapter(adapter);
     }
 
