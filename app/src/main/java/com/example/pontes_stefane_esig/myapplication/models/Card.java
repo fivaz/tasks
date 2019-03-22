@@ -1,10 +1,15 @@
-package com.example.pontes_stefane_esig.myapplication.model;
+package com.example.pontes_stefane_esig.myapplication.models;
 
 public class Card extends Model {
 
     private String name;
     private double points;
     private long listt_id;
+
+    public Card(String name, double points) {
+        this.name = name;
+        this.points = points;
+    }
 
     public Card(long id, String name, double points, long listt_id) {
         this.id = id;

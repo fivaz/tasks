@@ -9,17 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".controller.CardFormActivity"></activity>
-        <activity android:name=".controller.ListtFormActivity" />
-        <activity android:name=".controller.HomeActivity">
+        <activity android:name=".activities.CardFormActivity"></activity>
+        <activity android:name=".activities.ListtFormActivity" />
+        <activity android:name=".activities.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controller.ProjectFormActivity" />
-        <activity android:name=".controller.ProjectActivity" />
+        <activity android:name=".activities.ProjectFormActivity" />
+        <activity android:name=".activities.ProjectActivity" />
     </application>
 
 </manifest>
