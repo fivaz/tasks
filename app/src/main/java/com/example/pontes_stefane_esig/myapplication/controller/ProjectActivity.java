@@ -12,11 +12,8 @@ import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.adapter.ListtAdapter;
 import com.example.pontes_stefane_esig.myapplication.dao.CardDAO;
 import com.example.pontes_stefane_esig.myapplication.dao.ListtDAO;
-import com.example.pontes_stefane_esig.myapplication.model.Card;
 import com.example.pontes_stefane_esig.myapplication.model.Listt;
 import com.example.pontes_stefane_esig.myapplication.model.Project;
-
-import java.util.List;
 
 public class ProjectActivity extends AppCompatActivity {
 

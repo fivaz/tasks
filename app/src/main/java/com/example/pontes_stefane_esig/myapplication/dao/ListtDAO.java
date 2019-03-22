@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 
-import com.example.pontes_stefane_esig.myapplication.model.Card;
 import com.example.pontes_stefane_esig.myapplication.model.Listt;
 import com.example.pontes_stefane_esig.myapplication.model.Project;
 
@@ -14,35 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListtDAO extends DAO {
-
-    private final String TABLE = "listt";
-    private Context context;
+//    private Context context;
 
     public ListtDAO(Context context) {
         super(context);
-        this.context = context;
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        //TODO use forein keys
-        String sql = "CREATE TABLE listt (" +
-                "id INTEGER PRIMARY KEY, " +
-                "name TEXT, " +
-                "project_id INTEGER" +
-                ")";
-        db.execSQL(sql);
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String sql = "DROP TABLE IF EXISTS listt";
-        db.execSQL(sql);
-        onCreate(db);
+//        this.context = context;
     }
 
     public List<Listt> getAll(Project project) {
-        String sql = "SELECT * FROM listt WHERE project_id = 30";
+        String sql = "SELECT * FROM " + TB_LISTT_NAME + " WHERE project_id = " + project.getId();
         SQLiteDatabase db = getReadableDatabase();
         //TODO prepared statement
 //        String[] args = new String[]{String.valueOf(project.getId())};
@@ -63,6 +42,7 @@ public class ListtDAO extends DAO {
         return listts;
     }
 
+    /*
     public List<Listt> getAllCascade(Project project) {
         String sql = "SELECT * FROM " + TABLE + " WHERE project_id = " + project.getId();
         SQLiteDatabase db = getReadableDatabase();
@@ -86,10 +66,11 @@ public class ListtDAO extends DAO {
         c.close();
         return listts;
     }
+    */
 
     public void insert(Listt listt) {
         SQLiteDatabase db = getWritableDatabase();
-        long id = db.insert(TABLE, null, getValues(listt));
+        long id = db.insert(TB_LISTT_NAME, null, getValues(listt));
         listt.setId(id);
     }
 
@@ -114,7 +95,7 @@ public class ListtDAO extends DAO {
 
     public void delete(Listt listt) {
         SQLiteDatabase db = getWritableDatabase();
-        db.delete(TABLE, "id = ?", getPK(listt));
+        db.delete(TB_LISTT_NAME, "id = ?", getPK(listt));
     }
 
     @NonNull
@@ -124,6 +105,6 @@ public class ListtDAO extends DAO {
 
     public void update(Listt listt) {
         SQLiteDatabase db = getWritableDatabase();
-        db.update(TABLE, getValues(listt), "id = ?", getPK(listt));
+        db.update(TB_LISTT_NAME, getValues(listt), "id = ?", getPK(listt));
     }
 }

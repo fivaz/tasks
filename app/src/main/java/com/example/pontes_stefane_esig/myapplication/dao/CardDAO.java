@@ -14,33 +14,12 @@ import java.util.List;
 
 public class CardDAO extends DAO {
 
-    private final String TABLE = "cardd";
-
     public CardDAO(Context context) {
         super(context);
     }
 
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        //TODO use forein keys
-        String sql = "CREATE TABLE cardd (" +
-                "id INTEGER PRIMARY KEY, " +
-                "name TEXT, " +
-                "points REAL, " +
-                "listt_id INTEGER " +
-                ")";
-        db.execSQL(sql);
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String sql = "DROP TABLE IF EXISTS cardd";
-        db.execSQL(sql);
-        onCreate(db);
-    }
-
     public List<Card> getAll(Listt listt) {
-        String sql = "SELECT * FROM cardd WHERE listt_id = 10";
+        String sql = "SELECT * FROM " + TB_CARD_NAME + " WHERE listt_id = " + listt.getId();
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery(sql, null);
 
@@ -60,7 +39,7 @@ public class CardDAO extends DAO {
 
     public void insert(Card card) {
         SQLiteDatabase db = getWritableDatabase();
-        long id = db.insert(TABLE, null, getValues(card));
+        long id = db.insert(TB_CARD_NAME, null, getValues(card));
         card.setId(id);
     }
 
@@ -72,10 +51,10 @@ public class CardDAO extends DAO {
         data.put("listt_id", card.getListt_id());
         return data;
     }
-
+    
     public void delete(Card card) {
         SQLiteDatabase db = getWritableDatabase();
-        db.delete(TABLE, "id = ?", getPK(card));
+        db.delete(TB_CARD_NAME, "id = ?", getPK(card));
     }
 
     @NonNull
@@ -85,6 +64,6 @@ public class CardDAO extends DAO {
 
     public void update(Card card) {
         SQLiteDatabase db = getWritableDatabase();
-        db.update(TABLE, getValues(card), "id = ?", getPK(card));
+        db.update(TB_CARD_NAME, getValues(card), "id = ?", getPK(card));
     }
 }

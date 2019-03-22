@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 
 import com.example.pontes_stefane_esig.myapplication.model.Project;
@@ -14,27 +13,12 @@ import java.util.List;
 
 public class ProjectDAO extends DAO {
 
-    private final String TABLE = "project";
-
     public ProjectDAO(Context context) {
         super(context);
     }
 
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        String sql = "CREATE TABLE " + TABLE + " (id INTEGER PRIMARY KEY, name TEXT)";
-        db.execSQL(sql);
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String sql = "DROP TABLE IF EXISTS " + TABLE;
-        db.execSQL(sql);
-        onCreate(db);
-    }
-
     public List<Project> getAll() {
-        String sql = "SELECT * FROM " + TABLE;
+        String sql = "SELECT * FROM " + TB_PROJECT_NAME;
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery(sql, null);
         List<Project> projects = new ArrayList<>();
@@ -52,7 +36,7 @@ public class ProjectDAO extends DAO {
 
     public void insert(Project project) {
         SQLiteDatabase db = getWritableDatabase();
-        long id = db.insert(TABLE, null, getValues(project));
+        long id = db.insert(DAO.TB_PROJECT_NAME, null, getValues(project));
         project.setId(id);
     }
 
@@ -65,7 +49,7 @@ public class ProjectDAO extends DAO {
 
     public void delete(Project project) {
         SQLiteDatabase db = getWritableDatabase();
-        db.delete(TABLE, "id = ?", getPK(project));
+        db.delete(DAO.TB_PROJECT_NAME, "id = ?", getPK(project));
     }
 
     @NonNull
@@ -75,6 +59,6 @@ public class ProjectDAO extends DAO {
 
     public void update(Project project) {
         SQLiteDatabase db = getWritableDatabase();
-        db.update(TABLE, getValues(project), "id = ?", getPK(project));
+        db.update(DAO.TB_PROJECT_NAME, getValues(project), "id = ?", getPK(project));
     }
 }
