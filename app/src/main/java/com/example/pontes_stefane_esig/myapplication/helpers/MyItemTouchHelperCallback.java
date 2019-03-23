@@ -17,21 +17,18 @@ public class MyItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
     @Override
     public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-        //throws exception
-//        int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
-//        int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
-//        return makeMovementFlags(dragFlags, swipeFlags);
-
-        //No excepiton
-        if(orientation.equals("horizontal"))
-            return makeFlag(ItemTouchHelper.ACTION_STATE_DRAG, ItemTouchHelper.START | ItemTouchHelper.END);
-        else
-            return makeFlag(ItemTouchHelper.ACTION_STATE_DRAG, ItemTouchHelper.UP | ItemTouchHelper.DOWN);
-
-        //Not tested yet
-//        return makeFlag(ItemTouchHelper.ACTION_STATE_DRAG,
-//                ItemTouchHelper.DOWN | ItemTouchHelper.UP | ItemTouchHelper.START | ItemTouchHelper.END);
-
+        int directions;
+        switch (orientation) {
+            case "horizontal":
+                directions = ItemTouchHelper.START | ItemTouchHelper.END;
+                break;
+            case "vertical":
+                directions = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+                break;
+            default:
+                directions = ItemTouchHelper.START | ItemTouchHelper.END | ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+        }
+        return makeFlag(ItemTouchHelper.ACTION_STATE_DRAG, directions);
     }
 
     @Override
