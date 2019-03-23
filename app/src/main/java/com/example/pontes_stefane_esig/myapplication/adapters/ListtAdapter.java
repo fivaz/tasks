@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.activities.CardFormActivity;
+import com.example.pontes_stefane_esig.myapplication.helpers.MyItemTouchHelperCallback;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 
 import java.util.Collections;
@@ -36,7 +38,7 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
             btNewCard = view.findViewById(R.id.bt_new_card);
             lvCards = view.findViewById(R.id.lv_cards);
             //TODO check what this method does
-//            lvCards.setHasFixedSize(true);
+            lvCards.setHasFixedSize(true);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
             lvCards.setLayoutManager(layoutManager);
         }
@@ -59,8 +61,12 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
         final Listt listt = listts.get(position);
         holder.tvName.setText(listt.getName());
 
-        RecyclerView.Adapter adapter = new CardAdapter(listt.getCards());
+        CardAdapter adapter = new CardAdapter(listt.getCards());
         holder.lvCards.setAdapter(adapter);
+
+        ItemTouchHelper.Callback callback = new MyItemTouchHelperCallback(adapter, "vertical");
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(holder.lvCards);
 
         holder.btNewCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,11 +97,5 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
         }
         notifyItemMoved(fromPosition, toPosition);
         return true;
-    }
-
-    @Override
-    public void onItemDismiss(int position) {
-//        listts.remove(position);
-//        notifyItemRemoved(position);
     }
 }

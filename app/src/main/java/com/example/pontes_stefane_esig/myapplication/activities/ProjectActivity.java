@@ -75,7 +75,7 @@ public class ProjectActivity extends AppCompatActivity {
         ListtAdapter adapter = new ListtAdapter(this, project.getListts());
         lvLists.setAdapter(adapter);
 
-        ItemTouchHelper.Callback callback = new MyItemTouchHelperCallback(adapter);
+        ItemTouchHelper.Callback callback = new MyItemTouchHelperCallback(adapter, "horizontal");
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(lvLists);
     }

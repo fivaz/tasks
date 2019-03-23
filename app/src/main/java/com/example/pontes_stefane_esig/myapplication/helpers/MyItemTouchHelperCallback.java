@@ -8,9 +8,11 @@ import com.example.pontes_stefane_esig.myapplication.adapters.ItemTouchHelperAda
 public class MyItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
     private ItemTouchHelperAdapter adapter;
+    private String orientation;
 
-    public MyItemTouchHelperCallback(ItemTouchHelperAdapter adapter) {
+    public MyItemTouchHelperCallback(ItemTouchHelperAdapter adapter, String orientation) {
         this.adapter = adapter;
+        this.orientation = orientation;
     }
 
     @Override
@@ -21,7 +23,10 @@ public class MyItemTouchHelperCallback extends ItemTouchHelper.Callback {
 //        return makeMovementFlags(dragFlags, swipeFlags);
 
         //No excepiton
-        return makeFlag(ItemTouchHelper.ACTION_STATE_DRAG, ItemTouchHelper.START | ItemTouchHelper.END);
+        if(orientation.equals("horizontal"))
+            return makeFlag(ItemTouchHelper.ACTION_STATE_DRAG, ItemTouchHelper.START | ItemTouchHelper.END);
+        else
+            return makeFlag(ItemTouchHelper.ACTION_STATE_DRAG, ItemTouchHelper.UP | ItemTouchHelper.DOWN);
 
         //Not tested yet
 //        return makeFlag(ItemTouchHelper.ACTION_STATE_DRAG,
