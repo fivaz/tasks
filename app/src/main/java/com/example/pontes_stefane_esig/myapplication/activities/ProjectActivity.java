@@ -32,7 +32,8 @@ public class ProjectActivity extends AppCompatActivity {
         lvLists = findViewById(R.id.rv_listts);
 
         lvLists.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this,
+                LinearLayoutManager.HORIZONTAL, false);
         lvLists.setLayoutManager(layoutManager);
     }
 
@@ -47,7 +48,7 @@ public class ProjectActivity extends AppCompatActivity {
         updateView();
     }
 
-    void loadAll(){
+    void loadAll() {
         loadLists();
         loadCards();
     }

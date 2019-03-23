@@ -2,18 +2,16 @@ package com.example.pontes_stefane_esig.myapplication.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.activities.CardFormActivity;
-import com.example.pontes_stefane_esig.myapplication.models.Card;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 
 import java.util.Collections;
@@ -28,15 +26,19 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
 
         View view;
         TextView tvName;
-        ListView lvCards;
+        RecyclerView lvCards;
         Button btNewCard;
 
         MyViewHolder(View view) {
             super(view);
             this.view = view;
             tvName = view.findViewById(R.id.tv_name);
-            lvCards = view.findViewById(R.id.lv_cards);
             btNewCard = view.findViewById(R.id.bt_new_card);
+            lvCards = view.findViewById(R.id.lv_cards);
+            //TODO check what this method does
+//            lvCards.setHasFixedSize(true);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
+            lvCards.setLayoutManager(layoutManager);
         }
     }
 
@@ -57,8 +59,7 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
         final Listt listt = listts.get(position);
         holder.tvName.setText(listt.getName());
 
-        //TODO use a RyclerAdapter
-        ArrayAdapter<Card> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, listt.getCards());
+        RecyclerView.Adapter adapter = new CardAdapter(listt.getCards());
         holder.lvCards.setAdapter(adapter);
 
         holder.btNewCard.setOnClickListener(new View.OnClickListener() {
