@@ -57,8 +57,10 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
         final Listt listt = listts.get(position);
         holder.tvName.setText(listt.getName());
 
+        //TODO use a RyclerAdapter
         ArrayAdapter<Card> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, listt.getCards());
         holder.lvCards.setAdapter(adapter);
+
         holder.btNewCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
