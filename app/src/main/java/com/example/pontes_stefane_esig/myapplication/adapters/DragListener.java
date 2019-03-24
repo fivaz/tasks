@@ -13,14 +13,14 @@ public class DragListener implements View.OnDragListener {
     private boolean isDropped = false;
 
     @Override
-    public boolean onDrag(View v, DragEvent event) {
+    public boolean onDrag(View view, DragEvent event) {
         switch (event.getAction()) {
             case DragEvent.ACTION_DROP:
                 isDropped = true;
                 int positionTarget = -1;
 
                 View viewSource = (View) event.getLocalState();
-                int viewId = v.getId();
+                int viewId = view.getId();
                 final int flItem = R.id.frame_layout_item;
                 final int rvTop = R.id.rvTop;
                 final int rvBottom = R.id.rvBottom;
@@ -33,14 +33,14 @@ public class DragListener implements View.OnDragListener {
                         RecyclerView target;
                         switch (viewId) {
                             case rvTop:
-                                target = (RecyclerView) v.getRootView().findViewById(rvTop);
+                                target = view.getRootView().findViewById(rvTop);
                                 break;
                             case rvBottom:
-                                target = (RecyclerView) v.getRootView().findViewById(rvBottom);
+                                target = view.getRootView().findViewById(rvBottom);
                                 break;
                             default:
-                                target = (RecyclerView) v.getParent();
-                                positionTarget = (int) v.getTag();
+                                target = (RecyclerView) view.getParent();
+                                positionTarget = (int) view.getTag();
                         }
 
                         if (viewSource != null) {
@@ -48,7 +48,7 @@ public class DragListener implements View.OnDragListener {
 
                             ListAdapter adapterSource = (ListAdapter) source.getAdapter();
                             int positionSource = (int) viewSource.getTag();
-                            int sourceId = source.getId();
+//                            int sourceId = source.getId();
 
                             String list = adapterSource.getList().get(positionSource);
                             List<String> listSource = adapterSource.getList();
