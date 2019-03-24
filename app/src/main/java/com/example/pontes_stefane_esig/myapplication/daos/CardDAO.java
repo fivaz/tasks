@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.example.pontes_stefane_esig.myapplication.models.Card;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
@@ -26,26 +25,10 @@ public class CardDAO extends DAO {
         Cursor cursor = db.rawQuery(sql, null);
 
         List<Card> cards = new ArrayList<>();
-        while (cursor.moveToNext()) {
-            Card card = buildCard(cursor);
-//            Log.e("gettingAll Cards", card.toString());
-            cards.add(card);
-        }
+        while (cursor.moveToNext())
+            cards.add(buildCard(cursor));
         cursor.close();
         return cards;
-    }
-
-    private List<Card> sortList(List<Card> cards) {
-        ArrayList<Card> sortedList = new ArrayList<>();
-        for (int i = 0; i < cards.size(); i++) {
-            Card card = cards.get(i);
-            int position = card.getPosition();
-            if (position > sortedList.size())
-                sortedList.add(card);
-            else
-                sortedList.add(position, card);
-        }
-        return sortedList;
     }
 
     @NonNull
@@ -62,9 +45,6 @@ public class CardDAO extends DAO {
     //TODO Put this in the class DAO
     public void insert(Card card) {
         SQLiteDatabase db = getWritableDatabase();
-
-//        Log.e("Inserting: ", card.toString());
-
         long id = db.insert(TB_CARD_NAME, null, getValues(card));
         card.setId(id);
     }

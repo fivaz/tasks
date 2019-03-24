@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
@@ -25,16 +24,10 @@ public class ListtDAO extends DAO {
     public List<Listt> getAll(Project project) {
         String sql = "SELECT * FROM " + TB_LISTT_NAME + " WHERE project_id = " + project.getId() + " ORDER BY POSITION ASC";
         SQLiteDatabase db = getReadableDatabase();
-        //TODO use prepared statement
-//        String[] args = new String[]{String.valueOf(project.getId())};
-//        Cursor c = db.rawQuery(sql, args);
         List<Listt> listts = new ArrayList<>();
         Cursor cursor = db.rawQuery(sql, null);
-        while (cursor.moveToNext()) {
-            Listt listt = buildListt(cursor);
-//            Log.e("gettingAll Lists", listt.toString());
-            listts.add(listt.getPosition(), listt);
-        }
+        while (cursor.moveToNext())
+            listts.add(buildListt(cursor));
         cursor.close();
         return listts;
     }
@@ -49,34 +42,7 @@ public class ListtDAO extends DAO {
         return new Listt(context, id, name, position, project_id);
     }
 
-    /*
-    public List<Listt> getAllCascade(Project project) {
-        String sql = "SELECT * FROM " + TABLE + " WHERE project_id = " + project.getId();
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.rawQuery(sql, null);
-
-        List<Listt> listts = new ArrayList<>();
-
-        while (c.moveToNext()) {
-            int id = c.getInt(c.getColumnIndex("id"));
-            String name = c.getString(c.getColumnIndex("name"));
-            long project_id = c.getLong(c.getColumnIndex("project_id"));
-
-            Listt listt = new Listt(id, name, project_id);
-
-            CardDAO dao = new CardDAO(context);
-            listt.setCards(dao.getAll(listt));
-            dao.close();
-
-            listts.add(listt);
-        }
-        c.close();
-        return listts;
-    }
-    */
-
     public void insert(Listt listt) {
-//        Log.e("Inserting: ", listt.toString());
         SQLiteDatabase db = getWritableDatabase();
         long id = db.insert(TB_LISTT_NAME, null, getValues(listt));
         listt.setId(id);
@@ -90,17 +56,6 @@ public class ListtDAO extends DAO {
         data.put("project_id", listt.getProject_id());
         return data;
     }
-
-    //TODO test this
-//    @Override
-//    protected ContentValues getValues(Model model) {
-//        Card card = (Card) model;
-//        ContentValues data = new ContentValues();
-//        data.put("name", card.getName());
-//        data.put("points", card.getPoints());
-//        data.put("project_id", card.getList_id());
-//        return data;
-//    }
 
     public void delete(Listt listt) {
         SQLiteDatabase db = getWritableDatabase();
