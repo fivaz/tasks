@@ -12,10 +12,10 @@ import android.widget.TextView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.activities.CardFormActivity;
+import com.example.pontes_stefane_esig.myapplication.models.Card;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -63,8 +63,13 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
 
 //        CardAdapter adapter = new CardAdapter(listt.getCards());
 
-        List<String> test = new ArrayList<>(Arrays.asList("A", "B"));
+        List<String> test = new ArrayList<>();
+
+        for (Card card : listt.getCards())
+            test.add(card.getName());
+
         ListAdapter adapter = new ListAdapter(test);
+
         holder.lvCards.setAdapter(adapter);
         holder.lvCards.setOnDragListener(adapter.getDragInstance());
 
