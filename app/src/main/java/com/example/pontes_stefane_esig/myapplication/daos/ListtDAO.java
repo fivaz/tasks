@@ -13,33 +13,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListtDAO extends DAO {
-//    private Context context;
+
+    private Context context;
 
     public ListtDAO(Context context) {
         super(context);
-//        this.context = context;
+        this.context = context;
     }
 
     public List<Listt> getAll(Project project) {
         String sql = "SELECT * FROM " + TB_LISTT_NAME + " WHERE project_id = " + project.getId();
         SQLiteDatabase db = getReadableDatabase();
-        //TODO prepared statement
+        //TODO use prepared statement
 //        String[] args = new String[]{String.valueOf(project.getId())};
 //        Cursor c = db.rawQuery(sql, args);
-        Cursor c = db.rawQuery(sql, null);
-
         List<Listt> listts = new ArrayList<>();
-
-        while (c.moveToNext()) {
-            int id = c.getInt(c.getColumnIndex("id"));
-            String name = c.getString(c.getColumnIndex("name"));
-            long project_id = c.getLong(c.getColumnIndex("project_id"));
-
-            Listt listt = new Listt(id, name, project_id);
-            listts.add(listt);
-        }
-        c.close();
+        Cursor cursor = db.rawQuery(sql, null);
+        while (cursor.moveToNext())
+            listts.add(buildListt(cursor));
+        cursor.close();
         return listts;
+    }
+
+    @NonNull
+    private Listt buildListt(Cursor cursor) {
+        int id = cursor.getInt(cursor.getColumnIndex("id"));
+        String name = cursor.getString(cursor.getColumnIndex("name"));
+        long project_id = cursor.getLong(cursor.getColumnIndex("project_id"));
+
+        return new Listt(context, id, name, project_id);
     }
 
     /*

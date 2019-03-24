@@ -11,27 +11,41 @@ import com.example.pontes_stefane_esig.myapplication.models.Project;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO use prepared statements
 public class ProjectDAO extends DAO {
+
+    private final String SELECT_STATEMENT = "SELECT * FROM " + TB_PROJECT_NAME;
+    private final String SELECT_FROM_STATEMENT = SELECT_STATEMENT + " WHERE id = %d";
 
     public ProjectDAO(Context context) {
         super(context);
     }
 
-    public List<Project> getAll() {
-        String sql = "SELECT * FROM " + TB_PROJECT_NAME;
+    public Project get(long id) {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.rawQuery(sql, null);
+        String sql = String.format(SELECT_FROM_STATEMENT, id);
+        Cursor cursor = db.rawQuery(sql, null);
+        cursor.moveToFirst();
+        Project project = buildProject(cursor);
+        cursor.close();
+        return project;
+    }
+
+    public List<Project> getAll() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(SELECT_STATEMENT, null);
         List<Project> projects = new ArrayList<>();
-        while (c.moveToNext()) {
-            int id = c.getInt(c.getColumnIndex("id"));
-            String name = c.getString(c.getColumnIndex("name"));
-            Project project = new Project();
-            project.setId(id);
-            project.setName(name);
-            projects.add(project);
-        }
-        c.close();
+        while (cursor.moveToNext())
+            projects.add(buildProject(cursor));
+        cursor.close();
         return projects;
+    }
+
+    @NonNull
+    private Project buildProject(Cursor cursor) {
+        int id = cursor.getInt(cursor.getColumnIndex("id"));
+        String name = cursor.getString(cursor.getColumnIndex("name"));
+        return new Project(id, name);
     }
 
     public void insert(Project project) {
