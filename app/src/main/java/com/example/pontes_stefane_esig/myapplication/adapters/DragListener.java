@@ -11,6 +11,8 @@ import java.util.List;
 
 public class DragListener implements View.OnDragListener {
 
+    //TODO change this method to receive some of its elements (maybe source ones) from constructor
+    //TODO make it work even when the RecyclerView is empty
     @Override
     public boolean onDrag(View view, DragEvent event) {
         View viewSource = (View) event.getLocalState();
@@ -25,7 +27,7 @@ public class DragListener implements View.OnDragListener {
                     Card card = adapterSource.getCards().get(positionSource);
                     List<Card> listSource = adapterSource.getCards();
 
-                    //remove card from its list
+                    //remove the card from its current list
                     listSource.remove(positionSource);
                     adapterSource.setCards(listSource);
                     adapterSource.notifyDataSetChanged();
@@ -35,7 +37,7 @@ public class DragListener implements View.OnDragListener {
                     CardAdapter adapterTarget = (CardAdapter) target.getAdapter();
                     List<Card> customListTarget = adapterTarget.getCards();
 
-                    //add card to its new list
+                    //add the card to its new list
                     int positionTarget = (int) view.getTag();
                     if (positionTarget >= 0)
                         customListTarget.add(positionTarget, card);
