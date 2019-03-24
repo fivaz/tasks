@@ -80,7 +80,7 @@ public class HomeActivity extends AppCompatActivity {
                 Project project = (Project) lvProjects.getItemAtPosition(info.position);
 
                 Intent goToForm = new Intent(HomeActivity.this, ProjectFormActivity.class);
-                goToForm.putExtra("project", project);
+                goToForm.putExtra("project_id", project.getId());
                 startActivity(goToForm);
                 return false;
             }
