@@ -12,14 +12,12 @@ import java.util.List;
 public class DragListener implements View.OnDragListener {
 
     //TODO change this method to receive some of its elements (maybe source ones) from constructor
-    //TODO make it work even when the RecyclerView is empty
-    //TODO sync adapters with database
     @Override
     public boolean onDrag(View view, DragEvent event) {
         View viewSource = (View) event.getLocalState();
         if (viewSource != null) {
             if (event.getAction() == DragEvent.ACTION_DROP) {
-                if (view.getId() == R.id.fl_card) {
+                if (view.getId() == R.id.fl_card || view.getId() == R.id.rv_cards) {
                     //source
                     RecyclerView source = (RecyclerView) viewSource.getParent();
                     CardAdapter adapterSource = (CardAdapter) source.getAdapter();
@@ -34,12 +32,22 @@ public class DragListener implements View.OnDragListener {
                     adapterSource.notifyDataSetChanged();
 
                     //target
-                    RecyclerView target = (RecyclerView) view.getParent();
+                    int positionTarget;
+                    RecyclerView target;
+                    //check if card was dropped on another card
+                    if (view.getId() == R.id.fl_card) {
+                        target = (RecyclerView) view.getParent();
+                        positionTarget = (int) view.getTag();
+                    }
+                    //otherwise it was dropped on empty area of the recyclerView
+                    else {
+                        target = (RecyclerView) view;
+                        positionTarget = -1;
+                    }
                     CardAdapter adapterTarget = (CardAdapter) target.getAdapter();
                     List<Card> customListTarget = adapterTarget.getCards();
 
                     //add the card to its new list
-                    int positionTarget = (int) view.getTag();
                     if (positionTarget >= 0)
                         customListTarget.add(positionTarget, card);
                     else
