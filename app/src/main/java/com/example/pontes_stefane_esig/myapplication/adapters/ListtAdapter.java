@@ -26,6 +26,7 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
 
         View view;
         TextView tvName;
+        TextView tvTotal;
         RecyclerView rvCards;
         Button btNewCard;
 
@@ -33,6 +34,7 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
             super(view);
             this.view = view;
             tvName = view.findViewById(R.id.tv_name);
+            tvTotal = view.findViewById(R.id.tv_total);
             btNewCard = view.findViewById(R.id.bt_new_card);
             rvCards = view.findViewById(R.id.rv_cards);
             //TODO check what this method does
@@ -58,10 +60,11 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         final Listt listt = listts.get(position);
         holder.tvName.setText(listt.getName());
+        holder.tvTotal.setText(String.valueOf(listt.getTotal()));
 
-        CardAdapter adapter = new CardAdapter(listt);
+        CardAdapter adapter = new CardAdapter(listt, this, position);
         holder.rvCards.setAdapter(adapter);
-        holder.rvCards.setOnDragListener(new DragListener());
+        holder.rvCards.setOnDragListener(new DragListener(this, position));
 
         holder.btNewCard.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -5,9 +5,9 @@
     android:id="@+id/listt_item"
     android:layout_width="300dp"
     android:layout_height="wrap_content"
-    android:minHeight="300dp"
     android:layout_margin="10dp"
     android:layout_marginTop="0dp"
+    android:minHeight="300dp"
     android:orientation="vertical"
     tools:context="com.example.pontes_stefane_esig.myapplication.activities.ProjectActivity">
 
@@ -17,16 +17,26 @@
 
         <TextView
             android:id="@+id/tv_name"
-            android:layout_width="190dp"
+            android:layout_width="184dp"
             android:layout_height="wrap_content"
+            android:text="Name"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/tv_total"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:text="Total"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/bt_new_card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Créer Card" />
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:text="+" />
 
     </LinearLayout>
 
@@ -34,7 +44,7 @@
         android:id="@+id/rv_cards"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:minHeight="200dp"
-        android:background="@color/colorAccent"/>
+        android:background="@color/colorAccent"
+        android:minHeight="200dp" />
 
 </LinearLayout>
