@@ -1,10 +1,12 @@
 package com.example.pontes_stefane_esig.myapplication.adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.View;
 
 import com.example.pontes_stefane_esig.myapplication.R;
+import com.example.pontes_stefane_esig.myapplication.models.Card;
 
 import java.util.List;
 
@@ -39,6 +41,7 @@ public class DragListener implements View.OnDragListener {
                                 target = view.getRootView().findViewById(rvBottom);
                                 break;
                             default:
+                                Log.i("DragListener on Drag", "view: " + view.toString());
                                 target = (RecyclerView) view.getParent();
                                 positionTarget = (int) view.getTag();
                         }
@@ -46,23 +49,23 @@ public class DragListener implements View.OnDragListener {
                         if (viewSource != null) {
                             RecyclerView source = (RecyclerView) viewSource.getParent();
 
-                            ListAdapter adapterSource = (ListAdapter) source.getAdapter();
+                            CardAdapter adapterSource = (CardAdapter) source.getAdapter();
                             int positionSource = (int) viewSource.getTag();
 //                            int sourceId = source.getId();
 
-                            String list = adapterSource.getList().get(positionSource);
-                            List<String> listSource = adapterSource.getList();
+                            Card card = adapterSource.getList().get(positionSource);
+                            List<Card> listSource = adapterSource.getList();
 
                             listSource.remove(positionSource);
                             adapterSource.updateList(listSource);
                             adapterSource.notifyDataSetChanged();
 
-                            ListAdapter adapterTarget = (ListAdapter) target.getAdapter();
-                            List<String> customListTarget = adapterTarget.getList();
+                            CardAdapter adapterTarget = (CardAdapter) target.getAdapter();
+                            List<Card> customListTarget = adapterTarget.getList();
                             if (positionTarget >= 0) {
-                                customListTarget.add(positionTarget, list);
+                                customListTarget.add(positionTarget, card);
                             } else {
-                                customListTarget.add(list);
+                                customListTarget.add(card);
                             }
                             adapterTarget.updateList(customListTarget);
                             adapterTarget.notifyDataSetChanged();

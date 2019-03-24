@@ -9,8 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.Main2Activity">
-        </activity>
+        <activity android:name=".activities.Main2Activity"></activity>
         <activity
             android:name=".activities.CardFormActivity"
             android:screenOrientation="sensor" />
