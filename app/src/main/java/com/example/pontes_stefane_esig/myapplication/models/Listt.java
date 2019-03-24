@@ -51,8 +51,10 @@ public class Listt extends Model {
         this.cards = cards;
         if (context != null) {
             CardDAO dao = new CardDAO(context);
-            for (Card card : cards)
+            for (Card card : cards) {
+                card.setListt_id(id);
                 dao.update(card);
+            }
             dao.close();
         }
     }
