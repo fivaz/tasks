@@ -12,7 +12,9 @@ import com.example.pontes_stefane_esig.myapplication.models.Card;
 import java.util.Collections;
 import java.util.List;
 
-public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> implements ItemTouchHelperAdapter{
+public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
+        implements ItemTouchHelperAdapter
+{
 
     private List<Card> cards;
 

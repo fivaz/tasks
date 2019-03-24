@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +12,10 @@ import android.widget.TextView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.activities.CardFormActivity;
-import com.example.pontes_stefane_esig.myapplication.helpers.MyItemTouchHelperCallback;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -61,12 +61,12 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
         final Listt listt = listts.get(position);
         holder.tvName.setText(listt.getName());
 
-        CardAdapter adapter = new CardAdapter(listt.getCards());
-        holder.lvCards.setAdapter(adapter);
+//        CardAdapter adapter = new CardAdapter(listt.getCards());
 
-        ItemTouchHelper.Callback callback = new MyItemTouchHelperCallback(adapter, "vertical");
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(holder.lvCards);
+        List<String> test = new ArrayList<>(Arrays.asList("A", "B"));
+        ListAdapter adapter = new ListAdapter(test);
+        holder.lvCards.setAdapter(adapter);
+        holder.lvCards.setOnDragListener(adapter.getDragInstance());
 
         holder.btNewCard.setOnClickListener(new View.OnClickListener() {
             @Override
