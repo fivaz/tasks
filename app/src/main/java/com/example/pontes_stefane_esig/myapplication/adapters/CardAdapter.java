@@ -16,9 +16,7 @@ import com.example.pontes_stefane_esig.myapplication.models.Card;
 import java.util.List;
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
-//        implements ItemTouchHelperAdapter
-        implements View.OnTouchListener
-{
+        implements View.OnTouchListener {
 
     private List<Card> cards;
 
@@ -26,17 +24,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
         this.cards = cards;
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    List<Card> getCards() {
+        return cards;
+    }
 
-        TextView textView;
-        FrameLayout frameLayout;
-
-        MyViewHolder(View view) {
-            super(view);
-
-            textView = itemView.findViewById(R.id.text);
-            frameLayout = itemView.findViewById(R.id.frame_layout_item);
-        }
+    void setCards(List<Card> cards) {
+        this.cards = cards;
     }
 
     @Override
@@ -60,22 +53,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
         return cards.size();
     }
 
-//    //Drag and Drop
-//    @Override
-//    public boolean onItemMove(int fromPosition, int toPosition) {
-//        if (fromPosition < toPosition) {
-//            for (int i = fromPosition; i < toPosition; i++) {
-//                Collections.swap(cards, i, i + 1);
-//            }
-//        } else {
-//            for (int i = fromPosition; i > toPosition; i--) {
-//                Collections.swap(cards, i, i - 1);
-//            }
-//        }
-//        notifyItemMoved(fromPosition, toPosition);
-//        return true;
-//    }
-
+    //Drag and Drop
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         switch (motionEvent.getAction()) {
@@ -92,15 +70,16 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
         return false;
     }
 
-    public DragListener getDragInstance() {
-        return new DragListener();
-    }
+    //ViewHolder
+    class MyViewHolder extends RecyclerView.ViewHolder {
 
-    List<Card> getList() {
-        return cards;
-    }
+        TextView textView;
+        FrameLayout frameLayout;
 
-    void updateList(List<Card> cards) {
-        this.cards = cards;
+        MyViewHolder(View view) {
+            super(view);
+            textView = itemView.findViewById(R.id.text);
+            frameLayout = itemView.findViewById(R.id.frame_layout_item);
+        }
     }
 }

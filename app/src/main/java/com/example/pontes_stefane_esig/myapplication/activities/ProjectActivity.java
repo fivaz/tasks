@@ -19,7 +19,7 @@ import com.example.pontes_stefane_esig.myapplication.models.Project;
 
 public class ProjectActivity extends AppCompatActivity {
 
-    private RecyclerView lvLists;
+    private RecyclerView rvLists;
     private Project project;
 
     @Override
@@ -29,12 +29,12 @@ public class ProjectActivity extends AppCompatActivity {
 
         project = (Project) getIntent().getSerializableExtra("project");
 
-        lvLists = findViewById(R.id.rv_listts);
+        rvLists = findViewById(R.id.rv_listts);
 
-        lvLists.setHasFixedSize(true);
+        rvLists.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false);
-        lvLists.setLayoutManager(layoutManager);
+        rvLists.setLayoutManager(layoutManager);
     }
 
     @Override
@@ -73,11 +73,11 @@ public class ProjectActivity extends AppCompatActivity {
         tvProjectInfo.setText(project.getName());
 
         ListtAdapter adapter = new ListtAdapter(this, project.getListts());
-        lvLists.setAdapter(adapter);
+        rvLists.setAdapter(adapter);
 
         ItemTouchHelper.Callback callback = new MyItemTouchHelperCallback(adapter, "horizontal");
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(lvLists);
+        touchHelper.attachToRecyclerView(rvLists);
     }
 
     public void goToListForm(View view) {

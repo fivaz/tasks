@@ -26,7 +26,7 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
 
         View view;
         TextView tvName;
-        RecyclerView lvCards;
+        RecyclerView rvCards;
         Button btNewCard;
 
         MyViewHolder(View view) {
@@ -34,11 +34,11 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
             this.view = view;
             tvName = view.findViewById(R.id.tv_name);
             btNewCard = view.findViewById(R.id.bt_new_card);
-            lvCards = view.findViewById(R.id.lv_cards);
+            rvCards = view.findViewById(R.id.rv_cards);
             //TODO check what this method does
-            lvCards.setHasFixedSize(true);
+            rvCards.setHasFixedSize(true);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
-            lvCards.setLayoutManager(layoutManager);
+            rvCards.setLayoutManager(layoutManager);
         }
     }
 
@@ -59,15 +59,9 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
         final Listt listt = listts.get(position);
         holder.tvName.setText(listt.getName());
 
-//        List<String> test = new ArrayList<>();
-//        for (Card card : listt.getCards())
-//            test.add(card.getName());
-
-//        ListAdapter adapter = new ListAdapter(test);
-
         CardAdapter adapter = new CardAdapter(listt.getCards());
-        holder.lvCards.setAdapter(adapter);
-        holder.lvCards.setOnDragListener(adapter.getDragInstance());
+        holder.rvCards.setAdapter(adapter);
+        holder.rvCards.setOnDragListener(new DragListener());
 
         holder.btNewCard.setOnClickListener(new View.OnClickListener() {
             @Override

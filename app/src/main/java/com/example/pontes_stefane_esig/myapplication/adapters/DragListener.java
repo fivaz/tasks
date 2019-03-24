@@ -41,7 +41,7 @@ public class DragListener implements View.OnDragListener {
                                 target = view.getRootView().findViewById(rvBottom);
                                 break;
                             default:
-                                Log.i("DragListener on Drag", "view: " + view.toString());
+                                Log.e("DragListener on Drag", "view: " + view.toString());
                                 target = (RecyclerView) view.getParent();
                                 positionTarget = (int) view.getTag();
                         }
@@ -51,23 +51,22 @@ public class DragListener implements View.OnDragListener {
 
                             CardAdapter adapterSource = (CardAdapter) source.getAdapter();
                             int positionSource = (int) viewSource.getTag();
-//                            int sourceId = source.getId();
 
-                            Card card = adapterSource.getList().get(positionSource);
-                            List<Card> listSource = adapterSource.getList();
+                            Card card = adapterSource.getCards().get(positionSource);
+                            List<Card> listSource = adapterSource.getCards();
 
                             listSource.remove(positionSource);
-                            adapterSource.updateList(listSource);
+                            adapterSource.setCards(listSource);
                             adapterSource.notifyDataSetChanged();
 
                             CardAdapter adapterTarget = (CardAdapter) target.getAdapter();
-                            List<Card> customListTarget = adapterTarget.getList();
+                            List<Card> customListTarget = adapterTarget.getCards();
                             if (positionTarget >= 0) {
                                 customListTarget.add(positionTarget, card);
                             } else {
                                 customListTarget.add(card);
                             }
-                            adapterTarget.updateList(customListTarget);
+                            adapterTarget.setCards(customListTarget);
                             adapterTarget.notifyDataSetChanged();
                         }
                         break;
