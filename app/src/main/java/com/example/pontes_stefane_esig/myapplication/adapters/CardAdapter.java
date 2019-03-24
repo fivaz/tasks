@@ -18,10 +18,14 @@ import java.util.List;
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
         implements View.OnLongClickListener {
 
+    private final ListtAdapter listtAdapter;
+    private final int listtPosition;
     private Listt listt;
 
-    CardAdapter(Listt listt) {
+    public CardAdapter(Listt listt, ListtAdapter listtAdapter, int listtPosition) {
         this.listt = listt;
+        this.listtAdapter = listtAdapter;
+        this.listtPosition = listtPosition;
     }
 
     List<Card> getCards() {
@@ -47,7 +51,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
         holder.flCard.setOnLongClickListener(this);
 //        holder.flCard.setOnTouchListener(this);
 //        holder.flCard.setOnDragListener(this);
-        holder.flCard.setOnDragListener(new DragListener());
+        holder.flCard.setOnDragListener(new DragListener(listtAdapter, listtPosition));
     }
 
     @Override

@@ -11,6 +11,14 @@ import java.util.List;
 
 public class DragListener implements View.OnDragListener {
 
+    private final ListtAdapter listtAdapter;
+    private int listtPosition;
+
+    public DragListener(ListtAdapter listtAdapter, int listtPosition) {
+        this.listtAdapter = listtAdapter;
+        this.listtPosition = listtPosition;
+    }
+
     //TODO change this method to receive some of its elements (maybe source ones) from constructor
     @Override
     public boolean onDrag(View view, DragEvent event) {
@@ -55,6 +63,7 @@ public class DragListener implements View.OnDragListener {
 
                     adapterTarget.setCards(customListTarget);
                     adapterTarget.notifyDataSetChanged();
+                    listtAdapter.notifyItemChanged(listtPosition);
                 }
             } else {
                 viewSource.setVisibility(View.VISIBLE);
