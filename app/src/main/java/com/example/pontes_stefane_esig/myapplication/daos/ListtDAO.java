@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
@@ -22,15 +23,18 @@ public class ListtDAO extends DAO {
     }
 
     public List<Listt> getAll(Project project) {
-        String sql = "SELECT * FROM " + TB_LISTT_NAME + " WHERE project_id = " + project.getId();
+        String sql = "SELECT * FROM " + TB_LISTT_NAME + " WHERE project_id = " + project.getId() + " ORDER BY POSITION ASC";
         SQLiteDatabase db = getReadableDatabase();
         //TODO use prepared statement
 //        String[] args = new String[]{String.valueOf(project.getId())};
 //        Cursor c = db.rawQuery(sql, args);
         List<Listt> listts = new ArrayList<>();
         Cursor cursor = db.rawQuery(sql, null);
-        while (cursor.moveToNext())
-            listts.add(buildListt(cursor));
+        while (cursor.moveToNext()) {
+            Listt listt = buildListt(cursor);
+//            Log.e("gettingAll Lists", listt.toString());
+            listts.add(listt.getPosition(), listt);
+        }
         cursor.close();
         return listts;
     }
@@ -39,9 +43,10 @@ public class ListtDAO extends DAO {
     private Listt buildListt(Cursor cursor) {
         int id = cursor.getInt(cursor.getColumnIndex("id"));
         String name = cursor.getString(cursor.getColumnIndex("name"));
+        int position = cursor.getInt(cursor.getColumnIndex("position"));
         long project_id = cursor.getLong(cursor.getColumnIndex("project_id"));
 
-        return new Listt(context, id, name, project_id);
+        return new Listt(context, id, name, position, project_id);
     }
 
     /*
@@ -71,6 +76,7 @@ public class ListtDAO extends DAO {
     */
 
     public void insert(Listt listt) {
+//        Log.e("Inserting: ", listt.toString());
         SQLiteDatabase db = getWritableDatabase();
         long id = db.insert(TB_LISTT_NAME, null, getValues(listt));
         listt.setId(id);
@@ -80,6 +86,7 @@ public class ListtDAO extends DAO {
     private ContentValues getValues(Listt listt) {
         ContentValues data = new ContentValues();
         data.put("name", listt.getName());
+        data.put("position", listt.getPosition());
         data.put("project_id", listt.getProject_id());
         return data;
     }

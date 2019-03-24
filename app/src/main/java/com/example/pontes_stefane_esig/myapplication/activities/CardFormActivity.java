@@ -13,17 +13,20 @@ import com.example.pontes_stefane_esig.myapplication.models.Card;
 public class CardFormActivity extends AppCompatActivity {
 
     private long listt_id;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_form);
         listt_id = getIntent().getLongExtra("listt_id", 0);
+        position = getIntent().getIntExtra("position", 0);
     }
 
     public void cardSubmit(View view) {
         Card card = new CardHelper(this).getCard();
         card.setListt_id(listt_id);
+        card.setPosition(position);
         CardDAO dao = new CardDAO(this);
         dao.insert(card);
         dao.close();

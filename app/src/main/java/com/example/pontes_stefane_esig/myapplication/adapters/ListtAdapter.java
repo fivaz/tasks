@@ -68,6 +68,7 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
             public void onClick(View view) {
                 Intent intent = new Intent(context, CardFormActivity.class);
                 intent.putExtra("listt_id", listt.getId());
+                intent.putExtra("position", listt.getCards().size());
                 context.startActivity(intent);
             }
         });

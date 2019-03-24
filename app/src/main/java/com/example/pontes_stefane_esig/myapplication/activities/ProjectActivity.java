@@ -85,6 +85,7 @@ public class ProjectActivity extends AppCompatActivity {
     public void goToListForm(View view) {
         Intent intent = new Intent(this, ListtFormActivity.class);
         intent.putExtra("project_id", project.getId());
+        intent.putExtra("position", project.getListts().size());
         startActivity(intent);
     }
 }

@@ -11,6 +11,7 @@ public class Listt extends Model {
 
     private long project_id;
     private String name;
+    private int position;
     private List<Card> cards;
     private Context context;
 
@@ -19,10 +20,11 @@ public class Listt extends Model {
         cards = new ArrayList<>();
     }
 
-    public Listt(Context context, long id, String name, long project_id) {
+    public Listt(Context context, long id, String name, int position, long project_id) {
         this.context = context;
         this.id = id;
         this.name = name;
+        this.position = position;
         this.project_id = project_id;
         cards = new ArrayList<>();
     }
@@ -43,20 +45,28 @@ public class Listt extends Model {
         this.name = name;
     }
 
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
     public List<Card> getCards() {
         return cards;
     }
 
     public void setCards(List<Card> cards) {
         this.cards = cards;
-        if (context != null) {
-            CardDAO dao = new CardDAO(context);
-            for (Card card : cards) {
-                card.setListt_id(id);
-                dao.update(card);
-            }
-            dao.close();
+        CardDAO dao = new CardDAO(context);
+        for (int i = 0; i < cards.size(); i++) {
+            Card card = cards.get(i);
+            card.setPosition(i);
+            card.setListt_id(id);
+            dao.update(card);
         }
+        dao.close();
     }
 
     public Context getContext() {
@@ -69,6 +79,13 @@ public class Listt extends Model {
 
     @Override
     public String toString() {
-        return name;
+        return "Listt{" +
+                "project_id=" + project_id +
+                ", name='" + name + '\'' +
+                ", position=" + position +
+                ", cards=" + cards +
+                ", context=" + context +
+                ", id=" + id +
+                '}';
     }
 }

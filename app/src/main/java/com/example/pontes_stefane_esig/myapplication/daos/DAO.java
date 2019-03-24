@@ -13,27 +13,29 @@ public class DAO extends SQLiteOpenHelper {
     private final String CREATE_TABLE_PROJECT_STATEMENT =
             "CREATE TABLE " + TB_PROJECT_NAME + " (" +
                     "id INTEGER PRIMARY KEY, " +
-                    "name TEXT" +
+                    "name TEXT NOT NULL" +
                     ")";
     private final String CREATE_TABLE_LISTT_STATEMENT =
             "CREATE TABLE " + TB_LISTT_NAME + " (" +
                     "id INTEGER PRIMARY KEY, " +
-                    "name TEXT, " +
+                    "name TEXT NOT NULL, " +
+                    "position INT NOT NULL, " +
                     "project_id INTEGER," +
                     "FOREIGN KEY(project_id) REFERENCES " + TB_PROJECT_NAME + "(id)" +
                     ")";
     private final String CREATE_TABLE_CARD_STATEMENT =
             "CREATE TABLE " + TB_CARD_NAME + " (" +
                     "id INTEGER PRIMARY KEY, " +
-                    "name TEXT, " +
-                    "points REAL, " +
+                    "name TEXT NOT NULL, " +
+                    "points REAL NOT NULL, " +
+                    "position INT NOT NULL, " +
                     "listt_id INTEGER, " +
                     "FOREIGN KEY(listt_id) REFERENCES " + TB_LISTT_NAME + "(id)" +
                     ")";
     private final String DROP_STATEMENT = "DROP TABLE IF EXISTS ";
 
     DAO(Context context) {
-        super(context, "trello", null, 2);
+        super(context, "trello", null, 3);
     }
 
     @Override
