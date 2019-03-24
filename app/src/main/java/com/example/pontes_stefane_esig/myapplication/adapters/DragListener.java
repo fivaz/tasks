@@ -12,69 +12,60 @@ import java.util.List;
 
 public class DragListener implements View.OnDragListener {
 
-    private boolean isDropped = false;
+//    private boolean isDropped = false;
 
     @Override
     public boolean onDrag(View view, DragEvent event) {
-        switch (event.getAction()) {
-            case DragEvent.ACTION_DROP:
-                isDropped = true;
-                int positionTarget = -1;
+//        boolean isDropped = false;
+        if (event.getAction() == DragEvent.ACTION_DROP) {
+//            isDropped = true;
+            int positionTarget;
 
-                View viewSource = (View) event.getLocalState();
-                int viewId = view.getId();
-                final int flItem = R.id.fl_card;
-//                final int rvTop = R.id.rvTop;
-//                final int rvBottom = R.id.rvBottom;
+            View viewSource = (View) event.getLocalState();
+            int viewId = view.getId();
+            final int flItem = R.id.fl_card;
 
-                switch (viewId) {
-                    case flItem:
-//                    case rvTop:
-//                    case rvBottom:
+            if (viewId == flItem) {
 
-                        RecyclerView target;
-                        switch (viewId) {
-//                            case rvTop:
-//                                target = view.getRootView().findViewById(rvTop);
-//                                break;
-//                            case rvBottom:
-//                                target = view.getRootView().findViewById(rvBottom);
-//                                break;
-                            default:
-                                Log.e("DragListener on Drag", "view: " + view.toString());
-                                target = (RecyclerView) view.getParent();
-                                positionTarget = (int) view.getTag();
-                        }
+//            switch (viewId) {
+//                case flItem:
 
-                        if (viewSource != null) {
-                            RecyclerView source = (RecyclerView) viewSource.getParent();
+                RecyclerView target;
+//                switch (viewId) {
+//                    default:
+                Log.e("DragListener on Drag", "view: " + view.toString());
+                target = (RecyclerView) view.getParent();
+                positionTarget = (int) view.getTag();
+//                }
 
-                            CardAdapter adapterSource = (CardAdapter) source.getAdapter();
-                            int positionSource = (int) viewSource.getTag();
+                if (viewSource != null) {
+                    RecyclerView source = (RecyclerView) viewSource.getParent();
 
-                            Card card = adapterSource.getCards().get(positionSource);
-                            List<Card> listSource = adapterSource.getCards();
+                    CardAdapter adapterSource = (CardAdapter) source.getAdapter();
+                    int positionSource = (int) viewSource.getTag();
 
-                            listSource.remove(positionSource);
-                            adapterSource.setCards(listSource);
-                            adapterSource.notifyDataSetChanged();
+                    Card card = adapterSource.getCards().get(positionSource);
+                    List<Card> listSource = adapterSource.getCards();
 
-                            CardAdapter adapterTarget = (CardAdapter) target.getAdapter();
-                            List<Card> customListTarget = adapterTarget.getCards();
-                            if (positionTarget >= 0) {
-                                customListTarget.add(positionTarget, card);
-                            } else {
-                                customListTarget.add(card);
-                            }
-                            adapterTarget.setCards(customListTarget);
-                            adapterTarget.notifyDataSetChanged();
-                        }
-                        break;
+                    listSource.remove(positionSource);
+                    adapterSource.setCards(listSource);
+                    adapterSource.notifyDataSetChanged();
+
+                    CardAdapter adapterTarget = (CardAdapter) target.getAdapter();
+                    List<Card> customListTarget = adapterTarget.getCards();
+                    if (positionTarget >= 0) {
+                        customListTarget.add(positionTarget, card);
+                    } else {
+                        customListTarget.add(card);
+                    }
+                    adapterTarget.setCards(customListTarget);
+                    adapterTarget.notifyDataSetChanged();
                 }
-                break;
-        }
-
-        if (!isDropped && event.getLocalState() != null) {
+//                break;
+            }
+//                break;
+        } else if (event.getLocalState() != null) {
+//        if (!isDropped && event.getLocalState() != null) {
             ((View) event.getLocalState()).setVisibility(View.VISIBLE);
         }
         return true;
