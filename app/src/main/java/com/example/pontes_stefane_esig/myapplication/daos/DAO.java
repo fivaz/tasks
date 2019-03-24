@@ -10,7 +10,6 @@ public class DAO extends SQLiteOpenHelper {
     static final String TB_LISTT_NAME = "listt";
     static final String TB_CARD_NAME = "card";
 
-    //TODO use forein keys
     private final String CREATE_TABLE_PROJECT_STATEMENT =
             "CREATE TABLE " + TB_PROJECT_NAME + " (" +
                     "id INTEGER PRIMARY KEY, " +
@@ -20,19 +19,21 @@ public class DAO extends SQLiteOpenHelper {
             "CREATE TABLE " + TB_LISTT_NAME + " (" +
                     "id INTEGER PRIMARY KEY, " +
                     "name TEXT, " +
-                    "project_id INTEGER" +
+                    "project_id INTEGER," +
+                    "FOREIGN KEY(project_id) REFERENCES " + TB_PROJECT_NAME + "(id)" +
                     ")";
     private final String CREATE_TABLE_CARD_STATEMENT =
             "CREATE TABLE " + TB_CARD_NAME + " (" +
                     "id INTEGER PRIMARY KEY, " +
                     "name TEXT, " +
                     "points REAL, " +
-                    "listt_id INTEGER " +
+                    "listt_id INTEGER, " +
+                    "FOREIGN KEY(listt_id) REFERENCES " + TB_LISTT_NAME + "(id)" +
                     ")";
     private final String DROP_STATEMENT = "DROP TABLE IF EXISTS ";
 
     DAO(Context context) {
-        super(context, "trello", null, 1);
+        super(context, "trello", null, 2);
     }
 
     @Override
@@ -46,9 +47,9 @@ public class DAO extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         System.out.println("updating tables");
-        db.execSQL(DROP_STATEMENT+TB_CARD_NAME);
-        db.execSQL(DROP_STATEMENT+TB_LISTT_NAME);
-        db.execSQL(DROP_STATEMENT+TB_PROJECT_NAME);
+        db.execSQL(DROP_STATEMENT + TB_CARD_NAME);
+        db.execSQL(DROP_STATEMENT + TB_LISTT_NAME);
+        db.execSQL(DROP_STATEMENT + TB_PROJECT_NAME);
         onCreate(db);
     }
 }
