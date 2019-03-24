@@ -27,6 +27,7 @@ public class ProjectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project);
 
+        //TODO pass just the id then get the object from the database, it will avoid some crashes
         project = (Project) getIntent().getSerializableExtra("project");
 
         rvLists = findViewById(R.id.rv_listts);
