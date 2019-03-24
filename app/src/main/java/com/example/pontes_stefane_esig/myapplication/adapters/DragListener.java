@@ -23,14 +23,14 @@ public class DragListener implements View.OnDragListener {
 
                 View viewSource = (View) event.getLocalState();
                 int viewId = view.getId();
-                final int flItem = R.id.frame_layout_item;
-                final int rvTop = R.id.rvTop;
-                final int rvBottom = R.id.rvBottom;
+                final int flItem = R.id.fl_card;
+//                final int rvTop = R.id.rvTop;
+//                final int rvBottom = R.id.rvBottom;
 
                 switch (viewId) {
                     case flItem:
-                    case rvTop:
-                    case rvBottom:
+//                    case rvTop:
+//                    case rvBottom:
 
                         RecyclerView target;
                         switch (viewId) {
