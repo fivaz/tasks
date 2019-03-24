@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.adapters.ListtAdapter;
+import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
 import com.example.pontes_stefane_esig.myapplication.helpers.MyItemTouchHelperCallback;
 import com.example.pontes_stefane_esig.myapplication.daos.CardDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.ListtDAO;
@@ -27,11 +28,11 @@ public class ProjectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project);
 
-        //TODO pass just the id then get the object from the database, it will avoid some crashes
-        project = (Project) getIntent().getSerializableExtra("project");
+        long project_id = getIntent().getLongExtra("project_id", 0);
+        ProjectDAO dao = new ProjectDAO(this);
+        project = dao.get(project_id);
 
         rvLists = findViewById(R.id.rv_listts);
-
         rvLists.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false);
@@ -83,7 +84,7 @@ public class ProjectActivity extends AppCompatActivity {
 
     public void goToListForm(View view) {
         Intent intent = new Intent(this, ListtFormActivity.class);
-        intent.putExtra("project", project);
+        intent.putExtra("project_id", project.getId());
         startActivity(intent);
     }
 }

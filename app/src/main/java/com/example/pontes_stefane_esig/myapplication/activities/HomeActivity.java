@@ -45,7 +45,7 @@ public class HomeActivity extends AppCompatActivity {
                 Project project = (Project) lvProjects.getItemAtPosition(position);
 
                 Intent goToProject = new Intent(HomeActivity.this, ProjectActivity.class);
-                goToProject.putExtra("project", project);
+                goToProject.putExtra("project_id", project.getId());
                 startActivity(goToProject);
             }
         });

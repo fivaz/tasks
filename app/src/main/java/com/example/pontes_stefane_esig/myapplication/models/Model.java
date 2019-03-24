@@ -1,8 +1,6 @@
 package com.example.pontes_stefane_esig.myapplication.models;
 
-import java.io.Serializable;
-
-public class Model implements Serializable {
+public class Model{
 
     protected long id;
 
