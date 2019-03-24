@@ -34,12 +34,12 @@ public class DragListener implements View.OnDragListener {
 
                         RecyclerView target;
                         switch (viewId) {
-                            case rvTop:
-                                target = view.getRootView().findViewById(rvTop);
-                                break;
-                            case rvBottom:
-                                target = view.getRootView().findViewById(rvBottom);
-                                break;
+//                            case rvTop:
+//                                target = view.getRootView().findViewById(rvTop);
+//                                break;
+//                            case rvBottom:
+//                                target = view.getRootView().findViewById(rvBottom);
+//                                break;
                             default:
                                 Log.e("DragListener on Drag", "view: " + view.toString());
                                 target = (RecyclerView) view.getParent();
