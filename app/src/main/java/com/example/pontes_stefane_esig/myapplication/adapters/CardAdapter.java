@@ -35,17 +35,17 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.list_row, parent, false);
+        View view = inflater.inflate(R.layout.card_item, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         Card card = cards.get(position);
-        holder.textView.setText(card.getName() + " - " + card.getPoints());
-        holder.frameLayout.setTag(position);
-        holder.frameLayout.setOnTouchListener(this);
-        holder.frameLayout.setOnDragListener(new DragListener());
+        holder.tvName.setText(card.getName() + " - " + card.getPoints());
+        holder.flCard.setTag(position);
+        holder.flCard.setOnTouchListener(this);
+        holder.flCard.setOnDragListener(new DragListener());
     }
 
     @Override
@@ -73,13 +73,13 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
     //ViewHolder
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textView;
-        FrameLayout frameLayout;
+        TextView tvName;
+        FrameLayout flCard;
 
         MyViewHolder(View view) {
             super(view);
-            textView = itemView.findViewById(R.id.text);
-            frameLayout = itemView.findViewById(R.id.frame_layout_item);
+            tvName = itemView.findViewById(R.id.tv_card_name);
+            flCard = itemView.findViewById(R.id.fl_card);
         }
     }
 }
