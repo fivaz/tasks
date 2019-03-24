@@ -11,24 +11,25 @@ import android.widget.TextView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.models.Card;
+import com.example.pontes_stefane_esig.myapplication.models.Listt;
 
 import java.util.List;
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
         implements View.OnLongClickListener {
 
-    private List<Card> cards;
+    private Listt listt;
 
-    CardAdapter(List<Card> cards) {
-        this.cards = cards;
+    CardAdapter(Listt listt) {
+        this.listt = listt;
     }
 
     List<Card> getCards() {
-        return cards;
+        return listt.getCards();
     }
 
     void setCards(List<Card> cards) {
-        this.cards = cards;
+        listt.setCards(cards);
     }
 
     @Override
@@ -40,7 +41,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        Card card = cards.get(position);
+        Card card = listt.getCards().get(position);
         holder.tvName.setText(card.getName() + " - " + card.getPoints());
         holder.flCard.setTag(position);
         holder.flCard.setOnLongClickListener(this);
@@ -51,7 +52,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
 
     @Override
     public int getItemCount() {
-        return cards.size();
+        return listt.getCards().size();
     }
 
     //Drag and Drop
