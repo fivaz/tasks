@@ -4,7 +4,6 @@ import android.content.ClipData;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -16,7 +15,8 @@ import com.example.pontes_stefane_esig.myapplication.models.Card;
 import java.util.List;
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
-        implements View.OnTouchListener {
+//        implements View.OnTouchListener
+        implements View.OnLongClickListener {
 
     private List<Card> cards;
 
@@ -44,7 +44,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
         Card card = cards.get(position);
         holder.tvName.setText(card.getName() + " - " + card.getPoints());
         holder.flCard.setTag(position);
-        holder.flCard.setOnTouchListener(this);
+        holder.flCard.setOnLongClickListener(this);
+//        holder.flCard.setOnTouchListener(this);
+//        holder.flCard.setOnDragListener(this);
         holder.flCard.setOnDragListener(new DragListener());
     }
 
@@ -53,22 +55,50 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
         return cards.size();
     }
 
-    //Drag and Drop
     @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        switch (motionEvent.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                ClipData data = ClipData.newPlainText("", "");
-                View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    view.startDragAndDrop(data, shadowBuilder, view, 0);
-                } else {
-                    view.startDrag(data, shadowBuilder, view, 0);
-                }
-                return true;
+    public boolean onLongClick(View view) {
+        ClipData data = ClipData.newPlainText("", "");
+        View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            view.startDragAndDrop(data, shadowBuilder, view, 0);
+        } else {
+            view.startDrag(data, shadowBuilder, view, 0);
         }
-        return false;
+        return true;
     }
+
+    //Drag and Drop
+//    @Override
+//    public boolean onTouch(View view, MotionEvent motionEvent) {
+//        switch (motionEvent.getAction()) {
+//            case MotionEvent.ACTION_DOWN:
+//                ClipData data = ClipData.newPlainText("", "");
+//                View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                    view.startDragAndDrop(data, shadowBuilder, view, 0);
+//                } else {
+//                    view.startDrag(data, shadowBuilder, view, 0);
+//                }
+//                return true;
+//        }
+//        return false;
+//    }
+
+//    @Override
+//    public boolean onDrag(View view, DragEvent dragEvent) {
+//        switch (dragEvent.getAction()) {
+//           case DragEvent.ACTION_DROP:
+//                ClipData data = ClipData.newPlainText("", "");
+//                View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                    view.startDragAndDrop(data, shadowBuilder, view, 0);
+//                } else {
+//                    view.startDrag(data, shadowBuilder, view, 0);
+//                }
+//                return true;
+//        }
+//        return false;
+//    }
 
     //ViewHolder
     class MyViewHolder extends RecyclerView.ViewHolder {
