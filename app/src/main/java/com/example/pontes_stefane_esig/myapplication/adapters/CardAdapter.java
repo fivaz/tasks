@@ -1,18 +1,21 @@
 package com.example.pontes_stefane_esig.myapplication.adapters;
 
+import android.content.ClipData;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.models.Card;
 
-import java.util.Collections;
 import java.util.List;
 
-public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> implements ItemTouchHelperAdapter{
+public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
+        implements View.OnLongClickListener {
 
     private List<Card> cards;
 
@@ -20,14 +23,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
         this.cards = cards;
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    List<Card> getCards() {
+        return cards;
+    }
 
-        TextView textView;
-
-        MyViewHolder(View view) {
-            super(view);
-            this.textView = (TextView) view;
-        }
+    void setCards(List<Card> cards) {
+        this.cards = cards;
     }
 
     @Override
@@ -40,7 +41,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         Card card = cards.get(position);
-        holder.textView.setText(card.getName() + " - " + card.getPoints());
+        holder.tvName.setText(card.getName() + " - " + card.getPoints());
+        holder.flCard.setTag(position);
+        holder.flCard.setOnLongClickListener(this);
+//        holder.flCard.setOnTouchListener(this);
+//        holder.flCard.setOnDragListener(this);
+        holder.flCard.setOnDragListener(new DragListener());
     }
 
     @Override
@@ -50,17 +56,27 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder> 
 
     //Drag and Drop
     @Override
-    public boolean onItemMove(int fromPosition, int toPosition) {
-        if (fromPosition < toPosition) {
-            for (int i = fromPosition; i < toPosition; i++) {
-                Collections.swap(cards, i, i + 1);
-            }
+    public boolean onLongClick(View view) {
+        ClipData data = ClipData.newPlainText("", "");
+        View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            view.startDragAndDrop(data, shadowBuilder, view, 0);
         } else {
-            for (int i = fromPosition; i > toPosition; i--) {
-                Collections.swap(cards, i, i - 1);
-            }
+            view.startDrag(data, shadowBuilder, view, 0);
         }
-        notifyItemMoved(fromPosition, toPosition);
         return true;
+    }
+
+    //ViewHolder
+    class MyViewHolder extends RecyclerView.ViewHolder {
+
+        TextView tvName;
+        FrameLayout flCard;
+
+        MyViewHolder(View view) {
+            super(view);
+            tvName = itemView.findViewById(R.id.tv_card_name);
+            flCard = itemView.findViewById(R.id.fl_card);
+        }
     }
 }

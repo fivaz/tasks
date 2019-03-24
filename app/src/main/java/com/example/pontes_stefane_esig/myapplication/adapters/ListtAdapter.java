@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.activities.CardFormActivity;
-import com.example.pontes_stefane_esig.myapplication.helpers.MyItemTouchHelperCallback;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 
 import java.util.Collections;
@@ -28,7 +26,7 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
 
         View view;
         TextView tvName;
-        RecyclerView lvCards;
+        RecyclerView rvCards;
         Button btNewCard;
 
         MyViewHolder(View view) {
@@ -36,11 +34,11 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
             this.view = view;
             tvName = view.findViewById(R.id.tv_name);
             btNewCard = view.findViewById(R.id.bt_new_card);
-            lvCards = view.findViewById(R.id.lv_cards);
+            rvCards = view.findViewById(R.id.rv_cards);
             //TODO check what this method does
-            lvCards.setHasFixedSize(true);
+            rvCards.setHasFixedSize(true);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
-            lvCards.setLayoutManager(layoutManager);
+            rvCards.setLayoutManager(layoutManager);
         }
     }
 
@@ -62,11 +60,8 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
         holder.tvName.setText(listt.getName());
 
         CardAdapter adapter = new CardAdapter(listt.getCards());
-        holder.lvCards.setAdapter(adapter);
-
-        ItemTouchHelper.Callback callback = new MyItemTouchHelperCallback(adapter, "vertical");
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(holder.lvCards);
+        holder.rvCards.setAdapter(adapter);
+        holder.rvCards.setOnDragListener(new DragListener());
 
         holder.btNewCard.setOnClickListener(new View.OnClickListener() {
             @Override
