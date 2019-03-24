@@ -15,7 +15,6 @@ import com.example.pontes_stefane_esig.myapplication.models.Card;
 import java.util.List;
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
-//        implements View.OnTouchListener
         implements View.OnLongClickListener {
 
     private List<Card> cards;
@@ -55,6 +54,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
         return cards.size();
     }
 
+    //Drag and Drop
     @Override
     public boolean onLongClick(View view) {
         ClipData data = ClipData.newPlainText("", "");
@@ -66,39 +66,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
         }
         return true;
     }
-
-    //Drag and Drop
-//    @Override
-//    public boolean onTouch(View view, MotionEvent motionEvent) {
-//        switch (motionEvent.getAction()) {
-//            case MotionEvent.ACTION_DOWN:
-//                ClipData data = ClipData.newPlainText("", "");
-//                View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                    view.startDragAndDrop(data, shadowBuilder, view, 0);
-//                } else {
-//                    view.startDrag(data, shadowBuilder, view, 0);
-//                }
-//                return true;
-//        }
-//        return false;
-//    }
-
-//    @Override
-//    public boolean onDrag(View view, DragEvent dragEvent) {
-//        switch (dragEvent.getAction()) {
-//           case DragEvent.ACTION_DROP:
-//                ClipData data = ClipData.newPlainText("", "");
-//                View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                    view.startDragAndDrop(data, shadowBuilder, view, 0);
-//                } else {
-//                    view.startDrag(data, shadowBuilder, view, 0);
-//                }
-//                return true;
-//        }
-//        return false;
-//    }
 
     //ViewHolder
     class MyViewHolder extends RecyclerView.ViewHolder {
