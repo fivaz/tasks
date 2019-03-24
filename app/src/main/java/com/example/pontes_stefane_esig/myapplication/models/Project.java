@@ -34,8 +34,11 @@ public class Project extends Model {
         this.listts = listts;
     }
 
-    public void addList(Listt listt) {
-        this.listts.add(listt);
+    public double getTotal() {
+        double total = 0;
+        for (Listt listt : listts)
+            total += listt.getTotal();
+        return total;
     }
 
     @Override

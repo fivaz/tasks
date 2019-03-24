@@ -69,6 +69,13 @@ public class Listt extends Model {
         dao.close();
     }
 
+    public double getTotal() {
+        double total = 0;
+        for (Card card : cards)
+            total += card.getPoints();
+        return total;
+    }
+
     public Context getContext() {
         return context;
     }
