@@ -59,7 +59,7 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
         final Listt listt = listts.get(position);
         holder.tvName.setText(listt.getName());
 
-        CardAdapter adapter = new CardAdapter(listt.getCards());
+        CardAdapter adapter = new CardAdapter(listt);
         holder.rvCards.setAdapter(adapter);
         holder.rvCards.setOnDragListener(new DragListener());
 
@@ -67,7 +67,7 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, CardFormActivity.class);
-                intent.putExtra("listt", listt);
+                intent.putExtra("listt_id", listt.getId());
                 context.startActivity(intent);
             }
         });

@@ -12,6 +12,12 @@ public class Project extends Model {
         listts = new ArrayList<>();
     }
 
+    public Project(long id, String name) {
+        this.id = id;
+        this.name = name;
+        listts = new ArrayList<>();
+    }
+
     public String getName() {
         return name;
     }
