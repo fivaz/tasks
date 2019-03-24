@@ -18,20 +18,10 @@
         android:text="Top RecyclerView"
         android:textSize="25sp" />
 
-    <TextView
-        android:id="@+id/tvEmptyListTop"
-        android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:background="#cccccc"
-        android:gravity="center"
-        android:text="Top List is Empty!"
-        android:textSize="20sp"
-        android:visibility="gone" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvTop"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200sp"
         android:paddingTop="@dimen/activity_horizontal_margin"
         android:paddingBottom="@dimen/activity_horizontal_margin" />
 
@@ -52,18 +42,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvBottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200sp"
         android:paddingTop="@dimen/activity_horizontal_margin"
         android:paddingBottom="@dimen/activity_horizontal_margin" />
-
-    <TextView
-        android:id="@+id/tvEmptyListBottom"
-        android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:background="#cccccc"
-        android:gravity="center"
-        android:text="Bottom List is Empty!"
-        android:textSize="20sp"
-        android:visibility="gone" />
 
 </LinearLayout>

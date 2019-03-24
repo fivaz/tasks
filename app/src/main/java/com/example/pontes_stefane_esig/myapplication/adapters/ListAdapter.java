@@ -3,7 +3,6 @@ package com.example.pontes_stefane_esig.myapplication.adapters;
 import android.content.ClipData;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,11 +18,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
         implements View.OnTouchListener {
 
     private List<String> list;
-    private Listener listener;
 
-    public ListAdapter(List<String> list, Listener listener) {
+    public ListAdapter(List<String> list) {
         this.list = list;
-        this.listener = listener;
     }
 
     @Override
@@ -38,7 +35,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
         holder.text.setText(list.get(position));
         holder.frameLayout.setTag(position);
         holder.frameLayout.setOnTouchListener(this);
-        holder.frameLayout.setOnDragListener(new DragListener(listener));
+        holder.frameLayout.setOnDragListener(new DragListener());
     }
 
     @Override
@@ -71,12 +68,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
     }
 
     public DragListener getDragInstance() {
-        if (listener != null) {
-            return new DragListener(listener);
-        } else {
-            Log.e("ListAdapter", "Listener wasn't initialized!");
-            return null;
-        }
+        return new DragListener();
     }
 
     class ListViewHolder extends RecyclerView.ViewHolder {

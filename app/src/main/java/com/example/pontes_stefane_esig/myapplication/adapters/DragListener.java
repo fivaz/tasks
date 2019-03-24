@@ -11,11 +11,6 @@ import java.util.List;
 public class DragListener implements View.OnDragListener {
 
     private boolean isDropped = false;
-    private Listener listener;
-
-    DragListener(Listener listener) {
-        this.listener = listener;
-    }
 
     @Override
     public boolean onDrag(View v, DragEvent event) {
@@ -27,25 +22,19 @@ public class DragListener implements View.OnDragListener {
                 View viewSource = (View) event.getLocalState();
                 int viewId = v.getId();
                 final int flItem = R.id.frame_layout_item;
-                final int tvEmptyListTop = R.id.tvEmptyListTop;
-                final int tvEmptyListBottom = R.id.tvEmptyListBottom;
                 final int rvTop = R.id.rvTop;
                 final int rvBottom = R.id.rvBottom;
 
                 switch (viewId) {
                     case flItem:
-                    case tvEmptyListTop:
-                    case tvEmptyListBottom:
                     case rvTop:
                     case rvBottom:
 
                         RecyclerView target;
                         switch (viewId) {
-                            case tvEmptyListTop:
                             case rvTop:
                                 target = (RecyclerView) v.getRootView().findViewById(rvTop);
                                 break;
-                            case tvEmptyListBottom:
                             case rvBottom:
                                 target = (RecyclerView) v.getRootView().findViewById(rvBottom);
                                 break;
@@ -77,19 +66,6 @@ public class DragListener implements View.OnDragListener {
                             }
                             adapterTarget.updateList(customListTarget);
                             adapterTarget.notifyDataSetChanged();
-
-                            if (sourceId == rvBottom && adapterSource.getItemCount() < 1) {
-                                listener.setEmptyListBottom(true);
-                            }
-                            if (viewId == tvEmptyListBottom) {
-                                listener.setEmptyListBottom(false);
-                            }
-                            if (sourceId == rvTop && adapterSource.getItemCount() < 1) {
-                                listener.setEmptyListTop(true);
-                            }
-                            if (viewId == tvEmptyListTop) {
-                                listener.setEmptyListTop(false);
-                            }
                         }
                         break;
                 }
