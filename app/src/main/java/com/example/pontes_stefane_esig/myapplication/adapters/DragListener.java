@@ -13,6 +13,7 @@ public class DragListener implements View.OnDragListener {
 
     //TODO change this method to receive some of its elements (maybe source ones) from constructor
     //TODO make it work even when the RecyclerView is empty
+    //TODO sync adapters with database
     @Override
     public boolean onDrag(View view, DragEvent event) {
         View viewSource = (View) event.getLocalState();
