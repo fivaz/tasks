@@ -61,6 +61,7 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
         final Listt listt = listts.get(position);
         holder.tvName.setText(listt.getName());
         holder.tvTotal.setText(String.valueOf(listt.getTotal()));
+        holder.view.setTag(position);
 
         CardAdapter adapter = new CardAdapter(listt, this, position);
         holder.rvCards.setAdapter(adapter);

@@ -49,8 +49,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
         holder.tvName.setText(card.getName() + " - " + card.getPoints());
         holder.flCard.setTag(position);
         holder.flCard.setOnLongClickListener(this);
-//        holder.flCard.setOnTouchListener(this);
-//        holder.flCard.setOnDragListener(this);
         holder.flCard.setOnDragListener(new DragListener(listtAdapter, listtPosition));
     }
 
@@ -80,8 +78,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
 
         MyViewHolder(View view) {
             super(view);
-            tvName = itemView.findViewById(R.id.tv_card_name);
-            flCard = itemView.findViewById(R.id.fl_card);
+            tvName = view.findViewById(R.id.tv_card_name);
+            flCard = view.findViewById(R.id.fl_card);
         }
     }
 }

@@ -11,12 +11,12 @@ import java.util.List;
 
 public class DragListener implements View.OnDragListener {
 
-    private final ListtAdapter listtAdapter;
-    private int listtPosition;
+    private final ListtAdapter targetListtAdapter;
+    private int targetListtPosition;
 
-    public DragListener(ListtAdapter listtAdapter, int listtPosition) {
-        this.listtAdapter = listtAdapter;
-        this.listtPosition = listtPosition;
+    public DragListener(ListtAdapter targetListtAdapter, int targetListtPosition) {
+        this.targetListtAdapter = targetListtAdapter;
+        this.targetListtPosition = targetListtPosition;
     }
 
     //TODO change this method to receive some of its elements (maybe source ones) from constructor
@@ -52,6 +52,7 @@ public class DragListener implements View.OnDragListener {
                         target = (RecyclerView) view;
                         positionTarget = -1;
                     }
+
                     CardAdapter adapterTarget = (CardAdapter) target.getAdapter();
                     List<Card> customListTarget = adapterTarget.getCards();
 
@@ -63,7 +64,15 @@ public class DragListener implements View.OnDragListener {
 
                     adapterTarget.setCards(customListTarget);
                     adapterTarget.notifyDataSetChanged();
-                    listtAdapter.notifyItemChanged(listtPosition);
+
+                    //update totals
+                    View rvItemListt = (View) source.getParent();
+                    RecyclerView rvListt = (RecyclerView) rvItemListt.getParent();
+                    ListtAdapter sourceListtAdapter = (ListtAdapter) rvListt.getAdapter();
+                    int sourceListtPosition = (int) rvItemListt.getTag();
+                    sourceListtAdapter.notifyItemChanged(sourceListtPosition);
+
+                    this.targetListtAdapter.notifyItemChanged(targetListtPosition);
                 }
             } else {
                 viewSource.setVisibility(View.VISIBLE);
