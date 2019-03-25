@@ -23,9 +23,13 @@ public class ProjectFormActivity extends AppCompatActivity {
         helper = new ProjectFormHelper(this);
 
         Intent intent = getIntent();
-        Project project = (Project) intent.getSerializableExtra("project");
-        if (project != null)
+        long project_id = intent.getLongExtra("project_id", 0);
+
+        if (project_id != 0) {
+            ProjectDAO dao = new ProjectDAO(this);
+            Project project = dao.get(project_id);
             helper.setProject(project);
+        }
     }
 
     public void projectSubmit(View view) {
@@ -39,11 +43,6 @@ public class ProjectFormActivity extends AppCompatActivity {
         dao.close();
 
         Toast.makeText(this, project.toString(), Toast.LENGTH_SHORT).show();
-        goToHomePage();
-    }
-
-    void goToHomePage() {
-        Intent home = new Intent(this, HomeActivity.class);
-        startActivity(home);
+        finish();
     }
 }
