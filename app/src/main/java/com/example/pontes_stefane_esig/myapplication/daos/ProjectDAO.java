@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 //TODO use prepared statements
@@ -45,7 +46,12 @@ public class ProjectDAO extends DAO {
     private Project buildProject(Cursor cursor) {
         int id = cursor.getInt(cursor.getColumnIndex("id"));
         String name = cursor.getString(cursor.getColumnIndex("name"));
-        return new Project(id, name);
+        long start_at_millliseconds = cursor.getLong(cursor.getColumnIndex("start_at"));
+        Date start_at = new Date(start_at_millliseconds);
+        long end_at_millliseconds = cursor.getLong(cursor.getColumnIndex("end_at"));
+        Date end_at = new Date(end_at_millliseconds);
+
+        return new Project(id, name, start_at, end_at);
     }
 
     public void insert(Project project) {
@@ -58,6 +64,8 @@ public class ProjectDAO extends DAO {
     private ContentValues getValues(Project project) {
         ContentValues data = new ContentValues();
         data.put("name", project.getName());
+        data.put("start_at", project.getStart_at().getTime());
+        data.put("end_at", project.getEnd_at().getTime());
         return data;
     }
 
