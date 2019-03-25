@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\PONTES_STEFANE-ESIG\AndroidStudioProjects\trello_android\app\app.iml" filepath="C:\Users\PONTES_STEFANE-ESIG\AndroidStudioProjects\trello_android\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/trello_android.iml" filepath="$PROJECT_DIR$/trello_android.iml" />
+      <module fileurl="file://C:\Users\PONTES_STEFANE-ESIG\AndroidStudioProjects\trello_android\trello_android.iml" filepath="C:\Users\PONTES_STEFANE-ESIG\AndroidStudioProjects\trello_android\trello_android.iml" />
     </modules>
   </component>
 </project>
