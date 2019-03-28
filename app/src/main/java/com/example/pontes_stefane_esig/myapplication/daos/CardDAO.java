@@ -16,7 +16,7 @@ public class CardDAO extends DAO {
 
     private final String TABLE_NAME = TB_CARD_NAME;
 
-    CardDAO(Context context) {
+    public CardDAO(Context context) {
         super(context);
     }
 
