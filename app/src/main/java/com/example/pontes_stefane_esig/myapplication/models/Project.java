@@ -62,18 +62,7 @@ public class Project extends Model {
         return total;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Project{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", start_at=" + start_at +
-//                ", end_at=" + end_at +
-//                ", listts=" + listts +
-//                '}';
-//    }
-
-        @Override
+    @Override
     public String toString() {
         return name;
     }

@@ -38,7 +38,7 @@
                 android:id="@+id/bt_start_date"
                 android:layout_width="185dp"
                 android:layout_height="wrap_content"
-                android:text="SELECT DATE" />
+                android:text="Sélectionner la date" />
 
         </LinearLayout>
 
@@ -56,7 +56,7 @@
                 android:id="@+id/bt_start_time"
                 android:layout_width="185dp"
                 android:layout_height="wrap_content"
-                android:text="SELECT TIME" />
+                android:text="Sélectionner l'heure" />
 
         </LinearLayout>
 
@@ -81,7 +81,7 @@
                 android:id="@+id/bt_end_date"
                 android:layout_width="185dp"
                 android:layout_height="wrap_content"
-                android:text="SELECT DATE" />
+                android:text="Sélectionner la date" />
 
         </LinearLayout>
 
@@ -99,7 +99,7 @@
                 android:id="@+id/bt_end_time"
                 android:layout_width="185dp"
                 android:layout_height="wrap_content"
-                android:text="SELECT TIME" />
+                android:text="Sélectionner l'heure" />
 
         </LinearLayout>
 
