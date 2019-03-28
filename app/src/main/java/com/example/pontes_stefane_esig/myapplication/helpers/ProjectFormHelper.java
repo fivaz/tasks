@@ -20,8 +20,11 @@ public class ProjectFormHelper {
     private final EditText inputEndDate;
     private final EditText inputEndTime;
     private Project project;
+    private DateFormat dateFormat;
 
     public ProjectFormHelper(AppCompatActivity context) {
+        dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm", Locale.FRENCH);
+
         inputName = context.findViewById(R.id.et_project_name);
         inputStartDate = context.findViewById(R.id.et_start_date);
         inputStartTime = context.findViewById(R.id.et_start_time);
@@ -31,12 +34,10 @@ public class ProjectFormHelper {
     }
 
     public Project getProject() {
-        DateFormat format = new SimpleDateFormat("dd-MM-yyyy hh:mm", Locale.FRENCH);
-
         try {
-            Date start_date_formatted = format.parse(inputStartDate.getText().toString() + " " + inputStartTime.getText().toString());
+            Date start_date_formatted = dateFormat.parse(inputStartDate.getText().toString() + " " + inputStartTime.getText().toString());
 
-            Date end_date_formatted = format.parse(inputEndDate.getText().toString() + " " + inputEndTime.getText().toString());
+            Date end_date_formatted = dateFormat.parse(inputEndDate.getText().toString() + " " + inputEndTime.getText().toString());
 
             project.setName(inputName.getText().toString());
             project.setStart_at(start_date_formatted);
@@ -49,7 +50,17 @@ public class ProjectFormHelper {
     }
 
     public void setProject(Project project) {
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.FRENCH);
+        DateFormat timeFormat = new SimpleDateFormat("hh:mm", Locale.FRENCH);
+
         inputName.setText(project.getName());
+
+        inputStartDate.setText(dateFormat.format(project.getStart_at()));
+        inputStartTime.setText(timeFormat.format(project.getStart_at()));
+
+        inputEndDate.setText(dateFormat.format(project.getEnd_at()));
+        inputEndTime.setText(timeFormat.format(project.getEnd_at()));
+
         this.project = project;
     }
 }
