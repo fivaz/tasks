@@ -14,13 +14,15 @@ import java.util.List;
 
 public class CardDAO extends DAO {
 
-    public CardDAO(Context context) {
+    private final String TABLE_NAME = TB_CARD_NAME;
+
+    CardDAO(Context context) {
         super(context);
     }
 
     //TODO use prepared statements
     public List<Card> getAll(Listt listt) {
-        String sql = "SELECT * FROM " + TB_CARD_NAME + " WHERE listt_id = " + listt.getId() + " ORDER BY POSITION ASC";
+        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE listt_id = " + listt.getId() + " ORDER BY POSITION ASC";
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
 
@@ -45,7 +47,7 @@ public class CardDAO extends DAO {
     //TODO Put this in the class DAO
     public void insert(Card card) {
         SQLiteDatabase db = getWritableDatabase();
-        long id = db.insert(TB_CARD_NAME, null, getValues(card));
+        long id = db.insert(TABLE_NAME, null, getValues(card));
         card.setId(id);
     }
 
@@ -62,7 +64,7 @@ public class CardDAO extends DAO {
     //TODO Put this in the class DAO
     public void delete(Card card) {
         SQLiteDatabase db = getWritableDatabase();
-        db.delete(TB_CARD_NAME, "id = ?", getPK(card));
+        db.delete(TABLE_NAME, "id = ?", getPK(card));
     }
 
     //TODO Put this in the class DAO
@@ -74,6 +76,6 @@ public class CardDAO extends DAO {
     //TODO Put this in the class DAO
     public void update(Card card) {
         SQLiteDatabase db = getWritableDatabase();
-        db.update(TB_CARD_NAME, getValues(card), "id = ?", getPK(card));
+        db.update(TABLE_NAME, getValues(card), "id = ?", getPK(card));
     }
 }

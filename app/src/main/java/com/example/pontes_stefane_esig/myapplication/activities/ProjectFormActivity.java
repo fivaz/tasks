@@ -79,12 +79,11 @@ public class ProjectFormActivity extends AppCompatActivity implements View.OnCli
         finish();
     }
 
+    //TODO heure début ne pourra pas être après l'heure fin
     @Override
     public void onClick(View view) {
 
         if (view == btDatePickerStart) {
-
-            // Get Current Date
             final Calendar c = Calendar.getInstance();
             int mYear = c.get(Calendar.YEAR);
             int mMonth = c.get(Calendar.MONTH);
@@ -103,13 +102,10 @@ public class ProjectFormActivity extends AppCompatActivity implements View.OnCli
         }
 
         if (view == btTimePickerStart) {
-
-            // Get Current Time
             final Calendar c = Calendar.getInstance();
             int mHour = c.get(Calendar.HOUR_OF_DAY);
             int mMinute = c.get(Calendar.MINUTE);
 
-            // Launch Time Picker Dialog
             TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                     new TimePickerDialog.OnTimeSetListener() {
                         @Override
@@ -123,8 +119,6 @@ public class ProjectFormActivity extends AppCompatActivity implements View.OnCli
         }
 
         if (view == btDatePickerEnd) {
-
-            // Get Current Date
             final Calendar c = Calendar.getInstance();
             int mYear = c.get(Calendar.YEAR);
             int mMonth = c.get(Calendar.MONTH);
@@ -143,13 +137,10 @@ public class ProjectFormActivity extends AppCompatActivity implements View.OnCli
         }
 
         if (view == btTimePickerEnd) {
-
-            // Get Current Time
             final Calendar c = Calendar.getInstance();
             int mHour = c.get(Calendar.HOUR_OF_DAY);
             int mMinute = c.get(Calendar.MINUTE);
 
-            // Launch Time Picker Dialog
             TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                     new TimePickerDialog.OnTimeSetListener() {
                         @Override
