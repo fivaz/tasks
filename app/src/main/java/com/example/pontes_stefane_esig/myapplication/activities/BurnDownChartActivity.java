@@ -34,30 +34,19 @@ public class BurnDownChartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_burn_down_chart);
 
-        List<Float> idealData = new ArrayList<>();
-        idealData.add(150f);
-        idealData.add(100f);
-        idealData.add(50f);
-        idealData.add(0f);
+        int timeParts = 4;
+        float totalPoints = 200f;
+        List<Float> points_done = asList(0f, 120f, 150f);
 
-        List<Float> actualData = new ArrayList<>();
-        actualData.add(150f);
-        actualData.add(150f);
-        actualData.add(30f);
-        actualData.add(0f);
-
-        buildBurnDownChart(idealData, actualData);
-//        barChart();
-//        lineChart();
-//        lineChart2();
+        buildBurnDownChart(points_done, totalPoints, timeParts);
     }
 
-    private void buildBurnDownChart(List<Float> idealData, List<Float> actualData) {
+    private void buildBurnDownChart(List<Float> points_done, float totalPoints, int timeParts) {
         Utils.init(this);
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
 
-        LineDataSet ideaDataSet = buildIdealDataSet(idealData);
-        LineDataSet actualDataSet = buildActualDataSet(actualData);
+        LineDataSet ideaDataSet = buildActualDataSet(points_done, totalPoints, timeParts);
+        LineDataSet actualDataSet = buildIdealDataSet(totalPoints, timeParts);
         dataSets.add(ideaDataSet);
         dataSets.add(actualDataSet);
 
@@ -69,15 +58,29 @@ public class BurnDownChartActivity extends AppCompatActivity {
     }
 
     @NonNull
-    private LineDataSet buildActualDataSet(List<Float> actualData) {
+    private LineDataSet buildActualDataSet(List<Float> points_done, float totalPoints, int timeParts) {
+        List<Float> actualData = buildActualData(points_done, totalPoints, timeParts);
+        Log.e("actualData :", actualData.toString());
         return buildDataSet(actualData, "actual task remaning", R.color.red);
     }
 
     @NonNull
-    private LineDataSet buildIdealDataSet(List<Float> idealData) {
-        return buildDataSet(idealData, "ideal task remaning", R.color.blue);
+    private List<Float> buildActualData(List<Float> points_done, float totalPoints, int timeParts) {
+        List<Float> actualData = new ArrayList<>();
+        actualData.add(totalPoints);
+        int i;
+        for (i = 0; i < points_done.size(); i++) {
+            float actualDatum = totalPoints - points_done.get(i);
+            actualData.add(actualDatum);
+        }
+        while (actualData.size() < timeParts+1) {
+            float actualDatum = totalPoints - points_done.get(i - 1);
+            actualData.add(actualDatum);
+        }
+        return actualData;
     }
 
+    @NonNull
     private LineDataSet buildDataSet(List<Float> data, String label, int color) {
         ArrayList<Entry> entries = new ArrayList<>();
 
@@ -92,101 +95,26 @@ public class BurnDownChartActivity extends AppCompatActivity {
         return dataSet;
     }
 
-    private void lineChart() {
-//        Utils.init(this);
-
-        ArrayList<ILineDataSet> datasets = new ArrayList<>();
-
+    @NonNull
+    private LineDataSet buildIdealDataSet(float totalPoints, int timeParts) {
         ArrayList<Entry> entries = new ArrayList<>();
-        entries.add(new Entry(0, 150f));
-        entries.add(new Entry(1, 100f));
-        entries.add(new Entry(2, 50f));
-        entries.add(new Entry(3, 0f));
 
-        LineDataSet dataset = new LineDataSet(entries, "text");
+        timeParts = timeParts + 1;
+        //50 = 150 / (4-1) -> 150 / 30
+        float eachTotalPoint = totalPoints / (timeParts - 1);
 
-        dataset.setColor(ColorTemplate.VORDIPLOM_COLORS[2]);
+        for (int i = 0; i < timeParts; i++)
+            //50 * (4 - (0+1)) -> 50 * (4 - 1) -> 50 * 3 = 150;
+            //50 * (4 - (1+1)) -> 50 * (4 - 2) -> 50 * 2 = 100;
+            //50 * (4 - (2+1)) -> 50 * (4 - 3) -> 50 * 1 = 50;
+            //50 * (4 - (3+1)) -> 50 * (4 - 4) -> 50 * 0 = 0;
+            entries.add(new Entry(i, eachTotalPoint * (timeParts - (i + 1))));
 
-        dataset.setLineWidth(2.5f);
-        dataset.setCircleRadius(4f);
+        LineDataSet dataSet = new LineDataSet(entries, "ideal task remaning");
 
-        datasets.add(dataset);
-
-        ArrayList<Entry> entries1 = new ArrayList<>();
-        entries1.add(new Entry(0, 150f));
-        entries1.add(new Entry(1, 150f));
-        entries1.add(new Entry(2, 30f));
-        entries1.add(new Entry(3, 0f));
-
-        LineDataSet dataset1 = new LineDataSet(entries1, "text1");
-
-        dataset1.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
-
-        dataset1.setLineWidth(2.5f);
-        dataset1.setCircleRadius(4f);
-
-        datasets.add(dataset1);
-
-        LineData data = new LineData(datasets);
-
-        LineChart chart = new LineChart(this);
-        setContentView(chart);
-
-        chart.setData(data);
-        chart.invalidate();
-    }
-
-    private void lineChart2() {
-        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-
-        for (int z = 0; z < 3; z++) {
-
-            ArrayList<Entry> values = new ArrayList<>();
-
-            for (int i = 0; i < 10; i++) {
-                double val = (Math.random() * 10) + 3;
-                values.add(new Entry(i, (float) val));
-            }
-
-            LineDataSet d = new LineDataSet(values, "DataSet " + (z + 1));
-            d.setLineWidth(2.5f);
-            d.setCircleRadius(4f);
-
-            int color = 1;
-            d.setColor(color);
-            d.setCircleColor(color);
-            dataSets.add(d);
-        }
-
-//        // make the first DataSet dashed
-//        ((LineDataSet) dataSets.get(0)).enableDashedLine(10, 10, 0);
-//        ((LineDataSet) dataSets.get(0)).setColors(ColorTemplate.VORDIPLOM_COLORS);
-//        ((LineDataSet) dataSets.get(0)).setCircleColors(ColorTemplate.VORDIPLOM_COLORS);
-
-        LineData data = new LineData(dataSets);
-
-        LineChart chart = new LineChart(this);
-        setContentView(chart);
-
-        chart.setData(data);
-        chart.invalidate();
-    }
-
-    private void barChart() {
-        ArrayList<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(0, 4f));
-        entries.add(new BarEntry(1, 8f));
-        entries.add(new BarEntry(2, 6f));
-        entries.add(new BarEntry(3, 12f));
-        entries.add(new BarEntry(4, 18f));
-        entries.add(new BarEntry(5, 9f));
-
-        BarDataSet dataset = new BarDataSet(entries, "# of Calls");
-
-        BarChart chart = new BarChart(this);
-        setContentView(chart);
-
-        BarData data = new BarData(dataset);
-        chart.setData(data);
+        dataSet.setColor(getResources().getColor(R.color.blue));
+        dataSet.setLineWidth(2.5f);
+        dataSet.setCircleRadius(4f);
+        return dataSet;
     }
 }
