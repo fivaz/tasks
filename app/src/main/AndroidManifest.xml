@@ -17,7 +17,13 @@
             android:screenOrientation="sensor" />
         <activity
             android:name=".activities.HomeActivity"
-            android:screenOrientation="sensor" />
+            android:screenOrientation="sensor" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.ProjectFormActivity"
             android:screenOrientation="sensor" />
@@ -25,11 +31,6 @@
             android:name=".activities.ProjectActivity"
             android:screenOrientation="sensor" />
         <activity android:name=".activities.BurnDownChartActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

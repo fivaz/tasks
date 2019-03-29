@@ -3,6 +3,7 @@ package com.example.pontes_stefane_esig.myapplication.models;
 import android.content.Context;
 
 import com.example.pontes_stefane_esig.myapplication.daos.CardDAO;
+import com.example.pontes_stefane_esig.myapplication.daos.CurrentStateDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,9 @@ public class Listt extends Model {
     private long project_id;
     private String name;
     private int position;
+    private boolean isDone;
     private List<Card> cards;
+
     private Context context;
 
     public Listt(String name) {
@@ -20,11 +23,12 @@ public class Listt extends Model {
         cards = new ArrayList<>();
     }
 
-    public Listt(Context context, long id, String name, int position, long project_id) {
+    public Listt(Context context, long id, String name, int position, boolean isDone, long project_id) {
         this.context = context;
         this.id = id;
         this.name = name;
         this.position = position;
+        this.isDone = isDone;
         this.project_id = project_id;
         cards = new ArrayList<>();
     }
@@ -53,6 +57,14 @@ public class Listt extends Model {
         this.position = position;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public void setDone(boolean done) {
+        isDone = done;
+    }
+
     public List<Card> getCards() {
         return cards;
     }
@@ -65,6 +77,13 @@ public class Listt extends Model {
             card.setPosition(i);
             card.setListt_id(id);
             dao.update(card);
+            //TODO WIP
+//            if(isDone){
+//                new CurrentState();
+//
+//                CurrentStateDAO currentStateDAO = new CurrentStateDAO(context);
+//                currentStateDAO.insert(currentState);
+//            }
         }
         dao.close();
     }
@@ -87,12 +106,11 @@ public class Listt extends Model {
     @Override
     public String toString() {
         return "Listt{" +
-                "project_id=" + project_id +
+                "id=" + id +
+                ", project_id=" + project_id +
                 ", name='" + name + '\'' +
                 ", position=" + position +
-                ", cards=" + cards +
-                ", context=" + context +
-                ", id=" + id +
+                ", isDone=" + isDone +
                 '}';
     }
 }

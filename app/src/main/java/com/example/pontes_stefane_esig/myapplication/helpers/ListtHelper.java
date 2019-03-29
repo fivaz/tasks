@@ -15,6 +15,13 @@ public class ListtHelper {
     }
 
     public Listt getListt() {
-        return new Listt(inputName.getText().toString());
+        String name = inputName.getText().toString();
+
+        Listt listt = new Listt(name);
+
+        if (name.equals("DONE"))
+            listt.setDone(true);
+
+        return listt;
     }
 }

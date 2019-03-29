@@ -37,9 +37,11 @@ public class ListtDAO extends DAO {
         int id = cursor.getInt(cursor.getColumnIndex("id"));
         String name = cursor.getString(cursor.getColumnIndex("name"));
         int position = cursor.getInt(cursor.getColumnIndex("position"));
+        int isDoneInt = cursor.getInt(cursor.getColumnIndex("isDone"));
+        boolean isDone = (isDoneInt == 1);
         long project_id = cursor.getLong(cursor.getColumnIndex("project_id"));
 
-        return new Listt(context, id, name, position, project_id);
+        return new Listt(context, id, name, position, isDone, project_id);
     }
 
     public void insert(Listt listt) {
@@ -53,6 +55,7 @@ public class ListtDAO extends DAO {
         ContentValues data = new ContentValues();
         data.put("name", listt.getName());
         data.put("position", listt.getPosition());
+        data.put("isDone", listt.isDone());
         data.put("project_id", listt.getProject_id());
         return data;
     }
