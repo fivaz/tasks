@@ -93,4 +93,10 @@ public class ProjectActivity extends AppCompatActivity {
         intent.putExtra("position", project.getListts().size());
         startActivity(intent);
     }
+
+    public void goToBurnDownChart(View view) {
+        Intent intent = new Intent(this, BurnDownChartActivity.class);
+        intent.putExtra("project_id", project.getId());
+        startActivity(intent);
+    }
 }
