@@ -98,13 +98,11 @@ public class Project extends Model {
             currentPartTimeLong += timeBlockLong;
             i++;
         }
-
-//        Log.e("M P#getCurrentTimeBlock", "timeBlock in Date: " + formatDate(new Date(timeBlockLong)));
-//        Log.e("M P#getCurrentTimeBlock", "nowLong in Date: " + formatDate(new Date(nowLong)));
-//        Log.e("M P#getCurrentTimeBlock", "currentPartTimeLong in Date: " + formatDate(new Date(currentPartTimeLong)));
-
         return i;
     }
 
+    public CurrentState buildNewCurrentState() {
+        return new CurrentState(getPointsDone(), getCurrentTimeBlock(), getId());
+    }
 
 }

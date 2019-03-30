@@ -22,7 +22,7 @@ public class CurrentStateDAO extends DAO {
 
     //TODO use prepared statements
     public List<CurrentState> getAll(Project project) {
-        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE project_id = " + project.getId();
+        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE project_id = " + project.getId() + " ORDER BY time_block ASC";
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
 
@@ -77,15 +77,14 @@ public class CurrentStateDAO extends DAO {
         db.update(TABLE_NAME, getValues(currentState), "id = ?", getPK(currentState));
     }
 
-//    public int getLastPartTime(Project project) {
-//        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE project_id = " + project.getId() + " ORDER BY time_part DESC";
-//        SQLiteDatabase db = getReadableDatabase();
-//        Cursor cursor = db.rawQuery(sql, null);
-//        if(cursor.moveToFirst()){
-//            int lastTimePart = cursor.getInt(cursor.getColumnIndex("time_part"));
-//            cursor.close();
-//            return lastTimePart;
-//        }
-//        return 0;
-//    }
+    public int getLastTimeBlock(Project project) {
+        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE project_id = " + project.getId() + " ORDER BY time_block DESC";
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            return cursor.getInt(cursor.getColumnIndex("time_block"));
+        }
+        cursor.close();
+        return 0;
+    }
 }
