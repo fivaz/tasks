@@ -11,10 +11,10 @@ import android.widget.TextView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.adapters.ListtAdapter;
-import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
-import com.example.pontes_stefane_esig.myapplication.helpers.MyItemTouchHelperCallback;
 import com.example.pontes_stefane_esig.myapplication.daos.CardDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.ListtDAO;
+import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
+import com.example.pontes_stefane_esig.myapplication.helpers.MyItemTouchHelperCallback;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
 
@@ -72,7 +72,9 @@ public class ProjectActivity extends AppCompatActivity {
 
     private void updateView() {
         TextView tvProjectInfo = findViewById(R.id.tv_project_info);
+        TextView tvCurrentTimePart = findViewById(R.id.tv_current_time_part);
         tvProjectInfo.setText(project.getName());
+        tvCurrentTimePart.setText(String.valueOf(project.getCurrentTimeBlock()));
 
         ListtAdapter adapter = new ListtAdapter(this, project.getListts());
         rvLists.setAdapter(adapter);

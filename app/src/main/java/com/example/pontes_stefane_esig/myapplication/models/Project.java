@@ -3,8 +3,10 @@ package com.example.pontes_stefane_esig.myapplication.models;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class Project extends Model {
 
@@ -64,15 +66,6 @@ public class Project extends Model {
         return total;
     }
 
-    public String formatDate(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy HH:mm:ss");
-        return dateFormat.format(date);
-    }
-
-    @Override
-    public String toString() {
-        return name;
-    }
     private double getPointsDone() {
         for (Listt listt : listts) {
             if (listt.isDone()) {
@@ -81,4 +74,37 @@ public class Project extends Model {
         }
         return 0;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    public String formatDate(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.FRENCH);
+        return dateFormat.format(date);
+    }
+
+    public int getCurrentTimeBlock() {
+        long startAtLong = start_at.getTime();
+        long endAtLong = end_at.getTime();
+        long projectTimeLong = (endAtLong - startAtLong);
+        long timeBlockLong = projectTimeLong / 5;
+        long currentPartTimeLong = startAtLong;
+        long nowLong = (Calendar.getInstance().getTime()).getTime();
+        int i = 0;
+
+        while (nowLong > currentPartTimeLong && i < 5) {
+            currentPartTimeLong += timeBlockLong;
+            i++;
+        }
+
+//        Log.e("M P#getCurrentTimeBlock", "timeBlock in Date: " + formatDate(new Date(timeBlockLong)));
+//        Log.e("M P#getCurrentTimeBlock", "nowLong in Date: " + formatDate(new Date(nowLong)));
+//        Log.e("M P#getCurrentTimeBlock", "currentPartTimeLong in Date: " + formatDate(new Date(currentPartTimeLong)));
+
+        return i;
+    }
+
+
 }
