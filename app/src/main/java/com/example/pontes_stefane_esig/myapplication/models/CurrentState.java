@@ -13,6 +13,12 @@ public class CurrentState  extends Model {
         this.project_id = project_id;
     }
 
+    public CurrentState(double pointsDone, int timePart, long project_id) {
+        this.pointsDone = pointsDone;
+        this.timePart = timePart;
+        this.project_id = project_id;
+    }
+
     public double getPointsDone() {
         return pointsDone;
     }
