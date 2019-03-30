@@ -40,7 +40,7 @@ public class DAO extends SQLiteOpenHelper {
             "CREATE TABLE " + TB_CURRENT_STATE_NAME + " (" +
                     "id INTEGER PRIMARY KEY, " +
                     "points_done REAL NOT NULL, " +
-                    "time_part INT NOT NULL, " +
+                    "time_block INT NOT NULL, " +
                     "project_id INT, " +
                     "FOREIGN KEY(project_id) REFERENCES " + TB_PROJECT_NAME + "(id)" +
                     ")";
@@ -48,7 +48,7 @@ public class DAO extends SQLiteOpenHelper {
     private final String DROP_STATEMENT = "DROP TABLE IF EXISTS ";
 
     DAO(Context context) {
-        super(context, "trello", null, 8);
+        super(context, "trello", null, 9);
     }
 
     @Override

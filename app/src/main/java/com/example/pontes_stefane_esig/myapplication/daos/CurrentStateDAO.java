@@ -37,7 +37,7 @@ public class CurrentStateDAO extends DAO {
     private CurrentState buildCurrentState(Cursor cursor) {
         int id = cursor.getInt(cursor.getColumnIndex("id"));
         double points_done = cursor.getDouble(cursor.getColumnIndex("points_done"));
-        int time_part = cursor.getInt(cursor.getColumnIndex("time_part"));
+        int time_part = cursor.getInt(cursor.getColumnIndex("time_block"));
         long project_id = cursor.getLong(cursor.getColumnIndex("project_id"));
 
         return new CurrentState(id, points_done, time_part, project_id);
@@ -54,7 +54,7 @@ public class CurrentStateDAO extends DAO {
     private ContentValues getValues(CurrentState currentState) {
         ContentValues data = new ContentValues();
         data.put("points_done", currentState.getPointsDone());
-        data.put("time_part", currentState.getTimePart());
+        data.put("time_block", currentState.getTimePart());
         data.put("project_id", currentState.getProject_id());
         return data;
     }
@@ -76,4 +76,16 @@ public class CurrentStateDAO extends DAO {
         SQLiteDatabase db = getWritableDatabase();
         db.update(TABLE_NAME, getValues(currentState), "id = ?", getPK(currentState));
     }
+
+//    public int getLastPartTime(Project project) {
+//        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE project_id = " + project.getId() + " ORDER BY time_part DESC";
+//        SQLiteDatabase db = getReadableDatabase();
+//        Cursor cursor = db.rawQuery(sql, null);
+//        if(cursor.moveToFirst()){
+//            int lastTimePart = cursor.getInt(cursor.getColumnIndex("time_part"));
+//            cursor.close();
+//            return lastTimePart;
+//        }
+//        return 0;
+//    }
 }
