@@ -66,7 +66,7 @@ public class Project extends Model {
         return total;
     }
 
-    private double getPointsDone() {
+    public double getPointsDone() {
         for (Listt listt : listts) {
             if (listt.isDone()) {
                 return listt.getTotal();

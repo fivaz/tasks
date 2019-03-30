@@ -49,33 +49,62 @@ public class ProjectActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         refreshView();
-        updateCurrentState();
+        checkCurrentState();
+    }
+
+    private void checkCurrentState() {
+        Date now = Calendar.getInstance().getTime();
+
+        if (now.getTime() > project.getEnd_at().getTime())
+            Log.e("A P#checkCurrentState", "your project has ended yet");
+        if (now.getTime() < project.getStart_at().getTime())
+            Log.e("A P#checkCurrentState", "your project hasn't started yet");
+        else if (hasTimeBlockChanged())
+            addNewCurrentState();
+        else if (hasPointsDoneChanged())
+            updateCurrentState();
+        else
+            Log.e("A P#checkCurrentState", "there is no new current state yet");
     }
 
     private void updateCurrentState() {
-        Date now = Calendar.getInstance().getTime();
+        CurrentStateDAO dao = new CurrentStateDAO(this);
+        CurrentState lastCurrentState = dao.getLast(project);
+        lastCurrentState.setPointsDone(project.getPointsDone());
+        dao.update(lastCurrentState);
+        dao.close();
+    }
 
-        if (now.getTime() < project.getStart_at().getTime())
-            Log.e("A P#updateCurrentState", "your project hasn't started yet");
-        else if (now.getTime() > project.getEnd_at().getTime())
-            Log.e("A P#updateCurrentState", "your project has ended yet");
-        else if (checkNewCurrentState())
-            addNewCurrentState();
-        else
-            Log.e("A P#updateCurrentState", "there is no new current state yet");
+    private boolean hasPointsDoneChanged() {
+        CurrentStateDAO dao = new CurrentStateDAO(this);
+        CurrentState lastCurrentState = dao.getLast(project);
+        dao.close();
+        if (lastCurrentState == null) {
+            return false;
+        } else {
+            double pointsDone = lastCurrentState.getPointsDone();
+            return (project.getPointsDone() != pointsDone);
+        }
     }
 
     private void addNewCurrentState() {
         CurrentState currentState = project.buildNewCurrentState();
         CurrentStateDAO dao = new CurrentStateDAO(this);
+        dao.close();
         dao.insert(currentState);
     }
 
-    private boolean checkNewCurrentState() {
+    private boolean hasTimeBlockChanged() {
         CurrentStateDAO dao = new CurrentStateDAO(this);
-        int lastTimeBlock = dao.getLastTimeBlock(project);
-        Log.e("A P#checkNewCurrentS", "lastTimeBlock: " + lastTimeBlock);
-        return (lastTimeBlock < project.getCurrentTimeBlock());
+        CurrentState lastCurrentState = dao.getLast(project);
+        dao.close();
+        if (lastCurrentState == null) {
+            return true;
+        } else {
+            int lastTimeBlock = lastCurrentState.getTimePart();
+            Log.e("A P#checkNewCurrentS", "lastTimeBlock: " + lastTimeBlock);
+            return (project.getCurrentTimeBlock() > lastTimeBlock);
+        }
     }
 
     void refreshView() {

@@ -35,7 +35,7 @@ public class CurrentStateDAO extends DAO {
 
     @NonNull
     private CurrentState buildCurrentState(Cursor cursor) {
-        int id = cursor.getInt(cursor.getColumnIndex("id"));
+        long id = cursor.getInt(cursor.getColumnIndex("id"));
         double points_done = cursor.getDouble(cursor.getColumnIndex("points_done"));
         int time_part = cursor.getInt(cursor.getColumnIndex("time_block"));
         long project_id = cursor.getLong(cursor.getColumnIndex("project_id"));
@@ -77,14 +77,14 @@ public class CurrentStateDAO extends DAO {
         db.update(TABLE_NAME, getValues(currentState), "id = ?", getPK(currentState));
     }
 
-    public int getLastTimeBlock(Project project) {
+    public CurrentState getLast(Project project) {
         String sql = "SELECT * FROM " + TABLE_NAME + " WHERE project_id = " + project.getId() + " ORDER BY time_block DESC";
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
-        if (cursor.moveToFirst()) {
-            return cursor.getInt(cursor.getColumnIndex("time_block"));
-        }
+        CurrentState currentState = null;
+        if (cursor.moveToFirst())
+            currentState = buildCurrentState(cursor);
         cursor.close();
-        return 0;
+        return currentState;
     }
 }

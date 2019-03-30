@@ -3,10 +3,11 @@ package com.example.pontes_stefane_esig.myapplication.models;
 public class CurrentState  extends Model {
 
     private double pointsDone;
+    //TODO timeBlock;
     private int timePart;
     private long project_id;
 
-    public CurrentState(int id, double pointsDone, int timePart, long project_id) {
+    public CurrentState(long id, double pointsDone, int timePart, long project_id) {
         this.id = id;
         this.pointsDone = pointsDone;
         this.timePart = timePart;
