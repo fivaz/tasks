@@ -50,7 +50,7 @@ public class BurnDownChartActivity extends AppCompatActivity {
         Utils.init(this);
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
 
-        LineDataSet ideaDataSet = buildActualDataSet(points_done, totalPoints, timeParts);
+        LineDataSet ideaDataSet = buildActualDataSet(points_done, totalPoints/*, timeParts*/);
         LineDataSet actualDataSet = buildIdealDataSet(totalPoints, timeParts);
         dataSets.add(ideaDataSet);
         dataSets.add(actualDataSet);
@@ -59,18 +59,39 @@ public class BurnDownChartActivity extends AppCompatActivity {
         LineChart chart = new LineChart(this);
         setContentView(chart);
         chart.setData(data);
-        chart.invalidate();
+
+        //TODO set a axis label
+        /*
+        // get the legend (only possible after setting data)
+        Legend l = chart.getLegend();
+
+        XAxis xAxis = chart.getXAxis();
+
+        final ArrayList<String> xAxisLabels = new ArrayList<>();
+        xAxisLabels.add("1");
+        xAxisLabels.add("2");
+        xAxisLabels.add("3");
+        xAxisLabels.add("4");
+        xAxisLabels.add("5");
+
+        xAxis.setValueFormatter(new ValueFormatter(){
+            @Override
+            public String getFormattedValue(float value) {
+                return xAxisLabels.get((int)value);
+            }
+        });
+        */
     }
 
     @NonNull
-    private LineDataSet buildActualDataSet(List<Float> points_done, float totalPoints, int timeParts) {
-        List<Float> actualData = buildActualData(points_done, totalPoints, timeParts);
+    private LineDataSet buildActualDataSet(List<Float> points_done, float totalPoints/*, int timeParts*/) {
+        List<Float> actualData = buildActualData(points_done, totalPoints/*, timeParts*/);
         Log.e("B A#buildActualDataSet", "actualData: " + actualData.toString());
         return buildDataSet(actualData, "actual task remaning", R.color.red);
     }
 
     @NonNull
-    private List<Float> buildActualData(List<Float> points_done, float totalPoints, int timeParts) {
+    private List<Float> buildActualData(List<Float> points_done, float totalPoints/*, int timeParts*/) {
         List<Float> actualData = new ArrayList<>();
         actualData.add(totalPoints);
         int i;
@@ -78,10 +99,11 @@ public class BurnDownChartActivity extends AppCompatActivity {
             float actualDatum = totalPoints - points_done.get(i);
             actualData.add(actualDatum);
         }
-        while (actualData.size() < timeParts + 1) {
-            float actualDatum = totalPoints - points_done.get(i - 1);
-            actualData.add(actualDatum);
-        }
+        //to have a full line bar for actual data
+//        while (actualData.size() < timeParts + 1) {
+//            float actualDatum = totalPoints - points_done.get(i - 1);
+//            actualData.add(actualDatum);
+//        }
         return actualData;
     }
 
