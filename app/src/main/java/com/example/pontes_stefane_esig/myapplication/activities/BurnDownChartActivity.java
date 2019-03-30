@@ -1,29 +1,21 @@
 package com.example.pontes_stefane_esig.myapplication.activities;
 
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.pontes_stefane_esig.myapplication.R;
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.DataSet;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.Utils;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.DataFormatException;
 
 import static java.util.Arrays.asList;
 
@@ -89,7 +81,8 @@ public class BurnDownChartActivity extends AppCompatActivity {
 
         LineDataSet dataSet = new LineDataSet(entries, label);
 
-        dataSet.setColor(getResources().getColor(color));
+//        dataSet.setColor(getResources().getColor(color));
+        dataSet.setColor(ContextCompat.getColor(this, color));
         dataSet.setLineWidth(2.5f);
         dataSet.setCircleRadius(4f);
         return dataSet;
@@ -112,7 +105,8 @@ public class BurnDownChartActivity extends AppCompatActivity {
 
         LineDataSet dataSet = new LineDataSet(entries, "ideal task remaning");
 
-        dataSet.setColor(getResources().getColor(R.color.blue));
+//        dataSet.setColor(getResources().getColor(R.color.blue));
+        dataSet.setColor(ContextCompat.getColor(this, R.color.blue));
         dataSet.setLineWidth(2.5f);
         dataSet.setCircleRadius(4f);
         return dataSet;

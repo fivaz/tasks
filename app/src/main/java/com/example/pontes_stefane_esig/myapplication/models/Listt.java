@@ -3,7 +3,6 @@ package com.example.pontes_stefane_esig.myapplication.models;
 import android.content.Context;
 
 import com.example.pontes_stefane_esig.myapplication.daos.CardDAO;
-import com.example.pontes_stefane_esig.myapplication.daos.CurrentStateDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,13 +76,6 @@ public class Listt extends Model {
             card.setPosition(i);
             card.setListt_id(id);
             dao.update(card);
-            //TODO WIP
-//            if(isDone){
-//                new CurrentState();
-//
-//                CurrentStateDAO currentStateDAO = new CurrentStateDAO(context);
-//                currentStateDAO.insert(currentState);
-//            }
         }
         dao.close();
     }

@@ -20,11 +20,12 @@ public class ProjectFormHelper {
     private final EditText inputEndDate;
     private final EditText inputEndTime;
     private Project project;
-    private DateFormat dateFormat;
+
+    public static String datePattern = "dd/MM/yyyy";
+    public static String timePattern = "HH:mm";
+    public static String dateTimePattern = datePattern + " " + timePattern;
 
     public ProjectFormHelper(AppCompatActivity context) {
-        dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm", Locale.FRENCH);
-
         inputName = context.findViewById(R.id.et_project_name);
         inputStartDate = context.findViewById(R.id.et_start_date);
         inputStartTime = context.findViewById(R.id.et_start_time);
@@ -34,10 +35,11 @@ public class ProjectFormHelper {
     }
 
     public Project getProject() {
+        DateFormat dateTimeFormat = new SimpleDateFormat(dateTimePattern, Locale.FRENCH);
         try {
-            Date start_date_formatted = dateFormat.parse(inputStartDate.getText().toString() + " " + inputStartTime.getText().toString());
+            Date start_date_formatted = dateTimeFormat.parse(inputStartDate.getText().toString() + " " + inputStartTime.getText().toString());
 
-            Date end_date_formatted = dateFormat.parse(inputEndDate.getText().toString() + " " + inputEndTime.getText().toString());
+            Date end_date_formatted = dateTimeFormat.parse(inputEndDate.getText().toString() + " " + inputEndTime.getText().toString());
 
             project.setName(inputName.getText().toString());
             project.setStart_at(start_date_formatted);
@@ -50,10 +52,10 @@ public class ProjectFormHelper {
     }
 
     public void setProject(Project project) {
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.FRENCH);
-        DateFormat timeFormat = new SimpleDateFormat("hh:mm", Locale.FRENCH);
-
         inputName.setText(project.getName());
+
+        DateFormat dateFormat = new SimpleDateFormat(datePattern, Locale.FRENCH);
+        DateFormat timeFormat = new SimpleDateFormat(timePattern, Locale.FRENCH);
 
         inputStartDate.setText(dateFormat.format(project.getStart_at()));
         inputStartTime.setText(timeFormat.format(project.getStart_at()));

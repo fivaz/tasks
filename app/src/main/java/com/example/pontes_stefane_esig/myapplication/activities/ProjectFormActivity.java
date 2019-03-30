@@ -91,11 +91,10 @@ public class ProjectFormActivity extends AppCompatActivity implements View.OnCli
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                     new DatePickerDialog.OnDateSetListener() {
-
                         @Override
                         public void onDateSet(DatePicker view, int year,
                                               int monthOfYear, int dayOfMonth) {
-                            etDatePickerStart.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                            etDatePickerStart.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                         }
                     }, mYear, mMonth, mDay);
             datePickerDialog.show();
@@ -111,7 +110,6 @@ public class ProjectFormActivity extends AppCompatActivity implements View.OnCli
                         @Override
                         public void onTimeSet(TimePicker view, int hourOfDay,
                                               int minute) {
-
                             etTimePickerStart.setText(hourOfDay + ":" + minute);
                         }
                     }, mHour, mMinute, false);
@@ -130,7 +128,7 @@ public class ProjectFormActivity extends AppCompatActivity implements View.OnCli
                         @Override
                         public void onDateSet(DatePicker view, int year,
                                               int monthOfYear, int dayOfMonth) {
-                            etDatePickerEnd.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                            etDatePickerEnd.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                         }
                     }, mYear, mMonth, mDay);
             datePickerDialog.show();
@@ -144,9 +142,7 @@ public class ProjectFormActivity extends AppCompatActivity implements View.OnCli
             TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                     new TimePickerDialog.OnTimeSetListener() {
                         @Override
-                        public void onTimeSet(TimePicker view, int hourOfDay,
-                                              int minute) {
-
+                        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                             etTimePickerEnd.setText(hourOfDay + ":" + minute);
                         }
                     }, mHour, mMinute, false);
