@@ -7,13 +7,28 @@
     android:orientation="vertical"
     tools:context="com.example.pontes_stefane_esig.myapplication.activities.ProjectActivity">
 
-    <TextView
-        android:id="@+id/tv_project_info"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Text"
-        android:textSize="30sp" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_project_info"
+            android:layout_width="326dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Text"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/tv_current_time_part"
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="1"
+            android:textSize="30sp" />
+
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_listts"
