@@ -6,15 +6,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.adapters.ListtAdapter;
 import com.example.pontes_stefane_esig.myapplication.daos.CardDAO;
+import com.example.pontes_stefane_esig.myapplication.daos.CurrentStateDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.ListtDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
 import com.example.pontes_stefane_esig.myapplication.helpers.MyItemTouchHelperCallback;
+import com.example.pontes_stefane_esig.myapplication.models.CurrentState;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
 
@@ -43,7 +46,29 @@ public class ProjectActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         refreshView();
+        updateCurrentState();
     }
+
+    private void updateCurrentState() {
+        if (checkNewCurrentState())
+            addNewCurrentState();
+        else
+            Log.e("A P#updateCurrentState", "there is no new current state yet");
+    }
+
+    private void addNewCurrentState() {
+        CurrentState currentState = project.buildNewCurrentState();
+        CurrentStateDAO dao = new CurrentStateDAO(this);
+        dao.insert(currentState);
+    }
+
+    private boolean checkNewCurrentState() {
+        CurrentStateDAO dao = new CurrentStateDAO(this);
+        int lastTimeBlock = dao.getLastTimeBlock(project);
+        Log.e("A P#checkNewCurrentS", "lastTimeBlock: " + lastTimeBlock);
+        return (lastTimeBlock < project.getCurrentTimeBlock());
+    }
+
 
     void refreshView() {
         loadAll();
