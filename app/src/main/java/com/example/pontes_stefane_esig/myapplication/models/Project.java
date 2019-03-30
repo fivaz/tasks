@@ -1,5 +1,7 @@
 package com.example.pontes_stefane_esig.myapplication.models;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -62,8 +64,21 @@ public class Project extends Model {
         return total;
     }
 
+    public String formatDate(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy HH:mm:ss");
+        return dateFormat.format(date);
+    }
+
     @Override
     public String toString() {
         return name;
+    }
+    private double getPointsDone() {
+        for (Listt listt : listts) {
+            if (listt.isDone()) {
+                return listt.getTotal();
+            }
+        }
+        return 0;
     }
 }
