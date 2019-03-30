@@ -42,4 +42,14 @@ public class CurrentState  extends Model {
     public void setProject_id(long project_id) {
         this.project_id = project_id;
     }
+
+    @Override
+    public String toString() {
+        return "CurrentState{" +
+                "pointsDone=" + pointsDone +
+                ", timePart=" + timePart +
+                ", project_id=" + project_id +
+                ", id=" + id +
+                '}';
+    }
 }

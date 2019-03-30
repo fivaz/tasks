@@ -1,5 +1,6 @@
 package com.example.pontes_stefane_esig.myapplication.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -7,6 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.pontes_stefane_esig.myapplication.R;
+import com.example.pontes_stefane_esig.myapplication.daos.CurrentStateDAO;
+import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
+import com.example.pontes_stefane_esig.myapplication.models.CurrentState;
+import com.example.pontes_stefane_esig.myapplication.models.Project;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -17,8 +22,6 @@ import com.github.mikephil.charting.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Arrays.asList;
-
 public class BurnDownChartActivity extends AppCompatActivity {
 
     @Override
@@ -26,9 +29,19 @@ public class BurnDownChartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_burn_down_chart);
 
-        int timeParts = 4;
-        float totalPoints = 200f;
-        List<Float> points_done = asList(0f, 120f, 150f);
+        Intent intent = getIntent();
+        long project_id = intent.getLongExtra("project_id", 0);
+        float totalPoints = (float) intent.getDoubleExtra("project_total", 0);
+        ProjectDAO projectDAO = new ProjectDAO(this);
+        Project project = projectDAO.get(project_id);
+        int timeParts = 5;
+
+        CurrentStateDAO currentStateDAO = new CurrentStateDAO(this);
+        List<CurrentState> currentStates = currentStateDAO.getAll(project);
+
+        List<Float> points_done = new ArrayList<>();
+        for (CurrentState currentState : currentStates)
+            points_done.add((float) currentState.getPointsDone());
 
         buildBurnDownChart(points_done, totalPoints, timeParts);
     }
@@ -52,7 +65,7 @@ public class BurnDownChartActivity extends AppCompatActivity {
     @NonNull
     private LineDataSet buildActualDataSet(List<Float> points_done, float totalPoints, int timeParts) {
         List<Float> actualData = buildActualData(points_done, totalPoints, timeParts);
-        Log.e("actualData :", actualData.toString());
+        Log.e("B A#buildActualDataSet", "actualData: " + actualData.toString());
         return buildDataSet(actualData, "actual task remaning", R.color.red);
     }
 
@@ -65,7 +78,7 @@ public class BurnDownChartActivity extends AppCompatActivity {
             float actualDatum = totalPoints - points_done.get(i);
             actualData.add(actualDatum);
         }
-        while (actualData.size() < timeParts+1) {
+        while (actualData.size() < timeParts + 1) {
             float actualDatum = totalPoints - points_done.get(i - 1);
             actualData.add(actualDatum);
         }
@@ -81,7 +94,6 @@ public class BurnDownChartActivity extends AppCompatActivity {
 
         LineDataSet dataSet = new LineDataSet(entries, label);
 
-//        dataSet.setColor(getResources().getColor(color));
         dataSet.setColor(ContextCompat.getColor(this, color));
         dataSet.setLineWidth(2.5f);
         dataSet.setCircleRadius(4f);
@@ -105,7 +117,6 @@ public class BurnDownChartActivity extends AppCompatActivity {
 
         LineDataSet dataSet = new LineDataSet(entries, "ideal task remaning");
 
-//        dataSet.setColor(getResources().getColor(R.color.blue));
         dataSet.setColor(ContextCompat.getColor(this, R.color.blue));
         dataSet.setLineWidth(2.5f);
         dataSet.setCircleRadius(4f);

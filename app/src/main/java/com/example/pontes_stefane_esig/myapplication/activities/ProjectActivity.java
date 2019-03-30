@@ -21,6 +21,9 @@ import com.example.pontes_stefane_esig.myapplication.models.CurrentState;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class ProjectActivity extends AppCompatActivity {
 
     private RecyclerView rvLists;
@@ -50,7 +53,13 @@ public class ProjectActivity extends AppCompatActivity {
     }
 
     private void updateCurrentState() {
-        if (checkNewCurrentState())
+        Date now = Calendar.getInstance().getTime();
+
+        if (now.getTime() < project.getStart_at().getTime())
+            Log.e("A P#updateCurrentState", "your project hasn't started yet");
+        else if (now.getTime() > project.getEnd_at().getTime())
+            Log.e("A P#updateCurrentState", "your project has ended yet");
+        else if (checkNewCurrentState())
             addNewCurrentState();
         else
             Log.e("A P#updateCurrentState", "there is no new current state yet");
@@ -68,7 +77,6 @@ public class ProjectActivity extends AppCompatActivity {
         Log.e("A P#checkNewCurrentS", "lastTimeBlock: " + lastTimeBlock);
         return (lastTimeBlock < project.getCurrentTimeBlock());
     }
-
 
     void refreshView() {
         loadAll();
@@ -122,6 +130,8 @@ public class ProjectActivity extends AppCompatActivity {
     public void goToBurnDownChart(View view) {
         Intent intent = new Intent(this, BurnDownChartActivity.class);
         intent.putExtra("project_id", project.getId());
+
+        intent.putExtra("project_total", project.getTotal());
         startActivity(intent);
     }
 }
