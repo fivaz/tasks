@@ -71,9 +71,12 @@ public class ProjectActivity extends AppCompatActivity {
     }
 
     private void updateView() {
-        TextView tvProjectInfo = findViewById(R.id.tv_project_info);
+        TextView tvProjectName = findViewById(R.id.tv_project_name);
+        TextView tvProjectTotal = findViewById(R.id.tv_project_total);
         TextView tvCurrentTimePart = findViewById(R.id.tv_current_time_part);
-        tvProjectInfo.setText(project.getName());
+
+        tvProjectName.setText(project.getName());
+        tvProjectTotal.setText(String.valueOf(project.getTotal()));
         tvCurrentTimePart.setText(String.valueOf(project.getCurrentTimeBlock()));
 
         ListtAdapter adapter = new ListtAdapter(this, project.getListts());
