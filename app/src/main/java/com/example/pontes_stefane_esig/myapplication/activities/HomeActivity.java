@@ -72,6 +72,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuItem edit = menu.add("Edit");
         MenuItem delete = menu.add("Delete");
+        menu.clear();
 
         edit.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override

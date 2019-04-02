@@ -1,17 +1,26 @@
 package com.example.pontes_stefane_esig.myapplication.adapters;
 
 import android.content.ClipData;
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
+import com.example.pontes_stefane_esig.myapplication.activities.HomeActivity;
+import com.example.pontes_stefane_esig.myapplication.activities.ProjectFormActivity;
+import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
 import com.example.pontes_stefane_esig.myapplication.models.Card;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
+import com.example.pontes_stefane_esig.myapplication.models.Project;
 
 import java.util.List;
 
@@ -34,6 +43,53 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
 
     void setCards(List<Card> cards) {
         listt.setCards(cards);
+    }
+
+    //ViewHolder
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener, View.OnClickListener {
+
+        TextView tvName;
+        FrameLayout flCard;
+
+        MyViewHolder(View view) {
+            super(view);
+            tvName = view.findViewById(R.id.tv_card_name);
+            flCard = view.findViewById(R.id.fl_card);
+
+            view.setOnCreateContextMenuListener(this);
+            view.setOnClickListener(this);
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View view,
+                                        final ContextMenu.ContextMenuInfo menuInfo) {
+//            menu.setHeaderTitle("Select");
+            menu.clear();
+            MenuItem edit = menu.add(0, view.getId(), getAdapterPosition(), "Edit");
+            MenuItem delete = menu.add(0, view.getId(), getAdapterPosition(), "Delete");
+
+//            edit.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//                @Override
+//                public boolean onMenuItemClick(MenuItem menuItem) {
+//
+//                    return false;
+//                }
+//            });
+//
+            delete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem menuItem) {
+                    View.OnContextClickListener menuInfo1 = (RecyclerView.OnContextClickListener) menuInfo;
+//                    Log.e("CA#onCreateContextMenu", "position du card: "+position);
+                    return false;
+                }
+            });
+        }
+
+        @Override
+        public void onClick(View view) {
+            view.showContextMenu();
+        }
     }
 
     @Override
@@ -68,18 +124,5 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
             view.startDrag(data, shadowBuilder, view, 0);
         }
         return true;
-    }
-
-    //ViewHolder
-    class MyViewHolder extends RecyclerView.ViewHolder {
-
-        TextView tvName;
-        FrameLayout flCard;
-
-        MyViewHolder(View view) {
-            super(view);
-            tvName = view.findViewById(R.id.tv_card_name);
-            flCard = view.findViewById(R.id.fl_card);
-        }
     }
 }

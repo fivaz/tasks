@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -24,8 +25,7 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
     private Context context;
     private List<Listt> listts;
 
-    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener, View.OnClickListener {
-
+    class MyViewHolder extends RecyclerView.ViewHolder {
         View view;
         TextView tvName;
         TextView tvTotal;
@@ -43,24 +43,6 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
             rvCards.setHasFixedSize(true);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
             rvCards.setLayoutManager(layoutManager);
-
-            view.setOnCreateContextMenuListener(this);
-
-            view.setOnClickListener(this);
-        }
-
-        @Override
-        public void onCreateContextMenu(ContextMenu contextMenu, View view,
-                                        ContextMenu.ContextMenuInfo contextMenuInfo) {
-
-            contextMenu.setHeaderTitle("Select");
-            contextMenu.add(0, view.getId(), 0, "Call");
-            contextMenu.add(0, view.getId(), 0, "SMS");
-        }
-
-        @Override
-        public void onClick(View view) {
-            view.showContextMenu();
         }
     }
 
