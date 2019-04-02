@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
     private Context context;
     private List<Listt> listts;
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
 
         View view;
         TextView tvName;
@@ -30,7 +31,7 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
         RecyclerView rvCards;
         Button btNewCard;
 
-        MyViewHolder(View view) {
+        MyViewHolder(View view){
             super(view);
             this.view = view;
             tvName = view.findViewById(R.id.tv_name);
@@ -41,6 +42,17 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
             rvCards.setHasFixedSize(true);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
             rvCards.setLayoutManager(layoutManager);
+
+            view.setOnCreateContextMenuListener(this);
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu contextMenu, View view,
+                                        ContextMenu.ContextMenuInfo contextMenuInfo) {
+
+            contextMenu.setHeaderTitle("Select");
+            contextMenu.add(0, view.getId(), 0, "Call");
+            contextMenu.add(0, view.getId(), 0, "SMS");
         }
     }
 
@@ -76,6 +88,8 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
                 context.startActivity(intent);
             }
         });
+
+
     }
 
     @Override
