@@ -14,11 +14,27 @@ import java.util.List;
 
 public class ListtDAO extends DAO {
 
+    private final String TABLE_NAME = TB_LISTT_NAME;
+
+    //TODO put this in the class DAO as protected
+    private final String SELECT_STATEMENT = "SELECT * FROM " + TABLE_NAME;
+    private final String SELECT_FROM_STATEMENT = SELECT_STATEMENT + " WHERE id = %d";
+
     private Context context;
 
     public ListtDAO(Context context) {
         super(context);
         this.context = context;
+    }
+
+    public Listt get(long id) {
+        SQLiteDatabase db = getReadableDatabase();
+        String sql = String.format(SELECT_FROM_STATEMENT, id);
+        Cursor cursor = db.rawQuery(sql, null);
+        cursor.moveToFirst();
+        Listt listt = buildListt(cursor);
+        cursor.close();
+        return listt;
     }
 
     public List<Listt> getAll(Project project) {

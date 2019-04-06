@@ -9,19 +9,25 @@ import com.example.pontes_stefane_esig.myapplication.models.Listt;
 public class ListtHelper {
 
     private final EditText inputName;
+    private Listt listt;
 
     public ListtHelper(AppCompatActivity context) {
         inputName = context.findViewById(R.id.et_listt_name);
+        listt = new Listt();
     }
 
     public Listt getListt() {
         String name = inputName.getText().toString();
-
-        Listt listt = new Listt(name);
+        listt.setName(name);
 
         if (name.equals("DONE"))
             listt.setDone(true);
 
         return listt;
+    }
+
+    public void setListt(Listt listt) {
+        inputName.setText(listt.getName());
+        this.listt = listt;
     }
 }

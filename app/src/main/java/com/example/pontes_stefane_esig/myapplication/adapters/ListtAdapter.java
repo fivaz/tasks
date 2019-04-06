@@ -1,6 +1,8 @@
 package com.example.pontes_stefane_esig.myapplication.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.activities.CardFormActivity;
+import com.example.pontes_stefane_esig.myapplication.activities.ListtFormActivity;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 
 import java.util.Collections;
@@ -69,14 +72,39 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
         holder.btNewCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, CardFormActivity.class);
-                intent.putExtra("listt_id", listt.getId());
-                intent.putExtra("position", listt.getCards().size());
-                context.startActivity(intent);
+
+                final CharSequence[] options = {"New Card", "Edit", "Delete"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setItems(options, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        switch (item) {
+                            case 0:
+                                newCardForm(listt);
+                                break;
+                            case 1:
+                                updateListtForm(listt.getId());
+                                break;
+                        }
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         });
+    }
 
+    private void updateListtForm(long listtId) {
+        Intent intent = new Intent(context, ListtFormActivity.class);
+        intent.putExtra("listt_id", listtId);
+        context.startActivity(intent);
+    }
 
+    private void newCardForm(Listt listt) {
+        Intent intent = new Intent(context, CardFormActivity.class);
+        intent.putExtra("listt_id", listt.getId());
+        intent.putExtra("position", listt.getCards().size());
+        context.startActivity(intent);
     }
 
     @Override

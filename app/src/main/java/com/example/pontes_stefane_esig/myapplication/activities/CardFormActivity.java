@@ -29,11 +29,9 @@ public class CardFormActivity extends AppCompatActivity {
         long card_id = intent.getLongExtra("card_id", 0);
 
         if (card_id == 0) {
-
             listt_id = intent.getLongExtra("listt_id", 0);
             position = intent.getIntExtra("position", 0);
         } else {
-
             CardDAO dao = new CardDAO(this);
             Card card = dao.get(card_id);
             helper.setCard(card);
@@ -42,12 +40,14 @@ public class CardFormActivity extends AppCompatActivity {
 
     public void cardSubmit(View view) {
         Card card = helper.getCard();
+        CardDAO dao = new CardDAO(this);
+
         if (card.getId() == 0) {
             card.setListt_id(listt_id);
             card.setPosition(position);
-        }
-        CardDAO dao = new CardDAO(this);
-        dao.insert(card);
+            dao.insert(card);
+        } else
+            dao.update(card);
         dao.close();
 
         Toast.makeText(this, card.toString(), Toast.LENGTH_SHORT).show();

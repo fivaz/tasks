@@ -17,6 +17,10 @@ public class Listt extends Model {
 
     private Context context;
 
+    public Listt() {
+
+    }
+
     public Listt(String name) {
         this.name = name;
         cards = new ArrayList<>();
