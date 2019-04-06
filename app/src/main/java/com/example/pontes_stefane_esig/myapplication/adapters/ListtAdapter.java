@@ -15,11 +15,10 @@ import android.widget.TextView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.activities.CardFormActivity;
+import com.example.pontes_stefane_esig.myapplication.activities.ProjectActivity;
 import com.example.pontes_stefane_esig.myapplication.daos.CardDAO;
 import com.example.pontes_stefane_esig.myapplication.models.Card;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
-
-import java.util.List;
 
 public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder>
         implements View.OnLongClickListener {
@@ -29,19 +28,20 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
     private final Context context;
     private Listt listt;
 
-    public ListtAdapter(Listt listt, ProjectAdapter projectAdapter, int listtPosition, Context context) {
+    ListtAdapter(Listt listt, ProjectAdapter projectAdapter, int listtPosition, Context context) {
         this.listt = listt;
         this.projectAdapter = projectAdapter;
         this.listtPosition = listtPosition;
         this.context = context;
     }
 
-    List<Card> getCards() {
-        return listt.getCards();
+    public Listt getListt() {
+        return listt;
     }
 
-    void setCards(List<Card> cards) {
-        listt.setCards(cards);
+    void updateBurnDownChart() {
+        ProjectActivity projectActivity = (ProjectActivity) context;
+        projectActivity.checkCurrentState();
     }
 
     //ViewHolder

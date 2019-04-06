@@ -31,12 +31,12 @@ public class DragListener implements View.OnDragListener {
                     ListtAdapter adapterSource = (ListtAdapter) source.getAdapter();
                     int positionSource = (int) viewSource.getTag();
 
-                    Card card = adapterSource.getCards().get(positionSource);
-                    List<Card> listSource = adapterSource.getCards();
+                    Card card = adapterSource.getListt().getCards().get(positionSource);
+                    List<Card> listSource = adapterSource.getListt().getCards();
 
                     //remove the card from its current list
                     listSource.remove(positionSource);
-                    adapterSource.setCards(listSource);
+                    adapterSource.getListt().setCards(listSource);
                     adapterSource.notifyDataSetChanged();
 
                     //target
@@ -54,7 +54,7 @@ public class DragListener implements View.OnDragListener {
                     }
 
                     ListtAdapter adapterTarget = (ListtAdapter) target.getAdapter();
-                    List<Card> customListTarget = adapterTarget.getCards();
+                    List<Card> customListTarget = adapterTarget.getListt().getCards();
 
                     //add the card to its new list
                     if (positionTarget >= 0)
@@ -62,8 +62,10 @@ public class DragListener implements View.OnDragListener {
                     else
                         customListTarget.add(card);
 
-                    adapterTarget.setCards(customListTarget);
+                    adapterTarget.getListt().setCards(customListTarget);
                     adapterTarget.notifyDataSetChanged();
+
+                    adapterTarget.updateBurnDownChart();
 
                     //update totals
                     View rvItemListt = (View) source.getParent();

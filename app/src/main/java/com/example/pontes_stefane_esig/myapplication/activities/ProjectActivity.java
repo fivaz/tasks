@@ -52,7 +52,7 @@ public class ProjectActivity extends AppCompatActivity {
         checkCurrentState();
     }
 
-    private void checkCurrentState() {
+    public void checkCurrentState() {
         Date now = Calendar.getInstance().getTime();
         //TODO check it later
         if (now.getTime() > project.getEnd_at().getTime())
