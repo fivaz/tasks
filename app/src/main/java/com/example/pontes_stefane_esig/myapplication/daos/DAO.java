@@ -6,11 +6,20 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DAO extends SQLiteOpenHelper {
 
+    static final String TB_USER_NAME = "user";
     static final String TB_PROJECT_NAME = "project";
     static final String TB_LISTT_NAME = "listt";
     static final String TB_CARD_NAME = "card";
     static final String TB_CURRENT_STATE_NAME = "current_state";
 
+    private final String CREATE_TABLE_USER_STATEMENT =
+            "CREATE TABLE " + TB_USER_NAME + " (" +
+                    "id INTEGER PRIMARY KEY, " +
+                    "first_name TEXT NOT NULL," +
+                    "last_name DATETIME NOT NULL," +
+                    "email DATETIME NOT NULL," +
+                    "password DATETIME NOT NULL," +
+                    ")";
     private final String CREATE_TABLE_PROJECT_STATEMENT =
             "CREATE TABLE " + TB_PROJECT_NAME + " (" +
                     "id INTEGER PRIMARY KEY, " +
@@ -50,16 +59,17 @@ public class DAO extends SQLiteOpenHelper {
     private final String DROP_STATEMENT = "DROP TABLE IF EXISTS ";
 
     DAO(Context context) {
-        super(context, "trello", null, 10);
+        super(context, "trello", null, 11);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         System.out.println("Creating tables");
+        db.execSQL(CREATE_TABLE_USER_STATEMENT);
         db.execSQL(CREATE_TABLE_PROJECT_STATEMENT);
+        db.execSQL(CREATE_TABLE_CURRENT_STATE_STATEMENT);
         db.execSQL(CREATE_TABLE_LISTT_STATEMENT);
         db.execSQL(CREATE_TABLE_CARD_STATEMENT);
-        db.execSQL(CREATE_TABLE_CURRENT_STATE_STATEMENT);
     }
 
     @Override
@@ -72,7 +82,8 @@ public class DAO extends SQLiteOpenHelper {
     private void dropAll(SQLiteDatabase db) {
         db.execSQL(DROP_STATEMENT + TB_CARD_NAME);
         db.execSQL(DROP_STATEMENT + TB_LISTT_NAME);
-        db.execSQL(DROP_STATEMENT + TB_PROJECT_NAME);
         db.execSQL(DROP_STATEMENT + TB_CURRENT_STATE_NAME);
+        db.execSQL(DROP_STATEMENT + TB_PROJECT_NAME);
+        db.execSQL(DROP_STATEMENT + TB_USER_NAME);
     }
 }
