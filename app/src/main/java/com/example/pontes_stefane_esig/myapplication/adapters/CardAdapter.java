@@ -2,6 +2,7 @@ package com.example.pontes_stefane_esig.myapplication.adapters;
 
 import android.content.ClipData;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
@@ -13,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
+import com.example.pontes_stefane_esig.myapplication.activities.CardFormActivity;
 import com.example.pontes_stefane_esig.myapplication.daos.CardDAO;
 import com.example.pontes_stefane_esig.myapplication.models.Card;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
@@ -61,24 +63,27 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
         @Override
         public void onCreateContextMenu(ContextMenu menu, View view,
                                         final ContextMenu.ContextMenuInfo menuInfo) {
-//            menu.setHeaderTitle("Select");
-//            menu.clear();
+            //TODO check if these view.getId and getAdapterPosition are really useful
             MenuItem edit = menu.add(0, view.getId(), getAdapterPosition(), "Edit");
             MenuItem delete = menu.add(0, view.getId(), getAdapterPosition(), "Delete");
 
-//            edit.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//                @Override
-//                public boolean onMenuItemClick(MenuItem menuItem) {
-//
-//                    return false;
-//                }
-//            });
-//
+            edit.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem menuItem) {
+                    if (card != null) {
+                        Intent intent = new Intent(context, CardFormActivity.class);
+                        intent.putExtra("card_id", card.getId());
+                        context.startActivity(intent);
+                    }
+                    return false;
+                }
+            });
+
             delete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem menuItem) {
                     //TODO remove this check later
-                    if(card != null){
+                    if (card != null) {
                         //TODO maybe I should just use the position to find the Card,
                         //TODO instead of getting the card from a setCard
                         CardDAO dao = new CardDAO(context);

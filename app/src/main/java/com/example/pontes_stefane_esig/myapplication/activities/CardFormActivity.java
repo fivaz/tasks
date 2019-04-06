@@ -1,5 +1,6 @@
 package com.example.pontes_stefane_esig.myapplication.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,19 +15,37 @@ public class CardFormActivity extends AppCompatActivity {
 
     private long listt_id;
     private int position;
+    CardHelper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_form);
-        listt_id = getIntent().getLongExtra("listt_id", 0);
-        position = getIntent().getIntExtra("position", 0);
+
+        helper = new CardHelper(this);
+
+        Intent intent = getIntent();
+
+        long card_id = intent.getLongExtra("card_id", 0);
+
+        if (card_id == 0) {
+
+            listt_id = intent.getLongExtra("listt_id", 0);
+            position = intent.getIntExtra("position", 0);
+        } else {
+
+            CardDAO dao = new CardDAO(this);
+            Card card = dao.get(card_id);
+            helper.setCard(card);
+        }
     }
 
     public void cardSubmit(View view) {
-        Card card = new CardHelper(this).getCard();
-        card.setListt_id(listt_id);
-        card.setPosition(position);
+        Card card = helper.getCard();
+        if (card.getId() == 0) {
+            card.setListt_id(listt_id);
+            card.setPosition(position);
+        }
         CardDAO dao = new CardDAO(this);
         dao.insert(card);
         dao.close();

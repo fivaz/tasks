@@ -15,9 +15,21 @@ import java.util.List;
 public class CardDAO extends DAO {
 
     private final String TABLE_NAME = TB_CARD_NAME;
+    private final String SELECT_STATEMENT = "SELECT * FROM " + TABLE_NAME;
+    private final String SELECT_FROM_STATEMENT = SELECT_STATEMENT + " WHERE id = %d";
 
     public CardDAO(Context context) {
         super(context);
+    }
+
+    public Card get(long id) {
+        SQLiteDatabase db = getReadableDatabase();
+        String sql = String.format(SELECT_FROM_STATEMENT, id);
+        Cursor cursor = db.rawQuery(sql, null);
+        cursor.moveToFirst();
+        Card card = buildCard(cursor);
+        cursor.close();
+        return card;
     }
 
     //TODO use prepared statements

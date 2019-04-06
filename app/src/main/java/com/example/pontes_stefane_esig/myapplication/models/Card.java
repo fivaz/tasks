@@ -7,6 +7,10 @@ public class Card extends Model {
     private int position;
     private long listt_id;
 
+    public Card(){
+
+    }
+
     public Card(String name, double points) {
         this.name = name;
         this.points = points;
