@@ -38,7 +38,7 @@ public class ListtDAO extends DAO {
     }
 
     public List<Listt> getAll(Project project) {
-        String sql = "SELECT * FROM " + TB_LISTT_NAME + " WHERE project_id = " + project.getId() + " ORDER BY POSITION ASC";
+        String sql = "SELECT * FROM " + TB_LISTT_NAME + " WHERE project_id = " + project.getId() + " AND isArchived = 0 ORDER BY POSITION ASC";
         SQLiteDatabase db = getReadableDatabase();
         List<Listt> listts = new ArrayList<>();
         Cursor cursor = db.rawQuery(sql, null);
@@ -72,13 +72,15 @@ public class ListtDAO extends DAO {
         data.put("name", listt.getName());
         data.put("position", listt.getPosition());
         data.put("isDone", listt.isDone());
+        data.put("isArchived", listt.isArchived());
         data.put("project_id", listt.getProject_id());
         return data;
     }
 
     public void delete(Listt listt) {
         SQLiteDatabase db = getWritableDatabase();
-        db.delete(TB_LISTT_NAME, "id = ?", getPK(listt));
+        listt.setArchived(true);
+        db.update(TB_LISTT_NAME, getValues(listt), "id = ?", getPK(listt));
     }
 
     @NonNull
