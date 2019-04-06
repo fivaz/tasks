@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.activities.CardFormActivity;
 import com.example.pontes_stefane_esig.myapplication.activities.ListtFormActivity;
+import com.example.pontes_stefane_esig.myapplication.daos.ListtDAO;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 
 import java.util.Collections;
@@ -85,6 +86,9 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
                             case 1:
                                 updateListtForm(listt.getId());
                                 break;
+                            case 2:
+                                deleteListt(listt, position);
+                                break;
                         }
                     }
                 });
@@ -94,17 +98,25 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
         });
     }
 
+    private void newCardForm(Listt listt) {
+        Intent intent = new Intent(context, CardFormActivity.class);
+        intent.putExtra("listt_id", listt.getId());
+        intent.putExtra("position", listt.getCards().size());
+        context.startActivity(intent);
+    }
+
     private void updateListtForm(long listtId) {
         Intent intent = new Intent(context, ListtFormActivity.class);
         intent.putExtra("listt_id", listtId);
         context.startActivity(intent);
     }
 
-    private void newCardForm(Listt listt) {
-        Intent intent = new Intent(context, CardFormActivity.class);
-        intent.putExtra("listt_id", listt.getId());
-        intent.putExtra("position", listt.getCards().size());
-        context.startActivity(intent);
+    private void deleteListt(Listt listt, int position) {
+        ListtDAO dao = new ListtDAO(context);
+        dao.delete(listt);
+        dao.close();
+        listts.remove(listt);
+        ListtAdapter.this.notifyItemRemoved(position);
     }
 
     @Override

@@ -36,7 +36,7 @@
             android:id="@+id/bt_new_card"
             android:layout_width="50sp"
             android:layout_height="50sp"
-            android:text="+" />
+            android:text="..." />
 
     </LinearLayout>
 
