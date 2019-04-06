@@ -15,10 +15,11 @@ import java.util.List;
 public class ListtDAO extends DAO {
 
     private final String TABLE_NAME = TB_LISTT_NAME;
-
     //TODO put this in the class DAO as protected
     private final String SELECT_STATEMENT = "SELECT * FROM " + TABLE_NAME;
-    private final String SELECT_FROM_STATEMENT = SELECT_STATEMENT + " WHERE id = %d";
+    private final String SELECT_WHERE = SELECT_STATEMENT + " WHERE id = %d";
+
+    private final String SELECT_ALL = SELECT_STATEMENT + " WHERE project_id = %d AND isArchived = 0 ORDER BY POSITION ASC";
 
     private Context context;
 
@@ -29,7 +30,7 @@ public class ListtDAO extends DAO {
 
     public Listt get(long id) {
         SQLiteDatabase db = getReadableDatabase();
-        String sql = String.format(SELECT_FROM_STATEMENT, id);
+        String sql = String.format(SELECT_WHERE, id);
         Cursor cursor = db.rawQuery(sql, null);
         cursor.moveToFirst();
         Listt listt = buildListt(cursor);
@@ -38,7 +39,7 @@ public class ListtDAO extends DAO {
     }
 
     public List<Listt> getAll(Project project) {
-        String sql = "SELECT * FROM " + TB_LISTT_NAME + " WHERE project_id = " + project.getId() + " AND isArchived = 0 ORDER BY POSITION ASC";
+        String sql = String.format(SELECT_ALL, project.getId());
         SQLiteDatabase db = getReadableDatabase();
         List<Listt> listts = new ArrayList<>();
         Cursor cursor = db.rawQuery(sql, null);

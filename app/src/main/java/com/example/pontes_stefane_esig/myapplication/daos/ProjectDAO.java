@@ -16,7 +16,8 @@ import java.util.List;
 public class ProjectDAO extends DAO {
 
     private final String SELECT_STATEMENT = "SELECT * FROM " + TB_PROJECT_NAME;
-    private final String SELECT_FROM_STATEMENT = SELECT_STATEMENT + " WHERE id = %d";
+    private final String SELECT_WHERE = SELECT_STATEMENT + " WHERE id = %d";
+    private final String SELECT_ALL = SELECT_STATEMENT + " WHERE isArchived = 0";
 
     public ProjectDAO(Context context) {
         super(context);
@@ -24,7 +25,7 @@ public class ProjectDAO extends DAO {
 
     public Project get(long id) {
         SQLiteDatabase db = getReadableDatabase();
-        String sql = String.format(SELECT_FROM_STATEMENT, id);
+        String sql = String.format(SELECT_WHERE, id);
         Cursor cursor = db.rawQuery(sql, null);
         cursor.moveToFirst();
         Project project = buildProject(cursor);
@@ -34,7 +35,7 @@ public class ProjectDAO extends DAO {
 
     public List<Project> getAll() {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery(SELECT_STATEMENT, null);
+        Cursor cursor = db.rawQuery(SELECT_ALL, null);
         List<Project> projects = new ArrayList<>();
         while (cursor.moveToNext())
             projects.add(buildProject(cursor));
@@ -66,12 +67,14 @@ public class ProjectDAO extends DAO {
         data.put("name", project.getName());
         data.put("start_at", project.getStart_at().getTime());
         data.put("end_at", project.getEnd_at().getTime());
+        data.put("isArchived", project.isArchived());
         return data;
     }
 
     public void delete(Project project) {
         SQLiteDatabase db = getWritableDatabase();
-        db.delete(DAO.TB_PROJECT_NAME, "id = ?", getPK(project));
+        project.setArchived(true);
+        db.update(DAO.TB_PROJECT_NAME, getValues(project),"id = ?", getPK(project));
     }
 
     @NonNull

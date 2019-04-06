@@ -13,9 +13,11 @@ public class Project extends Model {
     private String name;
     private Date start_at;
     private Date end_at;
+    private boolean isArchived;
     private List<Listt> listts;
 
     public Project() {
+        isArchived = false;
         listts = new ArrayList<>();
     }
 
@@ -24,6 +26,7 @@ public class Project extends Model {
         this.name = name;
         this.start_at = start_at;
         this.end_at = end_at;
+        this.isArchived = false;
         listts = new ArrayList<>();
     }
 
@@ -49,6 +52,14 @@ public class Project extends Model {
 
     public void setEnd_at(Date end_at) {
         this.end_at = end_at;
+    }
+
+    public boolean isArchived() {
+        return isArchived;
+    }
+
+    public void setArchived(boolean archived) {
+        isArchived = archived;
     }
 
     public List<Listt> getListts() {
