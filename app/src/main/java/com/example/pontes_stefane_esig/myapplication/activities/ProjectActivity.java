@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
-import com.example.pontes_stefane_esig.myapplication.adapters.ListtAdapter;
+import com.example.pontes_stefane_esig.myapplication.adapters.ProjectAdapter;
 import com.example.pontes_stefane_esig.myapplication.daos.CardDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.CurrentStateDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.ListtDAO;
@@ -56,15 +56,17 @@ public class ProjectActivity extends AppCompatActivity {
         Date now = Calendar.getInstance().getTime();
         //TODO check it later
         if (now.getTime() > project.getEnd_at().getTime())
-            Log.e("A P#checkCurrentState", "your project has ended yet");
+            Log.e("A P#checkCurrentState", "your project has already ended");
         if (now.getTime() < project.getStart_at().getTime())
             Log.e("A P#checkCurrentState", "your project hasn't started yet");
-        else if (hasTimeBlockChanged())
-            addNewCurrentState();
-        else if (hasPointsDoneChanged())
-            updateCurrentState();
-        else
-            Log.e("A P#checkCurrentState", "there is no new current state yet");
+        else {
+            if (hasTimeBlockChanged())
+                addNewCurrentState();
+            if (hasPointsDoneChanged())
+                updateCurrentState();
+            else
+                Log.e("A P#checkCurrentState", "there is no new current state yet");
+        }
     }
 
     private void updateCurrentState() {
@@ -141,7 +143,7 @@ public class ProjectActivity extends AppCompatActivity {
         tvProjectTotal.setText(String.valueOf(project.getTotal()));
         tvCurrentTimePart.setText(String.valueOf(project.getCurrentTimeBlock()));
 
-        ListtAdapter adapter = new ListtAdapter(this, project.getListts());
+        ProjectAdapter adapter = new ProjectAdapter(this, project.getListts());
         rvLists.setAdapter(adapter);
 
         ItemTouchHelper.Callback callback = new MyItemTouchHelperCallback(adapter, "horizontal");

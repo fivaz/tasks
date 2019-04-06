@@ -11,11 +11,11 @@ import java.util.List;
 
 public class DragListener implements View.OnDragListener {
 
-    private final ListtAdapter targetListtAdapter;
+    private final ProjectAdapter targetProjectAdapter;
     private int targetListtPosition;
 
-    public DragListener(ListtAdapter targetListtAdapter, int targetListtPosition) {
-        this.targetListtAdapter = targetListtAdapter;
+    public DragListener(ProjectAdapter targetProjectAdapter, int targetListtPosition) {
+        this.targetProjectAdapter = targetProjectAdapter;
         this.targetListtPosition = targetListtPosition;
     }
 
@@ -28,7 +28,7 @@ public class DragListener implements View.OnDragListener {
                 if (view.getId() == R.id.fl_card || view.getId() == R.id.rv_cards) {
                     //source
                     RecyclerView source = (RecyclerView) viewSource.getParent();
-                    CardAdapter adapterSource = (CardAdapter) source.getAdapter();
+                    ListtAdapter adapterSource = (ListtAdapter) source.getAdapter();
                     int positionSource = (int) viewSource.getTag();
 
                     Card card = adapterSource.getCards().get(positionSource);
@@ -53,7 +53,7 @@ public class DragListener implements View.OnDragListener {
                         positionTarget = -1;
                     }
 
-                    CardAdapter adapterTarget = (CardAdapter) target.getAdapter();
+                    ListtAdapter adapterTarget = (ListtAdapter) target.getAdapter();
                     List<Card> customListTarget = adapterTarget.getCards();
 
                     //add the card to its new list
@@ -68,11 +68,11 @@ public class DragListener implements View.OnDragListener {
                     //update totals
                     View rvItemListt = (View) source.getParent();
                     RecyclerView rvListt = (RecyclerView) rvItemListt.getParent();
-                    ListtAdapter sourceListtAdapter = (ListtAdapter) rvListt.getAdapter();
+                    ProjectAdapter sourceProjectAdapter = (ProjectAdapter) rvListt.getAdapter();
                     int sourceListtPosition = (int) rvItemListt.getTag();
-                    sourceListtAdapter.notifyItemChanged(sourceListtPosition);
+                    sourceProjectAdapter.notifyItemChanged(sourceListtPosition);
 
-                    this.targetListtAdapter.notifyItemChanged(targetListtPosition);
+                    this.targetProjectAdapter.notifyItemChanged(targetListtPosition);
                 }
             } else {
                 viewSource.setVisibility(View.VISIBLE);
