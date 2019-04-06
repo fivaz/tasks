@@ -4,10 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -65,7 +62,7 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
         holder.tvTotal.setText(String.valueOf(listt.getTotal()));
         holder.view.setTag(position);
 
-        CardAdapter adapter = new CardAdapter(listt, this, position);
+        CardAdapter adapter = new CardAdapter(listt, this, position, context);
         holder.rvCards.setAdapter(adapter);
         holder.rvCards.setOnDragListener(new DragListener(this, position));
 

@@ -1,9 +1,9 @@
 package com.example.pontes_stefane_esig.myapplication.adapters;
 
 import android.content.ClipData;
+import android.content.Context;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
+import com.example.pontes_stefane_esig.myapplication.daos.CardDAO;
 import com.example.pontes_stefane_esig.myapplication.models.Card;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 
@@ -23,12 +24,14 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
 
     private final ListtAdapter listtAdapter;
     private final int listtPosition;
+    private final Context context;
     private Listt listt;
 
-    public CardAdapter(Listt listt, ListtAdapter listtAdapter, int listtPosition) {
+    public CardAdapter(Listt listt, ListtAdapter listtAdapter, int listtPosition, Context context) {
         this.listt = listt;
         this.listtAdapter = listtAdapter;
         this.listtPosition = listtPosition;
+        this.context = context;
     }
 
     List<Card> getCards() {
@@ -74,12 +77,15 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
             delete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem menuItem) {
-                    Log.e("CA#onCreateContextMenu", "clické");
+                    //TODO remove this check later
                     if(card != null){
-                        Log.e("CA#onCreateContextMenu", card.toString());
+                        //TODO maybe I should just use the position to find the Card,
+                        //TODO instead of getting the card from a setCard
+                        CardDAO dao = new CardDAO(context);
+                        dao.delete(card);
+                        listt.getCards().remove(card);
+                        CardAdapter.this.notifyItemRemoved(((Integer) flCard.getTag()));
                     }
-//                    View.OnContextClickListener menuInfo1 = (RecyclerView.OnContextClickListener) menuInfo;
-//                    Log.e("CA#onCreateContextMenu", "position du card: "+position);
                     return false;
                 }
             });
