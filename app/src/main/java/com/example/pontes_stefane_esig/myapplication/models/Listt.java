@@ -13,16 +13,21 @@ public class Listt extends Model {
     private String name;
     private int position;
     private boolean isDone;
+    private boolean isArchived;
     private List<Card> cards;
 
     private Context context;
 
     public Listt() {
-
+        isDone = false;
+        isArchived = false;
+        cards = new ArrayList<>();
     }
 
     public Listt(String name) {
         this.name = name;
+        isDone = false;
+        this.isArchived = false;
         cards = new ArrayList<>();
     }
 
@@ -33,6 +38,7 @@ public class Listt extends Model {
         this.position = position;
         this.isDone = isDone;
         this.project_id = project_id;
+        this.isArchived = false;
         cards = new ArrayList<>();
     }
 
@@ -66,6 +72,14 @@ public class Listt extends Model {
 
     public void setDone(boolean done) {
         isDone = done;
+    }
+
+    public boolean isArchived() {
+        return isArchived;
+    }
+
+    public void setArchived(boolean archived) {
+        isArchived = archived;
     }
 
     public List<Card> getCards() {

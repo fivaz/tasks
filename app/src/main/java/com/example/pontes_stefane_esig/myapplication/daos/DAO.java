@@ -16,7 +16,8 @@ public class DAO extends SQLiteOpenHelper {
                     "id INTEGER PRIMARY KEY, " +
                     "name TEXT NOT NULL," +
                     "start_at DATETIME NOT NULL," +
-                    "end_at DATETIME NOT NULL" +
+                    "end_at DATETIME NOT NULL," +
+                    "isArchived TINYINT DEFAULT 0" +
                     ")";
     private final String CREATE_TABLE_LISTT_STATEMENT =
             "CREATE TABLE " + TB_LISTT_NAME + " (" +
@@ -25,6 +26,7 @@ public class DAO extends SQLiteOpenHelper {
                     "position INT NOT NULL, " +
                     "project_id INTEGER," +
                     "isDone TINYINT DEFAULT 0," +
+                    "isArchived TINYINT DEFAULT 0," +
                     "FOREIGN KEY(project_id) REFERENCES " + TB_PROJECT_NAME + "(id)" +
                     ")";
     private final String CREATE_TABLE_CARD_STATEMENT =
@@ -48,7 +50,7 @@ public class DAO extends SQLiteOpenHelper {
     private final String DROP_STATEMENT = "DROP TABLE IF EXISTS ";
 
     DAO(Context context) {
-        super(context, "trello", null, 9);
+        super(context, "trello", null, 10);
     }
 
     @Override
