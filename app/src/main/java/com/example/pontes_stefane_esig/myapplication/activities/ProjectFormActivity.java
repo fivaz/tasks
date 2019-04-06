@@ -33,6 +33,7 @@ public class ProjectFormActivity extends AppCompatActivity implements View.OnCli
     private EditText etDatePickerEnd;
     private EditText etTimePickerEnd;
 
+    //TODO when I'm updating, the time that is shown is the current time, not the previous time set
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

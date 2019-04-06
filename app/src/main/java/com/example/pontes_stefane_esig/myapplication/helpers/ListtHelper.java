@@ -20,8 +20,10 @@ public class ListtHelper {
         String name = inputName.getText().toString();
         listt.setName(name);
 
-        if (name.equals("DONE"))
+        if (name.equalsIgnoreCase("done"))
             listt.setDone(true);
+        else
+            listt.setDone(false);
 
         return listt;
     }
