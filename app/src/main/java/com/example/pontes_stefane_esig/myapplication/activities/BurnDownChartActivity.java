@@ -87,7 +87,7 @@ public class BurnDownChartActivity extends AppCompatActivity {
     private LineDataSet buildActualDataSet(List<Float> points_done, float totalPoints/*, int timeParts*/) {
         List<Float> actualData = buildActualData(points_done, totalPoints/*, timeParts*/);
         Log.e("B A#buildActualDataSet", "actualData: " + actualData.toString());
-        return buildDataSet(actualData, "actual task remaning", R.color.red);
+        return buildDataSet(actualData, "actual task remaning", R.color.actual);
     }
 
     @NonNull
@@ -139,7 +139,7 @@ public class BurnDownChartActivity extends AppCompatActivity {
 
         LineDataSet dataSet = new LineDataSet(entries, "ideal task remaning");
 
-        dataSet.setColor(ContextCompat.getColor(this, R.color.blue));
+        dataSet.setColor(ContextCompat.getColor(this, R.color.ideal));
         dataSet.setLineWidth(2.5f);
         dataSet.setCircleRadius(4f);
         return dataSet;

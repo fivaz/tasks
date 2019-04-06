@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/listt_item"
@@ -44,7 +43,7 @@
         android:id="@+id/rv_cards"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent"
+        android:background="@color/cards_bg"
         android:minHeight="200dp" />
 
 </LinearLayout>
