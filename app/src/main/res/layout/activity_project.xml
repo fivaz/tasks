@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.1"
             android:gravity="center"
-            android:text="1"
+            android:text="4"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp"
             android:textStyle="bold" />
@@ -54,7 +54,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_listts"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="450dp"
         android:scrollbars="vertical" />
 
     <Button
@@ -67,6 +67,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="goToBurnDownChart"
-        android:text="See BurnDown Chart" />
+        android:text="Voir BurnDown Chart" />
 
 </LinearLayout>
