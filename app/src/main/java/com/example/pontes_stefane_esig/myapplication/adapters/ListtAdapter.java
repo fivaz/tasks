@@ -48,12 +48,14 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener, View.OnClickListener {
 
         TextView tvName;
+        TextView tvPoints;
         FrameLayout flCard;
         private Card card;
 
         MyViewHolder(View view) {
             super(view);
             tvName = view.findViewById(R.id.tv_card_name);
+            tvPoints = view.findViewById(R.id.tv_card_points);
             flCard = view.findViewById(R.id.fl_card);
 
             view.setOnCreateContextMenuListener(this);
@@ -118,7 +120,8 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
         Card card = listt.getCards().get(position);
         holder.setCard(card);
         //TODO perform these methods inside MyViewHolder class
-        holder.tvName.setText(card.getName() + " - " + card.getPoints());
+        holder.tvName.setText(card.getName());
+        holder.tvPoints.setText(String.valueOf(card.getPoints()));
         holder.flCard.setTag(position);
         holder.flCard.setOnLongClickListener(this);
         holder.flCard.setOnDragListener(new DragListener(projectAdapter, listtPosition));
