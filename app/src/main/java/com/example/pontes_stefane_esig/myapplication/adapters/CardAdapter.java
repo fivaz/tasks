@@ -1,7 +1,6 @@
 package com.example.pontes_stefane_esig.myapplication.adapters;
 
 import android.content.ClipData;
-import android.content.Intent;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,17 +9,12 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
-import com.example.pontes_stefane_esig.myapplication.activities.HomeActivity;
-import com.example.pontes_stefane_esig.myapplication.activities.ProjectFormActivity;
-import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
 import com.example.pontes_stefane_esig.myapplication.models.Card;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
-import com.example.pontes_stefane_esig.myapplication.models.Project;
 
 import java.util.List;
 
@@ -50,6 +44,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
 
         TextView tvName;
         FrameLayout flCard;
+        private Card card;
 
         MyViewHolder(View view) {
             super(view);
@@ -64,7 +59,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
         public void onCreateContextMenu(ContextMenu menu, View view,
                                         final ContextMenu.ContextMenuInfo menuInfo) {
 //            menu.setHeaderTitle("Select");
-            menu.clear();
+//            menu.clear();
             MenuItem edit = menu.add(0, view.getId(), getAdapterPosition(), "Edit");
             MenuItem delete = menu.add(0, view.getId(), getAdapterPosition(), "Delete");
 
@@ -79,7 +74,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
             delete.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem menuItem) {
-                    View.OnContextClickListener menuInfo1 = (RecyclerView.OnContextClickListener) menuInfo;
+                    Log.e("CA#onCreateContextMenu", "clické");
+                    if(card != null){
+                        Log.e("CA#onCreateContextMenu", card.toString());
+                    }
+//                    View.OnContextClickListener menuInfo1 = (RecyclerView.OnContextClickListener) menuInfo;
 //                    Log.e("CA#onCreateContextMenu", "position du card: "+position);
                     return false;
                 }
@@ -89,6 +88,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
         @Override
         public void onClick(View view) {
             view.showContextMenu();
+        }
+
+        public void setCard(Card card) {
+            this.card = card;
         }
     }
 
@@ -102,6 +105,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.MyViewHolder>
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         Card card = listt.getCards().get(position);
+        holder.setCard(card);
+        //TODO perform these methods inside MyViewHolder class
         holder.tvName.setText(card.getName() + " - " + card.getPoints());
         holder.flCard.setTag(position);
         holder.flCard.setOnLongClickListener(this);

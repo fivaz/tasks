@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -55,7 +54,7 @@ public class ProjectActivity extends AppCompatActivity {
 
     private void checkCurrentState() {
         Date now = Calendar.getInstance().getTime();
-
+        //TODO check it later
         if (now.getTime() > project.getEnd_at().getTime())
             Log.e("A P#checkCurrentState", "your project has ended yet");
         if (now.getTime() < project.getStart_at().getTime())
