@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 
+import com.example.pontes_stefane_esig.myapplication.models.Listt;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
 
 import java.util.ArrayList;
@@ -13,14 +14,17 @@ import java.util.Date;
 import java.util.List;
 
 //TODO use prepared statements
+//TODO after update and insert
 public class ProjectDAO extends DAO {
 
     private final String SELECT_STATEMENT = "SELECT * FROM " + TB_PROJECT_NAME;
     private final String SELECT_WHERE = SELECT_STATEMENT + " WHERE id = %d";
     private final String SELECT_ALL = SELECT_STATEMENT + " WHERE isArchived = 0";
+    private Context context;
 
     public ProjectDAO(Context context) {
         super(context);
+        this.context = context;
     }
 
     public Project get(long id) {
@@ -59,6 +63,32 @@ public class ProjectDAO extends DAO {
         SQLiteDatabase db = getWritableDatabase();
         long id = db.insert(DAO.TB_PROJECT_NAME, null, getValues(project));
         project.setId(id);
+
+        buildDefaultListts(id);
+    }
+
+    private void buildDefaultListts(long id) {
+        Listt listtTODO = new Listt();
+        listtTODO.setProject_id(id);
+        listtTODO.setName("TODO");
+        listtTODO.setPosition(0);
+
+        Listt listtDOING = new Listt();
+        listtDOING.setProject_id(id);
+        listtDOING.setName("DOING");
+        listtDOING.setPosition(1);
+
+        Listt listtDONE = new Listt();
+        listtDONE.setProject_id(id);
+        listtDONE.setName("DONE");
+        listtDONE.setPosition(2);
+        listtDONE.setDone(true);
+
+        ListtDAO listtDAO = new ListtDAO(context);
+        listtDAO.insert(listtTODO);
+        listtDAO.insert(listtDOING);
+        listtDAO.insert(listtDONE);
+        listtDAO.close();
     }
 
     @NonNull

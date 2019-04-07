@@ -23,6 +23,8 @@
     <string name="card_update">Modifier Tâche</string>
     <string name="points">Points</string>
     <string name="error_msg_name_required">Le nom est obligatoire</string>
+    <string name="error_msg_start_date_required">La date début est obligatoire</string>
+    <string name="error_msg_start_hour_required">L\'heure de début est obligatoire</string>
     <string name="error_msg_end_date_required">La date de fin est obligatoire</string>
     <string name="error_msg_end_hour_required">L\'heure de fin est obligatoire</string>
 </resources>

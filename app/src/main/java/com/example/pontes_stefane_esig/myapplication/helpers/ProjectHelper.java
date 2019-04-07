@@ -88,12 +88,12 @@ public class ProjectHelper {
             return false;
         }
         if (startDate.isEmpty()) {
-            String message = context.getString(R.string.error_msg_end_date_required);
+            String message = context.getString(R.string.error_msg_start_date_required);
             inputStartDate.setError(message);
             return false;
         }
         if (startTime.isEmpty()) {
-            String message = context.getString(R.string.error_msg_end_hour_required);
+            String message = context.getString(R.string.error_msg_start_hour_required);
             inputStartTime.setError(message);
             return false;
         }
