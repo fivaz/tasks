@@ -9,7 +9,6 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.adapters.ProjectAdapter;
@@ -19,15 +18,12 @@ import com.example.pontes_stefane_esig.myapplication.daos.ListtDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
 import com.example.pontes_stefane_esig.myapplication.helpers.MyItemTouchHelperCallback;
 import com.example.pontes_stefane_esig.myapplication.helpers.SyncHelper;
-import com.example.pontes_stefane_esig.myapplication.helpers.WebClient;
 import com.example.pontes_stefane_esig.myapplication.models.CurrentState;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
 
 import java.util.Calendar;
 import java.util.Date;
-
-import static android.widget.Toast.LENGTH_LONG;
 
 public class ProjectActivity extends AppCompatActivity {
 
@@ -173,18 +169,21 @@ public class ProjectActivity extends AppCompatActivity {
 
     public void sync(View view) {
         SyncHelper helper = new SyncHelper(this);
-        final String projectJSON = helper.syncProject(project.getId());
-        Toast.makeText(this, projectJSON, LENGTH_LONG).show();
+        final String json = helper.convertAll(project);
 
+        Log.e("project json", json);
+
+//        Toast.makeText(this, json, LENGTH_LONG).show();
+
+        /*
         new Thread(new Runnable() {
             @Override
             public void run() {
-
                 WebClient webClient = new WebClient();
-                String response = webClient.post(projectJSON);
+                String response = webClient.post(json);
                 Log.e("testPOST", response);
             }
         }).start();
-
+        */
     }
 }
