@@ -59,6 +59,8 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         registerForContextMenu(lvProjects);
+
+        setTitle(getString(R.string.home_title));
     }
 
     @Override
