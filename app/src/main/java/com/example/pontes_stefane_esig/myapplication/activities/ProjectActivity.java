@@ -7,6 +7,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -159,7 +162,7 @@ public class ProjectActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void goToBurnDownChart(View view) {
+    public void goToBurnDownChart() {
         Intent intent = new Intent(this, BurnDownChartActivity.class);
         intent.putExtra("project_id", project.getId());
 
@@ -185,5 +188,20 @@ public class ProjectActivity extends AppCompatActivity {
             }
         }).start();
         */
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.project, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_check_burndown_chart)
+            goToBurnDownChart();
+        return super.onOptionsItemSelected(item);
     }
 }

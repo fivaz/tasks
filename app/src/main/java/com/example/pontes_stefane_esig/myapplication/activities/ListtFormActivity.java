@@ -26,14 +26,22 @@ public class ListtFormActivity extends AppCompatActivity {
         Intent intent = getIntent();
         long listtId = intent.getLongExtra("listt_id", 0);
 
-        if (listtId == 0) {
-            project_id = intent.getLongExtra("project_id", 0);
-            position = intent.getIntExtra("position", 0);
-        } else {
+        String title;
+
+        if (listtId != 0) {
             ListtDAO dao = new ListtDAO(this);
             Listt listt = dao.get(listtId);
             helper.setListt(listt);
+
+            title = getString(R.string.listt_update);
+        } else {
+            project_id = intent.getLongExtra("project_id", 0);
+            position = intent.getIntExtra("position", 0);
+
+            title = getString(R.string.listt_new);
         }
+
+        setTitle(title);
     }
 
     public void listSubmit(View view) {

@@ -3,13 +3,22 @@
     <string name="vertical_ellipsis">&#8942;</string>
     <string name="name">Nom</string>
     <string name="total">Total</string>
-    <string name="project_edit">modifier projet</string>
-    <string name="project_delete">supprimer projet</string>
+    <string name="project_edit">Modifier Projet</string>
+    <string name="project_delete">Supprimer Projet</string>
 
-    <string name="listt_edit">modifier liste</string>
-    <string name="listt_delete">supprimer liste</string>
-    <string name="card_new">créer nouvelle tâche</string>
+    <string name="listt_edit">Modifier Liste</string>
+    <string name="listt_delete">Supprimer Liste</string>
+    <string name="card_new">Créer nouvelle Tâche</string>
 
-    <string name="card_edit">modifier tâche</string>
-    <string name="card_delete">supprimer tâche</string>
+    <string name="card_edit">Modifier Tâche</string>
+    <string name="card_delete">Supprimer Tâche</string>
+    <string name="project_new">Créer nouveau Projet</string>
+    <string name="check_burndown_chart">Burndown Chart</string>
+    <string name="burndown_chart_title">BurnDown Chart</string>
+    <string name="home_title">Vos Projets</string>
+    <string name="projet_update">Modifier Projet</string>
+    <string name="projet_new">Créer nouveau Projet</string>
+    <string name="listt_update">Modifier Liste</string>
+    <string name="listt_new">Créer nouvelle Liste</string>
+    <string name="card_update">Modifier Tâche</string>
 </resources>

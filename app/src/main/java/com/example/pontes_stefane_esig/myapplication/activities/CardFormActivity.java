@@ -28,14 +28,22 @@ public class CardFormActivity extends AppCompatActivity {
 
         long card_id = intent.getLongExtra("card_id", 0);
 
-        if (card_id == 0) {
-            listt_id = intent.getLongExtra("listt_id", 0);
-            position = intent.getIntExtra("position", 0);
-        } else {
+        String title;
+
+        if (card_id != 0) {
             CardDAO dao = new CardDAO(this);
             Card card = dao.get(card_id);
             helper.setCard(card);
+
+            title = getString(R.string.card_update);
+        } else {
+            listt_id = intent.getLongExtra("listt_id", 0);
+            position = intent.getIntExtra("position", 0);
+
+            title = getString(R.string.card_new);
         }
+
+        setTitle(title);
     }
 
     public void cardSubmit(View view) {

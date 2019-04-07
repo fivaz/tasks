@@ -5,6 +5,9 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -59,14 +62,22 @@ public class ProjectFormActivity extends AppCompatActivity implements View.OnCli
         Intent intent = getIntent();
         long project_id = intent.getLongExtra("project_id", 0);
 
+        String title;
+
         if (project_id != 0) {
             ProjectDAO dao = new ProjectDAO(this);
             Project project = dao.get(project_id);
             helper.setProject(project);
+
+            title = getString(R.string.projet_update);
+        } else {
+            title = getString(R.string.projet_new);
         }
+
+        setTitle(title);
     }
 
-    public void projectSubmit(View view) {
+    public void projectSubmit() {
         Project project = helper.getProject();
 
         ProjectDAO dao = new ProjectDAO(this);
@@ -149,5 +160,20 @@ public class ProjectFormActivity extends AppCompatActivity implements View.OnCli
                     }, mHour, mMinute, false);
             timePickerDialog.show();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.project_form, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_form_ok)
+            projectSubmit();
+        return super.onOptionsItemSelected(item);
     }
 }

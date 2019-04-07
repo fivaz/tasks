@@ -74,17 +74,11 @@
         android:textColor="#ffffff"
         android:textSize="40sp" />
 
-   <!-- <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="goToListForm"
-        android:text="Créer List" />
-
-    <Button
+    <!--<Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="goToBurnDownChart"
-        android:text="Voir BurnDown Chart" />-->
+        android:text="@string/check_burndown_chart" />-->
 
     <!--<Button
         android:layout_width="match_parent"
