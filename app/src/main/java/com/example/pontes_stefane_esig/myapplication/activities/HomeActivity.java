@@ -70,8 +70,8 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, final ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        MenuItem edit = menu.add("Edit");
-        MenuItem delete = menu.add("Delete");
+        MenuItem edit = menu.add(R.string.project_edit);
+        MenuItem delete = menu.add(R.string.project_delete);
 
         edit.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override

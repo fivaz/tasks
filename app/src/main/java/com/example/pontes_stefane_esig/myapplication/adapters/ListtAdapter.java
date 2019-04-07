@@ -66,8 +66,8 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
         public void onCreateContextMenu(ContextMenu menu, View view,
                                         final ContextMenu.ContextMenuInfo menuInfo) {
             //TODO check if these view.getId and getAdapterPosition are really useful
-            MenuItem edit = menu.add(0, view.getId(), getAdapterPosition(), "Edit");
-            MenuItem delete = menu.add(0, view.getId(), getAdapterPosition(), "Delete");
+            MenuItem edit = menu.add(0, view.getId(), getAdapterPosition(), R.string.card_edit);
+            MenuItem delete = menu.add(0, view.getId(), getAdapterPosition(), R.string.card_delete);
 
             edit.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override

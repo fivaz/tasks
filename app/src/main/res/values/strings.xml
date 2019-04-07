@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">Waser</string>
     <string name="vertical_ellipsis">&#8942;</string>
+    <string name="name">Nom</string>
+    <string name="total">Total</string>
+    <string name="project_edit">modifier projet</string>
+    <string name="project_delete">supprimer projet</string>
+
+    <string name="listt_edit">modifier liste</string>
+    <string name="listt_delete">supprimer liste</string>
+    <string name="card_new">créer nouvelle tâche</string>
+
+    <string name="card_edit">modifier tâche</string>
+    <string name="card_delete">supprimer tâche</string>
 </resources>

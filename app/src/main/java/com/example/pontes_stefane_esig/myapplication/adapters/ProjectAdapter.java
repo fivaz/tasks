@@ -73,8 +73,10 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.MyViewHo
         holder.btNewCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                final CharSequence[] options = {"New Card", "Edit", "Delete"};
+                String option1 = context.getString(R.string.card_new);
+                String option2 = context.getString(R.string.listt_edit);
+                String option3 = context.getString(R.string.listt_delete);
+                final CharSequence[] options = {option1, option2, option3};
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setItems(options, new DialogInterface.OnClickListener() {
