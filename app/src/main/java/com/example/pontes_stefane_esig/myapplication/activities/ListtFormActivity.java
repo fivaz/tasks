@@ -47,19 +47,21 @@ public class ListtFormActivity extends AppCompatActivity {
     }
 
     public void listSubmit() {
-        Listt listt = helper.getListt();
-        ListtDAO dao = new ListtDAO(this);
+        if (helper.isOk()) {
+            Listt listt = helper.getListt();
+            ListtDAO dao = new ListtDAO(this);
 
-        if (listt.getId() == 0) {
-            listt.setProject_id(project_id);
-            listt.setPosition(position);
-            dao.insert(listt);
-        } else
-            dao.update(listt);
-        dao.close();
+            if (listt.getId() == 0) {
+                listt.setProject_id(project_id);
+                listt.setPosition(position);
+                dao.insert(listt);
+            } else
+                dao.update(listt);
+            dao.close();
 
-        Toast.makeText(this, listt.toString(), Toast.LENGTH_SHORT).show();
-        finish();
+            Toast.makeText(this, listt.toString(), Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
     @Override
@@ -71,7 +73,7 @@ public class ListtFormActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.menu_form_ok)
+        if (item.getItemId() == R.id.menu_form_ok)
             listSubmit();
         return super.onOptionsItemSelected(item);
     }

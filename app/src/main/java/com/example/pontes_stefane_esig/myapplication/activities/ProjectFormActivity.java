@@ -17,14 +17,14 @@ import android.widget.Toast;
 
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
-import com.example.pontes_stefane_esig.myapplication.helpers.ProjectFormHelper;
+import com.example.pontes_stefane_esig.myapplication.helpers.ProjectHelper;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
 
 import java.util.Calendar;
 
 public class ProjectFormActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private ProjectFormHelper helper;
+    private ProjectHelper helper;
 
     private Button btDatePickerStart;
     private Button btTimePickerStart;
@@ -57,7 +57,7 @@ public class ProjectFormActivity extends AppCompatActivity implements View.OnCli
         btDatePickerEnd.setOnClickListener(this);
         btTimePickerEnd.setOnClickListener(this);
 
-        helper = new ProjectFormHelper(this);
+        helper = new ProjectHelper(this);
 
         Intent intent = getIntent();
         long project_id = intent.getLongExtra("project_id", 0);
@@ -78,17 +78,19 @@ public class ProjectFormActivity extends AppCompatActivity implements View.OnCli
     }
 
     public void projectSubmit() {
-        Project project = helper.getProject();
+        if (helper.isOk()) {
+            Project project = helper.getProject();
 
-        ProjectDAO dao = new ProjectDAO(this);
-        if (project.getId() != 0)
-            dao.update(project);
-        else
-            dao.insert(project);
-        dao.close();
+            ProjectDAO dao = new ProjectDAO(this);
+            if (project.getId() != 0)
+                dao.update(project);
+            else
+                dao.insert(project);
+            dao.close();
 
-        Toast.makeText(this, project.toString(), Toast.LENGTH_SHORT).show();
-        finish();
+            Toast.makeText(this, project.toString(), Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
     //TODO heure début ne pourra pas être après l'heure fin

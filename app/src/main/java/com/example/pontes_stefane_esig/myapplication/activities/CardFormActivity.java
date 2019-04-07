@@ -49,19 +49,21 @@ public class CardFormActivity extends AppCompatActivity {
     }
 
     public void cardSubmit() {
-        Card card = helper.getCard();
-        CardDAO dao = new CardDAO(this);
+        if (helper.isOk()) {
+            Card card = helper.getCard();
+            CardDAO dao = new CardDAO(this);
 
-        if (card.getId() == 0) {
-            card.setListt_id(listt_id);
-            card.setPosition(position);
-            dao.insert(card);
-        } else
-            dao.update(card);
-        dao.close();
+            if (card.getId() == 0) {
+                card.setListt_id(listt_id);
+                card.setPosition(position);
+                dao.insert(card);
+            } else
+                dao.update(card);
+            dao.close();
 
-        Toast.makeText(this, card.toString(), Toast.LENGTH_SHORT).show();
-        finish();
+            Toast.makeText(this, card.toString(), Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
     @Override
@@ -73,7 +75,7 @@ public class CardFormActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.menu_form_ok)
+        if (item.getItemId() == R.id.menu_form_ok)
             cardSubmit();
         return super.onOptionsItemSelected(item);
     }

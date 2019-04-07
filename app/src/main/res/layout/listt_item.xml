@@ -3,10 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/listt_item"
     android:layout_width="300dp"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_margin="10dp"
     android:layout_marginTop="0dp"
-    android:minHeight="300dp"
     android:orientation="vertical"
     tools:activity="com.example.pontes_stefane_esig.myapplication.activities.ProjectActivity">
 
@@ -35,9 +34,9 @@
             android:id="@+id/bt_new_card"
             android:layout_width="50sp"
             android:layout_height="50sp"
+            android:text="@string/vertical_ellipsis"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:text="@string/vertical_ellipsis" />
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -45,7 +44,6 @@
         android:id="@+id/rv_cards"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/cards_bg"
-        android:minHeight="200dp" />
+        android:background="@color/cards_bg" />
 
 </LinearLayout>
