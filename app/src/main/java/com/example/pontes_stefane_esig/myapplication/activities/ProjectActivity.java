@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.adapters.ProjectAdapter;
@@ -47,6 +46,8 @@ public class ProjectActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false);
         rvLists.setLayoutManager(layoutManager);
+
+        setTitle(project.getName());
     }
 
     @Override
@@ -139,13 +140,8 @@ public class ProjectActivity extends AppCompatActivity {
     }
 
     private void updateView() {
-        TextView tvProjectName = findViewById(R.id.tv_project_name);
-        TextView tvProjectTotal = findViewById(R.id.tv_project_total);
-        TextView tvCurrentTimePart = findViewById(R.id.tv_current_time_part);
 
-        tvProjectName.setText(project.getName());
-        tvProjectTotal.setText(String.valueOf(project.getTotal()));
-        tvCurrentTimePart.setText(String.valueOf(project.getCurrentTimeBlock()));
+//        tvCurrentTimePart.setText(String.valueOf(project.getCurrentTimeBlock()));
 
         ProjectAdapter adapter = new ProjectAdapter(this, project.getListts());
         rvLists.setAdapter(adapter);
@@ -153,6 +149,8 @@ public class ProjectActivity extends AppCompatActivity {
         ItemTouchHelper.Callback callback = new MyItemTouchHelperCallback(adapter, "horizontal");
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(rvLists);
+
+        invalidateOptionsMenu();
     }
 
     public void goToListForm(View view) {
@@ -194,6 +192,9 @@ public class ProjectActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.project, menu);
+
+        MenuItem item = menu.findItem(R.id.it_project_total);
+        item.setTitle(String.valueOf(project.getTotal()));
 
         return super.onCreateOptionsMenu(menu);
     }

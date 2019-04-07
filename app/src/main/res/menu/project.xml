@@ -5,6 +5,11 @@
     tools:context="br.com.alura.agenda.ProjectFormActivity">
 
     <item
+        android:id="@+id/it_project_total"
+        android:title="@string/total"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/menu_check_burndown_chart"
         android:title="@string/check_burndown_chart" />
 

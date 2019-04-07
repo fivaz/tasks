@@ -32,6 +32,7 @@
             android:screenOrientation="sensor" />
         <activity
             android:name=".activities.ProjectActivity"
+            android:theme="@style/MenuItems"
             android:screenOrientation="sensor" />
         <activity
             android:name=".activities.BurnDownChartActivity"
