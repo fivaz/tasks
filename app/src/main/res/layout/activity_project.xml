@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.pontes_stefane_esig.myapplication.activities.ProjectActivity">
 
     <LinearLayout
+        android:id="@+id/project_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -54,10 +55,26 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_listts"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/project_header"
         android:scrollbars="vertical" />
 
     <Button
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button_shape"
+        android:elevation="6dp"
+        android:onClick="goToListForm"
+        android:stateListAnimator="@null"
+        android:text="+"
+        android:textColor="#ffffff"
+        android:textSize="40sp" />
+
+   <!-- <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="goToListForm"
@@ -67,12 +84,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="goToBurnDownChart"
-        android:text="Voir BurnDown Chart" />
+        android:text="Voir BurnDown Chart" />-->
 
-    <Button
+    <!--<Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="sync"
-        android:text="Sync" />
+        android:text="Sync" />-->
 
-</LinearLayout>
+</RelativeLayout>
