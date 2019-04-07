@@ -16,9 +16,9 @@ public class DAO extends SQLiteOpenHelper {
             "CREATE TABLE " + TB_USER_NAME + " (" +
                     "id INTEGER PRIMARY KEY, " +
                     "first_name TEXT NOT NULL," +
-                    "last_name DATETIME NOT NULL," +
-                    "email DATETIME NOT NULL," +
-                    "password DATETIME NOT NULL," +
+                    "last_name TEXT NOT NULL," +
+                    "email TEXT NOT NULL," +
+                    "password TEXT NOT NULL" +
                     ")";
     private final String CREATE_TABLE_PROJECT_STATEMENT =
             "CREATE TABLE " + TB_PROJECT_NAME + " (" +

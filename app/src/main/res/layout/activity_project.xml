@@ -54,7 +54,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_listts"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="350dp"
         android:scrollbars="vertical" />
 
     <Button
@@ -68,5 +68,11 @@
         android:layout_height="wrap_content"
         android:onClick="goToBurnDownChart"
         android:text="Voir BurnDown Chart" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="sync"
+        android:text="Sync" />
 
 </LinearLayout>
