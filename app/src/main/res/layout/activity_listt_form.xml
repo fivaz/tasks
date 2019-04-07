@@ -10,12 +10,7 @@
         android:id="@+id/et_listt_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nom" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Créer Liste"
-        android:onClick="listSubmit"/>
+        android:hint="@string/name"
+        android:inputType="text" />
 
 </LinearLayout>

@@ -3,7 +3,9 @@ package com.example.pontes_stefane_esig.myapplication.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.pontes_stefane_esig.myapplication.R;
@@ -46,7 +48,7 @@ public class CardFormActivity extends AppCompatActivity {
         setTitle(title);
     }
 
-    public void cardSubmit(View view) {
+    public void cardSubmit() {
         Card card = helper.getCard();
         CardDAO dao = new CardDAO(this);
 
@@ -60,5 +62,19 @@ public class CardFormActivity extends AppCompatActivity {
 
         Toast.makeText(this, card.toString(), Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.card_form, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.menu_form_ok)
+            cardSubmit();
+        return super.onOptionsItemSelected(item);
     }
 }

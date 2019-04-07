@@ -10,18 +10,14 @@
         android:id="@+id/et_card_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nom" />
+        android:hint="@string/name"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/et_card_points"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Points" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="cardSubmit"
-        android:text="Créer Card" />
+        android:hint="@string/points"
+        android:inputType="numberDecimal"/>
 
 </LinearLayout>
