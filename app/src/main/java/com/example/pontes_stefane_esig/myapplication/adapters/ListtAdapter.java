@@ -1,7 +1,6 @@
 package com.example.pontes_stefane_esig.myapplication.adapters;
 
 import android.content.ClipData;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
@@ -25,14 +24,14 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
 
     private final ProjectAdapter projectAdapter;
     private final int listtPosition;
-    private final Context context;
+    private final ProjectActivity activity;
     private Listt listt;
 
-    ListtAdapter(Listt listt, ProjectAdapter projectAdapter, int listtPosition, Context context) {
+    ListtAdapter(Listt listt, ProjectAdapter projectAdapter, int listtPosition, ProjectActivity activity) {
         this.listt = listt;
         this.projectAdapter = projectAdapter;
         this.listtPosition = listtPosition;
-        this.context = context;
+        this.activity = activity;
     }
 
     public Listt getListt() {
@@ -40,8 +39,7 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
     }
 
     void updateBurnDownChart() {
-        ProjectActivity projectActivity = (ProjectActivity) context;
-        projectActivity.checkCurrentState();
+        activity.checkCurrentState();
     }
 
     //ViewHolder
@@ -73,9 +71,9 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
                 @Override
                 public boolean onMenuItemClick(MenuItem menuItem) {
                     if (card != null) {
-                        Intent intent = new Intent(context, CardFormActivity.class);
+                        Intent intent = new Intent(activity, CardFormActivity.class);
                         intent.putExtra("card_id", card.getId());
-                        context.startActivity(intent);
+                        activity.startActivity(intent);
                     }
                     return false;
                 }
@@ -88,10 +86,11 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
                     if (card != null) {
                         //TODO maybe I should just use the position to find the Card,
                         //TODO instead of getting the card from a setCard
-                        CardDAO dao = new CardDAO(context);
+                        CardDAO dao = new CardDAO(activity);
                         dao.delete(card);
                         listt.getCards().remove(card);
                         ListtAdapter.this.notifyItemRemoved(((Integer) flCard.getTag()));
+                        updateTotal();
                     }
                     return false;
                 }
@@ -106,6 +105,11 @@ public class ListtAdapter extends RecyclerView.Adapter<ListtAdapter.MyViewHolder
         public void setCard(Card card) {
             this.card = card;
         }
+    }
+
+    private void updateTotal() {
+        projectAdapter.notifyDataSetChanged();
+        activity.invalidateOptionsMenu();
     }
 
     @Override

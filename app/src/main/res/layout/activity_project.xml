@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.pontes_stefane_esig.myapplication.activities.ProjectActivity">
+    tools:activity="com.example.pontes_stefane_esig.myapplication.activities.ProjectActivity">
 
     <!--<TextView
         android:id="@+id/tv_current_time_part"

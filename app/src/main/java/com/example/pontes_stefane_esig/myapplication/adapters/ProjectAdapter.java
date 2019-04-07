@@ -1,7 +1,6 @@
 package com.example.pontes_stefane_esig.myapplication.adapters;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +14,7 @@ import android.widget.TextView;
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.activities.CardFormActivity;
 import com.example.pontes_stefane_esig.myapplication.activities.ListtFormActivity;
+import com.example.pontes_stefane_esig.myapplication.activities.ProjectActivity;
 import com.example.pontes_stefane_esig.myapplication.daos.ListtDAO;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 
@@ -23,7 +23,7 @@ import java.util.List;
 
 public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.MyViewHolder> implements ItemTouchHelperAdapter {
 
-    private Context context;
+    private ProjectActivity activity;
     private List<Listt> listts;
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -42,13 +42,13 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.MyViewHo
             rvCards = view.findViewById(R.id.rv_cards);
             //TODO check what this method does
             rvCards.setHasFixedSize(true);
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity);
             rvCards.setLayoutManager(layoutManager);
         }
     }
 
-    public ProjectAdapter(Context context, List<Listt> listts) {
-        this.context = context;
+    public ProjectAdapter(ProjectActivity activity, List<Listt> listts) {
+        this.activity = activity;
         this.listts = listts;
     }
 
@@ -66,19 +66,19 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.MyViewHo
         holder.tvTotal.setText(String.valueOf(listt.getTotal()));
         holder.view.setTag(position);
 
-        ListtAdapter adapter = new ListtAdapter(listt, this, position, context);
+        ListtAdapter adapter = new ListtAdapter(listt, this, position, activity);
         holder.rvCards.setAdapter(adapter);
         holder.rvCards.setOnDragListener(new DragListener(this, position));
 
         holder.btNewCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String option1 = context.getString(R.string.card_new);
-                String option2 = context.getString(R.string.listt_edit);
-                String option3 = context.getString(R.string.listt_delete);
+                String option1 = activity.getString(R.string.card_new);
+                String option2 = activity.getString(R.string.listt_edit);
+                String option3 = activity.getString(R.string.listt_delete);
                 final CharSequence[] options = {option1, option2, option3};
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                 builder.setItems(options, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int item) {
                         switch (item) {
@@ -101,20 +101,20 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.MyViewHo
     }
 
     private void newCardForm(Listt listt) {
-        Intent intent = new Intent(context, CardFormActivity.class);
+        Intent intent = new Intent(activity, CardFormActivity.class);
         intent.putExtra("listt_id", listt.getId());
         intent.putExtra("position", listt.getCards().size());
-        context.startActivity(intent);
+        activity.startActivity(intent);
     }
 
     private void updateListtForm(long listtId) {
-        Intent intent = new Intent(context, ListtFormActivity.class);
+        Intent intent = new Intent(activity, ListtFormActivity.class);
         intent.putExtra("listt_id", listtId);
-        context.startActivity(intent);
+        activity.startActivity(intent);
     }
 
     private void deleteListt(Listt listt, int position) {
-        ListtDAO dao = new ListtDAO(context);
+        ListtDAO dao = new ListtDAO(activity);
         dao.delete(listt);
         dao.close();
         listts.remove(listt);
