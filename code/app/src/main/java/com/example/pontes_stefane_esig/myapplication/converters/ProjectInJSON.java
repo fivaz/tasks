@@ -3,33 +3,37 @@ package com.example.pontes_stefane_esig.myapplication.converters;
 import android.content.Context;
 
 import com.example.pontes_stefane_esig.myapplication.daos.ListtDAO;
+import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
+import com.example.pontes_stefane_esig.myapplication.daos.UserDAO;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
+import com.example.pontes_stefane_esig.myapplication.models.User;
 
 import org.json.JSONException;
 import org.json.JSONStringer;
 
 import java.util.List;
 
-public class ProjectConverter {
+public class ProjectInJSON {
 
     private Context context;
     private JSONStringer json;
+    private User user;
 
-    public ProjectConverter(Context context) {
+    public ProjectInJSON(Context context, User user) {
         this.context = context;
         json = new JSONStringer();
+        this.user = user;
     }
 
     public String getJSON() {
         return json.toString();
     }
 
-    public void buildAll(Project project) {
+    public void convert() {
         try {
             buildHeader();
-            buildProject(project);
-            buildListts(project);
+            buildUser();
             buildFooter();
 
         } catch (JSONException e) {
@@ -39,16 +43,41 @@ public class ProjectConverter {
 
     private void buildHeader() throws JSONException {
         json.object()
-                .key("project")
-                .object();
+                .key("user");
+    }
+
+    private void buildUser() throws JSONException {
+        json.object()
+                .key("first_name").value(user.getFirstName())
+                .key("last_name").value(user.getLastName())
+                .key("email").value(user.getEmail())
+                .key("password").value(user.getPassword());
+        buildProjects();
+        json.endObject();
+    }
+
+    private void buildProjects() throws JSONException {
+        ProjectDAO projectDAO = new ProjectDAO(context);
+        List<Project> projects = projectDAO.getAll(user);
+        projectDAO.close();
+
+        json.key("projects").array();
+
+        for (Project project : projects)
+            buildProject(project);
+
+        json.endArray();
     }
 
     private void buildProject(Project project) throws JSONException {
-        json.key("id").value(project.getId());
-        json.key("name").value(project.getName());
-        json.key("start_at").value(project.getStartAtToString());
-        json.key("end_at").value(project.getEndAtToString());
-        json.key("isArchived").value(project.isArchived());
+        json.object()
+                .key("id").value(project.getId())
+                .key("name").value(project.getName())
+                .key("start_at").value(project.getStartAtToString())
+                .key("end_at").value(project.getEndAtToString())
+                .key("isArchived").value(project.isArchived());
+        buildListts(project);
+        json.endObject();
     }
 
     private void buildListts(Project project) throws JSONException {
@@ -76,7 +105,6 @@ public class ProjectConverter {
     }
 
     private void buildFooter() throws JSONException {
-        json.endObject();
         json.endObject();
     }
 }

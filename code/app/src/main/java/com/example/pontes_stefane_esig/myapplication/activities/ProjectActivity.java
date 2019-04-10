@@ -14,12 +14,12 @@ import android.view.View;
 
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.adapters.ProjectAdapter;
+import com.example.pontes_stefane_esig.myapplication.converters.ProjectInJSON;
 import com.example.pontes_stefane_esig.myapplication.daos.CardDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.CurrentStateDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.ListtDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
 import com.example.pontes_stefane_esig.myapplication.helpers.MyItemTouchHelperCallback;
-import com.example.pontes_stefane_esig.myapplication.converters.ProjectConverter;
 import com.example.pontes_stefane_esig.myapplication.models.CurrentState;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
@@ -48,10 +48,6 @@ public class ProjectActivity extends AppCompatActivity {
         rvLists.setLayoutManager(layoutManager);
 
         setTitle(project.getName());
-
-        ProjectConverter converter = new ProjectConverter(this);
-        converter.buildAll(project);
-        System.err.println(converter.getJSON());
     }
 
     @Override
@@ -174,7 +170,7 @@ public class ProjectActivity extends AppCompatActivity {
 
 
 //    public void sync(View view) {
-//        ProjectConverter helper = new ProjectConverter(this);
+//        ProjectInJSON helper = new ProjectInJSON(this);
 //        final String json = helper.convertAll(project);
 //
 //        Log.e("project json", json);

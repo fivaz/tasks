@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.pontes_stefane_esig.myapplication.R;
+import com.example.pontes_stefane_esig.myapplication.converters.ProjectInJSON;
 import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.UserDAO;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
@@ -36,40 +37,39 @@ public class ProjectsActivity extends AppCompatActivity {
         Button btNew = findViewById(R.id.bt_new_project);
 
         long user_id = getIntent().getLongExtra("user_id", 0);
-        if (user_id == 0) {
 
-            Toast.makeText(this, "pas d'utilisateur", Toast.LENGTH_LONG).show();
 
-        } else {
+        UserDAO userDao = new UserDAO(this);
+        user = userDao.get(user_id);
+        userDao.close();
 
-            UserDAO userDao = new UserDAO(this);
-            user = userDao.get(user_id);
-            userDao.close();
+        lvProjects.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> list, View item, int position, long id) {
+                Project project = (Project) lvProjects.getItemAtPosition(position);
 
-            lvProjects.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> list, View item, int position, long id) {
-                    Project project = (Project) lvProjects.getItemAtPosition(position);
+                Intent goToProject = new Intent(ProjectsActivity.this, ProjectActivity.class);
+                goToProject.putExtra("project_id", project.getId());
+                startActivity(goToProject);
+            }
+        });
 
-                    Intent goToProject = new Intent(ProjectsActivity.this, ProjectActivity.class);
-                    goToProject.putExtra("project_id", project.getId());
-                    startActivity(goToProject);
-                }
-            });
+        btNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentGoToProjectForm = new Intent(ProjectsActivity.this, ProjectFormActivity.class);
+                intentGoToProjectForm.putExtra("user_id", user.getId());
+                startActivity(intentGoToProjectForm);
+            }
+        });
 
-            btNew.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intentGoToProjectForm = new Intent(ProjectsActivity.this, ProjectFormActivity.class);
-                    intentGoToProjectForm.putExtra("user_id", user.getId());
-                    startActivity(intentGoToProjectForm);
-                }
-            });
+        registerForContextMenu(lvProjects);
 
-            registerForContextMenu(lvProjects);
+        setTitle(getString(R.string.home_title));
 
-            setTitle(getString(R.string.home_title));
-        }
+        ProjectInJSON converter = new ProjectInJSON(this, user);
+        converter.convert();
+        System.err.println(converter.getJSON());
     }
 
     @Override
