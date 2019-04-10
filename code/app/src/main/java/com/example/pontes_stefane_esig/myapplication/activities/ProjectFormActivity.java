@@ -35,6 +35,7 @@ public class ProjectFormActivity extends AppCompatActivity implements View.OnCli
     private EditText etTimePickerStart;
     private EditText etDatePickerEnd;
     private EditText etTimePickerEnd;
+    private long userId;
 
     //TODO when I'm updating, the time that is shown is the current time, not the previous time set
     @Override
@@ -71,6 +72,8 @@ public class ProjectFormActivity extends AppCompatActivity implements View.OnCli
 
             title = getString(R.string.project_edit);
         } else {
+            userId = intent.getLongExtra("user_id", 0);
+
             title = getString(R.string.project_new);
         }
 
@@ -82,10 +85,12 @@ public class ProjectFormActivity extends AppCompatActivity implements View.OnCli
             Project project = helper.getProject();
 
             ProjectDAO dao = new ProjectDAO(this);
-            if (project.getId() != 0)
-                dao.update(project);
-            else
+            if (project.getId() == 0) {
+                project.setUserId(userId);
                 dao.insert(project);
+            } else {
+                dao.update(project);
+            }
             dao.close();
 
             Toast.makeText(this, project.toString(), Toast.LENGTH_SHORT).show();

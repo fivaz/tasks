@@ -15,28 +15,30 @@ public class DAO extends SQLiteOpenHelper {
     private final String CREATE_TABLE_USER_STATEMENT =
             "CREATE TABLE " + TB_USER_NAME + " (" +
                     "id INTEGER PRIMARY KEY, " +
-                    "first_name TEXT NOT NULL," +
-                    "last_name TEXT NOT NULL," +
-                    "email TEXT NOT NULL," +
-                    "password TEXT NOT NULL," +
+                    "first_name TEXT NOT NULL, " +
+                    "last_name TEXT NOT NULL, " +
+                    "email TEXT NOT NULL, " +
+                    "password TEXT NOT NULL, " +
                     "isArchived TEXT NOT NULL" +
                     ")";
     private final String CREATE_TABLE_PROJECT_STATEMENT =
             "CREATE TABLE " + TB_PROJECT_NAME + " (" +
                     "id INTEGER PRIMARY KEY, " +
-                    "name TEXT NOT NULL," +
-                    "start_at DATETIME NOT NULL," +
-                    "end_at DATETIME NOT NULL," +
-                    "isArchived TINYINT DEFAULT 0" +
+                    "name TEXT NOT NULL, " +
+                    "start_at DATETIME NOT NULL, " +
+                    "end_at DATETIME NOT NULL, " +
+                    "isArchived TINYINT DEFAULT 0, " +
+                    "user_id INTEGER NOT NULL, " +
+                    "FOREIGN KEY(user_id) REFERENCES " + TB_USER_NAME + "(id)" +
                     ")";
     private final String CREATE_TABLE_LISTT_STATEMENT =
             "CREATE TABLE " + TB_LISTT_NAME + " (" +
                     "id INTEGER PRIMARY KEY, " +
                     "name TEXT NOT NULL, " +
                     "position INT NOT NULL, " +
-                    "project_id INTEGER," +
-                    "isDone TINYINT DEFAULT 0," +
-                    "isArchived TINYINT DEFAULT 0," +
+                    "project_id INTEGER, " +
+                    "isDone TINYINT DEFAULT 0, " +
+                    "isArchived TINYINT DEFAULT 0, " +
                     "FOREIGN KEY(project_id) REFERENCES " + TB_PROJECT_NAME + "(id)" +
                     ")";
     private final String CREATE_TABLE_CARD_STATEMENT =
@@ -60,7 +62,7 @@ public class DAO extends SQLiteOpenHelper {
     private final String DROP_STATEMENT = "DROP TABLE IF EXISTS ";
 
     DAO(Context context) {
-        super(context, "trello", null, 12);
+        super(context, "trello", null, 14);
     }
 
     @Override

@@ -9,7 +9,6 @@ import android.widget.Toast;
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.daos.UserDAO;
 import com.example.pontes_stefane_esig.myapplication.helpers.LoginHelper;
-import com.example.pontes_stefane_esig.myapplication.helpers.UserHelper;
 import com.example.pontes_stefane_esig.myapplication.models.User;
 
 public class HomeActivity extends AppCompatActivity {
@@ -33,6 +32,7 @@ public class HomeActivity extends AppCompatActivity {
         User user = helper.getUser();
         UserDAO dao = new UserDAO(this);
         if (dao.checkUser(user)) {
+            user = dao.getUserByLogin(user);
             Intent intent = new Intent(this, ProjectsActivity.class);
             intent.putExtra("user_id", user.getId());
             startActivity(intent);

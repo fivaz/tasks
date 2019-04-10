@@ -97,9 +97,22 @@ public class UserDAO extends DAO {
         sql = String.format(sql, user.getEmail(), user.getPassword());
         Cursor cursor = db.rawQuery(sql, null);
         boolean result = false;
-        if (cursor.moveToNext())
+        if (cursor.moveToNext()) {
             result = true;
+            user = buildUser(cursor);
+        }
         cursor.close();
         return result;
+    }
+
+    public User getUserByLogin(User user) {
+        SQLiteDatabase db = getReadableDatabase();
+        String sql = SELECT_STATEMENT + " WHERE email = '%s' AND password = '%s'";
+        sql = String.format(sql, user.getEmail(), user.getPassword());
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor.moveToNext())
+            user = buildUser(cursor);
+        cursor.close();
+        return user;
     }
 }

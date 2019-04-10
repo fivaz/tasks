@@ -14,6 +14,7 @@ public class Project extends Model {
     private Date start_at;
     private Date end_at;
     private boolean isArchived;
+    private long userId;
     private List<Listt> listts;
 
     public Project() {
@@ -21,12 +22,13 @@ public class Project extends Model {
         listts = new ArrayList<>();
     }
 
-    public Project(long id, String name, Date start_at, Date end_at) {
+    public Project(long id, String name, Date start_at, Date end_at, long userId) {
         this.id = id;
         this.name = name;
         this.start_at = start_at;
         this.end_at = end_at;
         this.isArchived = false;
+        this.userId = userId;
         listts = new ArrayList<>();
     }
 
@@ -70,6 +72,14 @@ public class Project extends Model {
 
     public void setArchived(boolean archived) {
         isArchived = archived;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public List<Listt> getListts() {
