@@ -5,7 +5,8 @@
  * Date: 05/02/2019
  * Time: 03:55
  */
-require_once("DBConnection.php");
+
+//require_once("DBConnection.php");
 
 class DAO
 {
@@ -17,27 +18,36 @@ class DAO
         $this->db = new DBConnection();
     }
 
-    public function findAll()
+    public function findAll($fk = null, $id = null)
     {
-        $resultSQL = $this->db->query("SELECT * FROM {$this->table}");
+        if ($fk)
+            $resultSQL = $this->db->query("SELECT * FROM {$this->table} WHERE {$fk} = {$id}");
+        else
+            $resultSQL = $this->db->query("SELECT * FROM {$this->table}");
         return $resultSQL->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function checkExists($id){
+    public function checkExists($id)
+    {
         $resultSQL = $this->db->query("SELECT * FROM {$this->table} WHERE id = {$id}");
         $element = $resultSQL->fetch(PDO::FETCH_ASSOC);
-        if($element){
+        if ($element) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function save($element){
-        if($this->checkExists($element['id'])){
-            $this->update($element);
-        }else{
-            $this->create($element);
+    public function save($element)
+    {
+        $result = 0;
+        if ($this->checkExists($element["id"])) {
+            $result = $this->update($element);
+        } else {
+            $result = $this->create($element);
+        }
+        if ($result != 1) {
+            var_dump($result);
         }
     }
 

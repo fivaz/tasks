@@ -14,7 +14,7 @@ class ArrayHelper
         $data = [];
 
         foreach ($attributes as $key => $value)
-            if ($key != 'listts' && $key != 'cards')
+            if (!is_array($value))
                 array_push($data, $value);
 
         return $data;
@@ -25,8 +25,7 @@ class ArrayHelper
         $data = [];
 
         foreach ($attributes as $key => $value)
-
-            if ($key != 'listts' && $key != 'cards')
+            if (!is_array($value))
                 array_push($data, $value);
 
         array_push($data, $attributes["id"]);

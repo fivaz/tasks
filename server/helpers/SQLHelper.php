@@ -12,7 +12,7 @@ class SQLHelper
     {
         $values = "";
         foreach ($attributes as $key => $value)
-            if ($key != 'listts' && $key != 'cards')
+            if (!is_array($value))
                 $values .= "?, ";
 
         return SQLHelper::formatText($values);
@@ -22,7 +22,7 @@ class SQLHelper
     {
         $columns = "";
         foreach ($attributes as $key => $value)
-            if ($key != 'listts' && $key != 'cards')
+            if (!is_array($value))
                 $columns .= $key . ", ";
 
         return SQLHelper::formatText($columns);
@@ -39,7 +39,7 @@ class SQLHelper
     {
         $columnsAndValues = "";
         foreach ($attributes as $key => $value)
-            if ($key != 'listts' && $key != 'cards')
+            if (!is_array($value))
                 $columnsAndValues .= $key . " = ?, ";
 
         return substr($columnsAndValues, 0, strlen($columnsAndValues) - 2);
@@ -49,7 +49,7 @@ class SQLHelper
     {
         $columnsAndValues = "";
         foreach ($primary_keys as $primary_key)
-                $columnsAndValues .= $primary_key . " = ?, ";
+            $columnsAndValues .= $primary_key . " = ?, ";
 
         return substr($columnsAndValues, 0, strlen($columnsAndValues) - 2);
     }
