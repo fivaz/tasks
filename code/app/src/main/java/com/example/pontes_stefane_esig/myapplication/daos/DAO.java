@@ -18,7 +18,8 @@ public class DAO extends SQLiteOpenHelper {
                     "first_name TEXT NOT NULL," +
                     "last_name TEXT NOT NULL," +
                     "email TEXT NOT NULL," +
-                    "password TEXT NOT NULL" +
+                    "password TEXT NOT NULL," +
+                    "isArchived TEXT NOT NULL" +
                     ")";
     private final String CREATE_TABLE_PROJECT_STATEMENT =
             "CREATE TABLE " + TB_PROJECT_NAME + " (" +
@@ -59,7 +60,7 @@ public class DAO extends SQLiteOpenHelper {
     private final String DROP_STATEMENT = "DROP TABLE IF EXISTS ";
 
     DAO(Context context) {
-        super(context, "trello", null, 11);
+        super(context, "trello", null, 12);
     }
 
     @Override

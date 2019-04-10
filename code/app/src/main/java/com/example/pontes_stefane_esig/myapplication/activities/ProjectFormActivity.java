@@ -69,9 +69,9 @@ public class ProjectFormActivity extends AppCompatActivity implements View.OnCli
             Project project = dao.get(project_id);
             helper.setProject(project);
 
-            title = getString(R.string.projet_update);
+            title = getString(R.string.project_edit);
         } else {
-            title = getString(R.string.projet_new);
+            title = getString(R.string.project_new);
         }
 
         setTitle(title);

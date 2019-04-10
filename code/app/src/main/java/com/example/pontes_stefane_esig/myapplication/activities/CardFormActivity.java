@@ -37,7 +37,7 @@ public class CardFormActivity extends AppCompatActivity {
             Card card = dao.get(card_id);
             helper.setCard(card);
 
-            title = getString(R.string.card_update);
+            title = getString(R.string.card_edit);
         } else {
             listt_id = intent.getLongExtra("listt_id", 0);
             position = intent.getIntExtra("position", 0);

@@ -35,7 +35,7 @@ public class ListtFormActivity extends AppCompatActivity {
             Listt listt = dao.get(listtId);
             helper.setListt(listt);
 
-            title = getString(R.string.listt_update);
+            title = getString(R.string.listt_edit);
         } else {
             project_id = intent.getLongExtra("project_id", 0);
             position = intent.getIntExtra("position", 0);
