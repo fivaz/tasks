@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.pontes_stefane_esig.myapplication">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -18,26 +18,25 @@
             android:name=".activities.ListtFormActivity"
             android:screenOrientation="sensor" />
         <activity
-            android:name=".activities.HomeActivity"
-            android:screenOrientation="sensor">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".activities.ProjectsActivity"
+            android:screenOrientation="sensor" />
         <activity
             android:name=".activities.ProjectFormActivity"
             android:screenOrientation="sensor" />
         <activity
             android:name=".activities.ProjectActivity"
-            android:theme="@style/MenuItems"
-            android:screenOrientation="sensor" />
+            android:screenOrientation="sensor"
+            android:theme="@style/MenuItems" />
         <activity
             android:name=".activities.BurnDownChartActivity"
             android:label="@string/burndown_chart_title"
-            android:screenOrientation="sensor">
+            android:screenOrientation="sensor" />
+        <activity android:name=".activities.HomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

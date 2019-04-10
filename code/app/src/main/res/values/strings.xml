@@ -27,4 +27,10 @@
     <string name="error_msg_start_hour_required">L\'heure de début est obligatoire</string>
     <string name="error_msg_end_date_required">La date de fin est obligatoire</string>
     <string name="error_msg_end_hour_required">L\'heure de fin est obligatoire</string>
+    <string name="sign_in">se connecter</string>
+    <string name="sign_in">pas de compte?</string>
+    <string name="register_quesiton">pas de compte?</string>
+    <string name="register">s\'inscrire</string>
+    <string name="login">Utilisateur</string>
+    <string name="password">Mot de passe</string>
 </resources>

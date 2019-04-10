@@ -42,12 +42,22 @@ public class Project extends Model {
         return start_at;
     }
 
+    public String getStartAtToString(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(start_at);
+    }
+
     public void setStart_at(Date start_at) {
         this.start_at = start_at;
     }
 
     public Date getEnd_at() {
         return end_at;
+    }
+
+    public String getEndAtToString(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(end_at);
     }
 
     public void setEnd_at(Date end_at) {

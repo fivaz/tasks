@@ -19,7 +19,7 @@ import com.example.pontes_stefane_esig.myapplication.daos.CurrentStateDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.ListtDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
 import com.example.pontes_stefane_esig.myapplication.helpers.MyItemTouchHelperCallback;
-import com.example.pontes_stefane_esig.myapplication.helpers.SyncHelper;
+import com.example.pontes_stefane_esig.myapplication.converters.ProjectConverter;
 import com.example.pontes_stefane_esig.myapplication.models.CurrentState;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
@@ -48,6 +48,10 @@ public class ProjectActivity extends AppCompatActivity {
         rvLists.setLayoutManager(layoutManager);
 
         setTitle(project.getName());
+
+        ProjectConverter converter = new ProjectConverter(this);
+        converter.buildAll(project);
+        System.err.println(converter.getJSON());
     }
 
     @Override
@@ -168,25 +172,27 @@ public class ProjectActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void sync(View view) {
-        SyncHelper helper = new SyncHelper(this);
-        final String json = helper.convertAll(project);
 
-        Log.e("project json", json);
+//    public void sync(View view) {
+//        ProjectConverter helper = new ProjectConverter(this);
+//        final String json = helper.convertAll(project);
+//
+//        Log.e("project json", json);
+//
+////        Toast.makeText(this, json, LENGTH_LONG).show();
+//
+//        /*
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                WebClient webClient = new WebClient();
+//                String response = webClient.post(json);
+//                Log.e("testPOST", response);
+//            }
+//        }).start();
+//        */
+//    }
 
-//        Toast.makeText(this, json, LENGTH_LONG).show();
-
-        /*
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                WebClient webClient = new WebClient();
-                String response = webClient.post(json);
-                Log.e("testPOST", response);
-            }
-        }).start();
-        */
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
