@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Fivaz
+ * UserDAO: Fivaz
  * Date: 05/02/2019
  * Time: 03:55
  */

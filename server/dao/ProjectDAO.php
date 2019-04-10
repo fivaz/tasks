@@ -1,7 +1,7 @@
 <?php
 require_once("DAO.php");
 
-class Project extends DAO
+class ProjectDAO extends DAO
 {
     public function __construct()
     {
