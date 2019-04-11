@@ -14,18 +14,24 @@ import android.view.View;
 
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.adapters.ProjectAdapter;
-import com.example.pontes_stefane_esig.myapplication.converters.ProjectInJSON;
+import com.example.pontes_stefane_esig.myapplication.converters.DateConverter;
+import com.example.pontes_stefane_esig.myapplication.converters.ObjectInJSON;
+import com.example.pontes_stefane_esig.myapplication.converters.SQLinJSON;
 import com.example.pontes_stefane_esig.myapplication.daos.CardDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.CurrentStateDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.ListtDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
+import com.example.pontes_stefane_esig.myapplication.helpers.DataBaseSync;
 import com.example.pontes_stefane_esig.myapplication.helpers.MyItemTouchHelperCallback;
+import com.example.pontes_stefane_esig.myapplication.helpers.WebClient;
 import com.example.pontes_stefane_esig.myapplication.models.CurrentState;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
+import com.example.pontes_stefane_esig.myapplication.models.User;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class ProjectActivity extends AppCompatActivity {
 
@@ -60,9 +66,11 @@ public class ProjectActivity extends AppCompatActivity {
     public void checkCurrentState() {
         Date now = Calendar.getInstance().getTime();
         //TODO check it later
-        if (now.getTime() > project.getEnd_at().getTime())
+        long end_at_long = DateConverter.toLong(project.getEnd_at());
+        long start_at_long = DateConverter.toLong(project.getStart_at());
+        if (now.getTime() > end_at_long)
             Log.e("A P#checkCurrentState", "your project has already ended");
-        if (now.getTime() < project.getStart_at().getTime())
+        if (now.getTime() < start_at_long)
             Log.e("A P#checkCurrentState", "your project hasn't started yet");
         else {
             if (hasTimeBlockChanged())
@@ -168,28 +176,6 @@ public class ProjectActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-//    public void sync(View view) {
-//        ProjectInJSON helper = new ProjectInJSON(this);
-//        final String json = helper.convertAll(project);
-//
-//        Log.e("project json", json);
-//
-////        Toast.makeText(this, json, LENGTH_LONG).show();
-//
-//        /*
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                WebClient webClient = new WebClient();
-//                String response = webClient.post(json);
-//                Log.e("testPOST", response);
-//            }
-//        }).start();
-//        */
-//    }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -205,6 +191,23 @@ public class ProjectActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_check_burndown_chart)
             goToBurnDownChart();
+
+        if (item.getItemId() == R.id.menu_upload)
+            uploadAll();
+
         return super.onOptionsItemSelected(item);
+    }
+
+    private void uploadAll() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                DataBaseSync dataBaseSync = new DataBaseSync(ProjectActivity.this);
+                String users = dataBaseSync.upload();
+
+                WebClient client = new WebClient();
+                client.uploadAll(users);
+            }
+        }).start();
     }
 }

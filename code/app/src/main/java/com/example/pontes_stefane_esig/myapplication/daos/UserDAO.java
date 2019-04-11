@@ -6,11 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 
-import com.example.pontes_stefane_esig.myapplication.models.Listt;
 import com.example.pontes_stefane_esig.myapplication.models.User;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 //TODO use prepared statements
@@ -31,8 +29,9 @@ public class UserDAO extends DAO {
         SQLiteDatabase db = getReadableDatabase();
         String sql = String.format(SELECT_WHERE, id);
         Cursor cursor = db.rawQuery(sql, null);
-        cursor.moveToFirst();
-        User user = buildUser(cursor);
+        User user = null;
+        if (cursor.moveToFirst())
+            user = buildUser(cursor);
         cursor.close();
         return user;
     }
@@ -67,8 +66,10 @@ public class UserDAO extends DAO {
     @NonNull
     private ContentValues getValues(User user) {
         ContentValues data = new ContentValues();
-        data.put("first_name", user.getFirstName());
-        data.put("last_name", user.getLastName());
+        if (user.getId() != 0)
+            data.put("id", user.getId());
+        data.put("first_name", user.getFirst_name());
+        data.put("last_name", user.getLast_name());
         data.put("email", user.getEmail());
         data.put("password", user.getPassword());
         data.put("isArchived", user.isArchived());
@@ -114,5 +115,13 @@ public class UserDAO extends DAO {
             user = buildUser(cursor);
         cursor.close();
         return user;
+    }
+
+    public void save(User user) {
+        if (get(user.getId()) == null) {
+            insert(user);
+        } else {
+            update(user);
+        }
     }
 }

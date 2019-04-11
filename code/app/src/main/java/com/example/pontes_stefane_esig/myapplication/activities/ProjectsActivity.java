@@ -10,10 +10,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.pontes_stefane_esig.myapplication.R;
-import com.example.pontes_stefane_esig.myapplication.converters.ProjectInJSON;
+import com.example.pontes_stefane_esig.myapplication.converters.SQLinJSON;
 import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.UserDAO;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
@@ -37,8 +36,6 @@ public class ProjectsActivity extends AppCompatActivity {
         Button btNew = findViewById(R.id.bt_new_project);
 
         long user_id = getIntent().getLongExtra("user_id", 0);
-
-
         UserDAO userDao = new UserDAO(this);
         user = userDao.get(user_id);
         userDao.close();
@@ -67,7 +64,7 @@ public class ProjectsActivity extends AppCompatActivity {
 
         setTitle(getString(R.string.home_title));
 
-        ProjectInJSON converter = new ProjectInJSON(this, user);
+        SQLinJSON converter = new SQLinJSON(this, user);
         converter.convert();
         System.err.println(converter.getJSON());
     }

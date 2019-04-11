@@ -32,8 +32,9 @@ public class ListtDAO extends DAO {
         SQLiteDatabase db = getReadableDatabase();
         String sql = String.format(SELECT_WHERE, id);
         Cursor cursor = db.rawQuery(sql, null);
-        cursor.moveToFirst();
-        Listt listt = buildListt(cursor);
+        Listt listt = null;
+        if (cursor.moveToFirst())
+            listt = buildListt(cursor);
         cursor.close();
         return listt;
     }
@@ -70,6 +71,8 @@ public class ListtDAO extends DAO {
     @NonNull
     private ContentValues getValues(Listt listt) {
         ContentValues data = new ContentValues();
+        if (listt.getId() != 0)
+            data.put("id", listt.getId());
         data.put("name", listt.getName());
         data.put("position", listt.getPosition());
         data.put("isDone", listt.isDone());
@@ -92,5 +95,13 @@ public class ListtDAO extends DAO {
     public void update(Listt listt) {
         SQLiteDatabase db = getWritableDatabase();
         db.update(TB_LISTT_NAME, getValues(listt), "id = ?", getPK(listt));
+    }
+
+    public void save(Listt listt) {
+        if (get(listt.getId()) == null) {
+            insert(listt);
+        } else {
+            update(listt);
+        }
     }
 }

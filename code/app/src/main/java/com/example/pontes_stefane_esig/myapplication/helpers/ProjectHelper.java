@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 
 import com.example.pontes_stefane_esig.myapplication.R;
+import com.example.pontes_stefane_esig.myapplication.converters.DateConverter;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
 
 import java.text.DateFormat;
@@ -51,8 +52,8 @@ public class ProjectHelper {
             Date startDate = dateTimeFormat.parse(startDateString + " " + startTimeString);
 
             project.setName(name);
-            project.setStart_at(startDate);
-            project.setEnd_at(endDate);
+            project.setStart_at(DateConverter.toStringEN(startDate));
+            project.setEnd_at(DateConverter.toStringEN(endDate));
 
         } catch (ParseException e) {
             e.printStackTrace();

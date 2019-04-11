@@ -5,8 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
+import com.example.pontes_stefane_esig.myapplication.converters.DateConverter;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
 import com.example.pontes_stefane_esig.myapplication.models.User;
@@ -33,8 +33,9 @@ public class ProjectDAO extends DAO {
         SQLiteDatabase db = getReadableDatabase();
         String sql = String.format(SELECT_WHERE, id);
         Cursor cursor = db.rawQuery(sql, null);
-        cursor.moveToFirst();
-        Project project = buildProject(cursor);
+        Project project = null;
+        if (cursor.moveToFirst())
+            project = buildProject(cursor);
         cursor.close();
         return project;
     }
@@ -56,22 +57,23 @@ public class ProjectDAO extends DAO {
         String name = cursor.getString(cursor.getColumnIndex("name"));
         long start_at_millliseconds = cursor.getLong(cursor.getColumnIndex("start_at"));
         Date start_at = new Date(start_at_millliseconds);
+        String start_atEN = DateConverter.toStringEN(start_at);
         long end_at_millliseconds = cursor.getLong(cursor.getColumnIndex("end_at"));
         Date end_at = new Date(end_at_millliseconds);
+        String end_atEN = DateConverter.toStringEN(end_at);
         long user_id = cursor.getLong(cursor.getColumnIndex("user_id"));
 
-        return new Project(id, name, start_at, end_at, user_id);
+        return new Project(id, name, start_atEN, end_atEN, user_id);
     }
 
     public void insert(Project project) {
-        if(project.getUserId() == 0)
-            throw new NullPointerException();
-
         SQLiteDatabase db = getWritableDatabase();
         long id = db.insert(DAO.TB_PROJECT_NAME, null, getValues(project));
-        project.setId(id);
 
-        buildDefaultListts(id);
+        if (project.getId() == 0)
+            buildDefaultListts(id);
+
+        project.setId(id);
     }
 
     private void buildDefaultListts(long id) {
@@ -102,10 +104,18 @@ public class ProjectDAO extends DAO {
     private ContentValues getValues(Project project) {
         ContentValues data = new ContentValues();
         data.put("name", project.getName());
-        data.put("start_at", project.getStart_at().getTime());
-        data.put("end_at", project.getEnd_at().getTime());
+
+        String start_atEN = project.getStart_at();
+        long start_at_long = DateConverter.toLong(start_atEN);
+        String end_atEN = project.getEnd_at();
+        long end_at_long = DateConverter.toLong(end_atEN);
+
+        if (project.getId() != 0)
+            data.put("id", project.getId());
+        data.put("start_at", start_at_long);
+        data.put("end_at", end_at_long);
         data.put("isArchived", project.isArchived());
-        data.put("user_id", project.getUserId());
+        data.put("user_id", project.getUser_id());
         return data;
     }
 
@@ -123,5 +133,13 @@ public class ProjectDAO extends DAO {
     public void update(Project project) {
         SQLiteDatabase db = getWritableDatabase();
         db.update(DAO.TB_PROJECT_NAME, getValues(project), "id = ?", getPK(project));
+    }
+
+    public void save(Project project) {
+        if (get(project.getId()) == null) {
+            insert(project);
+        } else {
+            update(project);
+        }
     }
 }

@@ -86,7 +86,7 @@ public class ProjectFormActivity extends AppCompatActivity implements View.OnCli
 
             ProjectDAO dao = new ProjectDAO(this);
             if (project.getId() == 0) {
-                project.setUserId(userId);
+                project.setUser_id(userId);
                 dao.insert(project);
             } else {
                 dao.update(project);

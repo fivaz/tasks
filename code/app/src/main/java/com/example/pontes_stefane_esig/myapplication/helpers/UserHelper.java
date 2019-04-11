@@ -31,16 +31,16 @@ public class UserHelper {
         String email = inputEmail.getText().toString();
         String password = inputPassword.getText().toString();
 
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
+        user.setFirst_name(firstName);
+        user.setLast_name(lastName);
         user.setEmail(email);
         user.setPassword(password);
         return user;
     }
 
     public void setUser(User user) {
-        inputFirstName.setText(user.getFirstName());
-        inputLastName.setText(user.getLastName());
+        inputFirstName.setText(user.getFirst_name());
+        inputLastName.setText(user.getLast_name());
         inputEmail.setText(user.getEmail());
         inputPassword.setText(user.getPassword());
         this.user = user;

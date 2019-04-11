@@ -8,7 +8,9 @@ import android.widget.Toast;
 
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.daos.UserDAO;
+import com.example.pontes_stefane_esig.myapplication.helpers.DataBaseSync;
 import com.example.pontes_stefane_esig.myapplication.helpers.LoginHelper;
+import com.example.pontes_stefane_esig.myapplication.helpers.WebClient;
 import com.example.pontes_stefane_esig.myapplication.models.User;
 
 public class HomeActivity extends AppCompatActivity {
@@ -21,6 +23,25 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         helper = new LoginHelper(this);
+
+        System.err.println("downloading...");
+
+        downloadAll();
+    }
+
+    private void downloadAll() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                WebClient client = new WebClient();
+                String json = client.downloadAll();
+
+                System.err.println(json);
+
+                DataBaseSync dataBaseSync = new DataBaseSync(HomeActivity.this);
+                dataBaseSync.download(json);
+            }
+        }).start();
     }
 
     public void register(View view) {

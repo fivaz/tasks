@@ -41,4 +41,5 @@
     <string name="error_msg_email_required">L\'adresse mail est obligatoire</string>
     <string name="error_msg_password_required">Le mot de passe est obligatoire</string>
     <string name="error_msg_invalide_login">L\'utilisateur ou le mot de passe ne sont pas corrects</string>
+    <string name="upload">Syncroniser données</string>
 </resources>

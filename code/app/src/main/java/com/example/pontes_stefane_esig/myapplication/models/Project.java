@@ -1,20 +1,18 @@
 package com.example.pontes_stefane_esig.myapplication.models;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import com.example.pontes_stefane_esig.myapplication.converters.DateConverter;
+
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class Project extends Model {
 
     private String name;
-    private Date start_at;
-    private Date end_at;
+    private String start_at;
+    private String end_at;
     private boolean isArchived;
-    private long userId;
+    private long user_id;
     private List<Listt> listts;
 
     public Project() {
@@ -22,13 +20,13 @@ public class Project extends Model {
         listts = new ArrayList<>();
     }
 
-    public Project(long id, String name, Date start_at, Date end_at, long userId) {
+    public Project(long id, String name, String start_at, String end_at, long user_id) {
         this.id = id;
         this.name = name;
         this.start_at = start_at;
         this.end_at = end_at;
         this.isArchived = false;
-        this.userId = userId;
+        this.user_id = user_id;
         listts = new ArrayList<>();
     }
 
@@ -40,29 +38,19 @@ public class Project extends Model {
         this.name = name;
     }
 
-    public Date getStart_at() {
+    public String getStart_at() {
         return start_at;
     }
 
-    public String getStartAtToString(){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return dateFormat.format(start_at);
-    }
-
-    public void setStart_at(Date start_at) {
+    public void setStart_at(String start_at) {
         this.start_at = start_at;
     }
 
-    public Date getEnd_at() {
+    public String getEnd_at() {
         return end_at;
     }
 
-    public String getEndAtToString(){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return dateFormat.format(end_at);
-    }
-
-    public void setEnd_at(Date end_at) {
+    public void setEnd_at(String end_at) {
         this.end_at = end_at;
     }
 
@@ -74,12 +62,12 @@ public class Project extends Model {
         isArchived = archived;
     }
 
-    public long getUserId() {
-        return userId;
+    public long getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUser_id(long user_id) {
+        this.user_id = user_id;
     }
 
     public List<Listt> getListts() {
@@ -106,19 +94,9 @@ public class Project extends Model {
         return 0;
     }
 
-    @Override
-    public String toString() {
-        return name;
-    }
-
-    public String formatDate(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.FRENCH);
-        return dateFormat.format(date);
-    }
-
     public int getCurrentTimeBlock() {
-        long startAtLong = start_at.getTime();
-        long endAtLong = end_at.getTime();
+        long startAtLong = DateConverter.toLong(start_at);
+        long endAtLong = DateConverter.toLong(end_at);
         long projectTimeLong = (endAtLong - startAtLong);
         long timeBlockLong = projectTimeLong / 5;
         long currentPartTimeLong = startAtLong;
@@ -136,4 +114,16 @@ public class Project extends Model {
         return new CurrentState(getPointsDone(), getCurrentTimeBlock(), getId());
     }
 
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", start_at='" + start_at + '\'' +
+                ", end_at='" + end_at + '\'' +
+                ", isArchived=" + isArchived +
+                ", user_id=" + user_id +
+                ", listts=" + listts +
+                '}';
+    }
 }

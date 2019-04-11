@@ -26,8 +26,9 @@ public class CardDAO extends DAO {
         SQLiteDatabase db = getReadableDatabase();
         String sql = String.format(SELECT_FROM_STATEMENT, id);
         Cursor cursor = db.rawQuery(sql, null);
-        cursor.moveToFirst();
-        Card card = buildCard(cursor);
+        Card card = null;
+        if (cursor.moveToFirst())
+            card = buildCard(cursor);
         cursor.close();
         return card;
     }
@@ -66,6 +67,8 @@ public class CardDAO extends DAO {
     @NonNull
     private ContentValues getValues(Card card) {
         ContentValues data = new ContentValues();
+        if (card.getId() != 0)
+            data.put("id", card.getId());
         data.put("name", card.getName());
         data.put("points", card.getPoints());
         data.put("position", card.getPosition());
@@ -89,5 +92,13 @@ public class CardDAO extends DAO {
     public void update(Card card) {
         SQLiteDatabase db = getWritableDatabase();
         db.update(TABLE_NAME, getValues(card), "id = ?", getPK(card));
+    }
+
+    public void save(Card card) {
+        if (get(card.getId()) == null) {
+            insert(card);
+        } else {
+            update(card);
+        }
     }
 }

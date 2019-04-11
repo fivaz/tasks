@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.example.pontes_stefane_esig.myapplication.daos.ListtDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
-import com.example.pontes_stefane_esig.myapplication.daos.UserDAO;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
 import com.example.pontes_stefane_esig.myapplication.models.User;
@@ -14,13 +13,13 @@ import org.json.JSONStringer;
 
 import java.util.List;
 
-public class ProjectInJSON {
+public class SQLinJSON {
 
     private Context context;
     private JSONStringer json;
     private User user;
 
-    public ProjectInJSON(Context context, User user) {
+    public SQLinJSON(Context context, User user) {
         this.context = context;
         json = new JSONStringer();
         this.user = user;
@@ -48,8 +47,8 @@ public class ProjectInJSON {
 
     private void buildUser() throws JSONException {
         json.object()
-                .key("first_name").value(user.getFirstName())
-                .key("last_name").value(user.getLastName())
+                .key("first_name").value(user.getFirst_name())
+                .key("last_name").value(user.getLast_name())
                 .key("email").value(user.getEmail())
                 .key("password").value(user.getPassword());
         buildProjects();
@@ -73,8 +72,8 @@ public class ProjectInJSON {
         json.object()
                 .key("id").value(project.getId())
                 .key("name").value(project.getName())
-                .key("start_at").value(project.getStartAtToString())
-                .key("end_at").value(project.getEndAtToString())
+                .key("start_at").value(project.getStart_at())
+                .key("end_at").value(project.getEnd_at())
                 .key("isArchived").value(project.isArchived());
         buildListts(project);
         json.endObject();
