@@ -78,17 +78,17 @@ public class ProjectDAO extends DAO {
 
     private void buildDefaultListts(long id) {
         Listt listtTODO = new Listt();
-        listtTODO.setProject_id(id);
+        listtTODO.setProjectId(id);
         listtTODO.setName("TODO");
         listtTODO.setPosition(0);
 
         Listt listtDOING = new Listt();
-        listtDOING.setProject_id(id);
+        listtDOING.setProjectId(id);
         listtDOING.setName("DOING");
         listtDOING.setPosition(1);
 
         Listt listtDONE = new Listt();
-        listtDONE.setProject_id(id);
+        listtDONE.setProjectId(id);
         listtDONE.setName("DONE");
         listtDONE.setPosition(2);
         listtDONE.setDone(true);
@@ -105,9 +105,9 @@ public class ProjectDAO extends DAO {
         ContentValues data = new ContentValues();
         data.put("name", project.getName());
 
-        String start_atEN = project.getStart_at();
+        String start_atEN = project.getStartAt();
         long start_at_long = DateConverter.toLong(start_atEN);
-        String end_atEN = project.getEnd_at();
+        String end_atEN = project.getEndAt();
         long end_at_long = DateConverter.toLong(end_atEN);
 
         if (project.getId() != 0)
@@ -115,7 +115,7 @@ public class ProjectDAO extends DAO {
         data.put("start_at", start_at_long);
         data.put("end_at", end_at_long);
         data.put("isArchived", project.isArchived());
-        data.put("user_id", project.getUser_id());
+        data.put("user_id", project.getUserId());
         return data;
     }
 

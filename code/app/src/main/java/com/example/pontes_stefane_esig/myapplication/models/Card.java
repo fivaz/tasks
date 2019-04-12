@@ -5,7 +5,7 @@ public class Card extends Model {
     private String name;
     private double points;
     private int position;
-    private long listt_id;
+    private long listtId;
 
     public Card(){
 
@@ -16,12 +16,12 @@ public class Card extends Model {
         this.points = points;
     }
 
-    public Card(long id, String name, double points, int position, long listt_id) {
+    public Card(long id, String name, double points, int position, long listtId) {
         this.id = id;
         this.name = name;
         this.points = points;
         this.position = position;
-        this.listt_id = listt_id;
+        this.listtId = listtId;
     }
 
     public String getName() {
@@ -48,12 +48,12 @@ public class Card extends Model {
         this.position = position;
     }
 
-    public long getListt_id() {
-        return listt_id;
+    public long getListtId() {
+        return listtId;
     }
 
-    public void setListt_id(long listt_id) {
-        this.listt_id = listt_id;
+    public void setListtId(long listtId) {
+        this.listtId = listtId;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class Card extends Model {
                 "name='" + name + '\'' +
                 ", points=" + points +
                 ", position=" + position +
-                ", listt_id=" + listt_id +
+                ", listtId=" + listtId +
                 ", id=" + id +
                 '}';
     }

@@ -4,11 +4,11 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-public class UsersTask extends AsyncTask {
+public class SyncDatabase extends AsyncTask {
 
     Context context;
 
-    public UsersTask(Context context) {
+    public SyncDatabase(Context context) {
         this.context = context;
     }
 

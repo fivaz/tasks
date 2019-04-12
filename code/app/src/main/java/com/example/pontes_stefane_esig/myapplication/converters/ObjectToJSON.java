@@ -2,6 +2,7 @@ package com.example.pontes_stefane_esig.myapplication.converters;
 
 import com.example.pontes_stefane_esig.myapplication.models.All;
 import com.example.pontes_stefane_esig.myapplication.models.Card;
+import com.example.pontes_stefane_esig.myapplication.models.CurrentState;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
 import com.example.pontes_stefane_esig.myapplication.models.User;
@@ -44,8 +45,8 @@ public class ObjectToJSON {
     private void buildUser(User user) throws JSONException {
         json.object()
                 .key("id").value(user.getId())
-                .key("first_name").value(user.getFirst_name())
-                .key("last_name").value(user.getLast_name())
+                .key("firstName").value(user.getFirstName())
+                .key("lastName").value(user.getLastName())
                 .key("email").value(user.getEmail())
                 .key("password").value(user.getPassword());
         buildProjects(user);
@@ -65,11 +66,30 @@ public class ObjectToJSON {
         json.object()
                 .key("id").value(project.getId())
                 .key("name").value(project.getName())
-                .key("start_at").value(project.getStart_at())
-                .key("end_at").value(project.getEnd_at())
+                .key("startAt").value(project.getStartAt())
+                .key("endAt").value(project.getEndAt())
                 .key("isArchived").value(project.isArchived())
-                .key("user_id").value(project.getUser_id());
+                .key("userId").value(project.getUserId());
         buildListts(project);
+        buildCurrentStates(project);
+        json.endObject();
+    }
+
+    private void buildCurrentStates(Project project) throws JSONException {
+        json.key("currentStates").array();
+
+        for (CurrentState currentState : project.getCurrentStates())
+            buildCurrentState(currentState);
+
+        json.endArray();
+    }
+
+    private void buildCurrentState(CurrentState currentState) throws JSONException {
+        json.object()
+                .key("id").value(currentState.getId())
+                .key("pointsDone").value(currentState.getPointsDone())
+                .key("timeBlock").value(currentState.getTimeBlock())
+                .key("projectId").value(currentState.getProjectId());
         json.endObject();
     }
 
@@ -89,7 +109,7 @@ public class ObjectToJSON {
                 .key("position").value(listt.getPosition())
                 .key("isDone").value(listt.isDone())
                 .key("isArchived").value(listt.isArchived())
-                .key("project_id").value(listt.getProject_id());
+                .key("projectId").value(listt.getProjectId());
         buildCards(listt);
         json.endObject();
     }
@@ -109,7 +129,7 @@ public class ObjectToJSON {
                 .key("name").value(card.getName())
                 .key("points").value(card.getPoints())
                 .key("position").value(card.getPosition())
-                .key("listt_id").value(card.getListt_id());
+                .key("listtId").value(card.getListtId());
         json.endObject();
     }
 }

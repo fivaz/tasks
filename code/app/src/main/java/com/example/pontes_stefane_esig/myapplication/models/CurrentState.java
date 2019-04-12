@@ -3,21 +3,20 @@ package com.example.pontes_stefane_esig.myapplication.models;
 public class CurrentState  extends Model {
 
     private double pointsDone;
-    //TODO timeBlock;
-    private int timePart;
-    private long project_id;
+    private int timeBlock;
+    private long projectId;
 
-    public CurrentState(long id, double pointsDone, int timePart, long project_id) {
+    public CurrentState(long id, double pointsDone, int timeBlock, long projectId) {
         this.id = id;
         this.pointsDone = pointsDone;
-        this.timePart = timePart;
-        this.project_id = project_id;
+        this.timeBlock = timeBlock;
+        this.projectId = projectId;
     }
 
-    public CurrentState(double pointsDone, int timePart, long project_id) {
+    public CurrentState(double pointsDone, int timeBlock, long projectId) {
         this.pointsDone = pointsDone;
-        this.timePart = timePart;
-        this.project_id = project_id;
+        this.timeBlock = timeBlock;
+        this.projectId = projectId;
     }
 
     public double getPointsDone() {
@@ -28,28 +27,28 @@ public class CurrentState  extends Model {
         this.pointsDone = pointsDone;
     }
 
-    public int getTimePart() {
-        return timePart;
+    public int getTimeBlock() {
+        return timeBlock;
     }
 
-    public void setTimePart(int timePart) {
-        this.timePart = timePart;
+    public void setTimeBlock(int timeBlock) {
+        this.timeBlock = timeBlock;
     }
 
-    public long getProject_id() {
-        return project_id;
+    public long getProjectId() {
+        return projectId;
     }
 
-    public void setProject_id(long project_id) {
-        this.project_id = project_id;
+    public void setProjectId(long projectId) {
+        this.projectId = projectId;
     }
 
     @Override
     public String toString() {
         return "CurrentState{" +
                 "pointsDone=" + pointsDone +
-                ", timePart=" + timePart +
-                ", project_id=" + project_id +
+                ", timeBlock=" + timeBlock +
+                ", projectId=" + projectId +
                 ", id=" + id +
                 '}';
     }

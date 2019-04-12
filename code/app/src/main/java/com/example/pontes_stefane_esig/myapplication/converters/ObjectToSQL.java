@@ -3,10 +3,12 @@ package com.example.pontes_stefane_esig.myapplication.converters;
 import android.content.Context;
 
 import com.example.pontes_stefane_esig.myapplication.daos.CardDAO;
+import com.example.pontes_stefane_esig.myapplication.daos.CurrentStateDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.ListtDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.UserDAO;
 import com.example.pontes_stefane_esig.myapplication.models.Card;
+import com.example.pontes_stefane_esig.myapplication.models.CurrentState;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
 import com.example.pontes_stefane_esig.myapplication.models.User;
@@ -35,8 +37,17 @@ public class ObjectToSQL {
         for (Project project : projects) {
             projectDAO.save(project);
             setListts(project.getListts());
+            setCurrentStates(project.getCurrentStates());
         }
         projectDAO.close();
+    }
+
+    public void setCurrentStates(List<CurrentState> currentStates) {
+        CurrentStateDAO currentStateDAO = new CurrentStateDAO(context);
+        for (CurrentState currentState : currentStates) {
+            currentStateDAO.save(currentState);
+        }
+        currentStateDAO.close();
     }
 
     public void setListts(List<Listt> listts) {

@@ -4,11 +4,13 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.example.pontes_stefane_esig.myapplication.daos.CardDAO;
+import com.example.pontes_stefane_esig.myapplication.daos.CurrentStateDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.ListtDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.UserDAO;
 import com.example.pontes_stefane_esig.myapplication.models.All;
 import com.example.pontes_stefane_esig.myapplication.models.Card;
+import com.example.pontes_stefane_esig.myapplication.models.CurrentState;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
 import com.example.pontes_stefane_esig.myapplication.models.User;
@@ -39,10 +41,20 @@ public class SQLtoObject {
         List<Project> projects = projectDAO.getAll(user);
         projectDAO.close();
 
-        for (Project project : projects)
+        for (Project project : projects) {
             getListts(project);
+            getCurrentStates(project);
+        }
 
         user.setProjects(projects);
+    }
+
+    public void getCurrentStates(Project project) {
+        CurrentStateDAO currentStateDAO = new CurrentStateDAO(context);
+        List<CurrentState> currentStates = currentStateDAO.getAll(project);
+        currentStateDAO.close();
+
+        project.setCurrentStates(currentStates);
     }
 
     public void getListts(Project project) {
@@ -63,21 +75,4 @@ public class SQLtoObject {
 
         listt.setCards(cards);
     }
-
-    /*
-    public void download(String dataJSON) {
-        List<User> users = JSONtoObject.convertAll(dataJSON);
-        setUsers(users);
-    }
-    */
-
-    /*
-    public String upload() {
-        List<User> users = getUsers();
-
-        System.err.println(users);
-
-        return ObjectInJSON.convert(users);
-    }
-    */
 }

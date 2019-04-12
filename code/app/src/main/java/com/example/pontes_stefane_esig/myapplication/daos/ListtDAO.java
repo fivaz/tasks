@@ -77,7 +77,7 @@ public class ListtDAO extends DAO {
         data.put("position", listt.getPosition());
         data.put("isDone", listt.isDone());
         data.put("isArchived", listt.isArchived());
-        data.put("project_id", listt.getProject_id());
+        data.put("project_id", listt.getProjectId());
         return data;
     }
 

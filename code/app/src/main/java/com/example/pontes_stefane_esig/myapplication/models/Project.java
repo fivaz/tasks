@@ -9,25 +9,28 @@ import java.util.List;
 public class Project extends Model {
 
     private String name;
-    private String start_at;
-    private String end_at;
+    private String startAt;
+    private String endAt;
     private boolean isArchived;
-    private long user_id;
+    private long userId;
     private List<Listt> listts;
+    private List<CurrentState> currentStates;
 
     public Project() {
         isArchived = false;
         listts = new ArrayList<>();
+        currentStates = new ArrayList<>();
     }
 
-    public Project(long id, String name, String start_at, String end_at, long user_id) {
+    public Project(long id, String name, String startAt, String endAt, long userId) {
         this.id = id;
         this.name = name;
-        this.start_at = start_at;
-        this.end_at = end_at;
+        this.startAt = startAt;
+        this.endAt = endAt;
         this.isArchived = false;
-        this.user_id = user_id;
+        this.userId = userId;
         listts = new ArrayList<>();
+        currentStates = new ArrayList<>();
     }
 
     public String getName() {
@@ -38,20 +41,20 @@ public class Project extends Model {
         this.name = name;
     }
 
-    public String getStart_at() {
-        return start_at;
+    public String getStartAt() {
+        return startAt;
     }
 
-    public void setStart_at(String start_at) {
-        this.start_at = start_at;
+    public void setStartAt(String startAt) {
+        this.startAt = startAt;
     }
 
-    public String getEnd_at() {
-        return end_at;
+    public String getEndAt() {
+        return endAt;
     }
 
-    public void setEnd_at(String end_at) {
-        this.end_at = end_at;
+    public void setEndAt(String endAt) {
+        this.endAt = endAt;
     }
 
     public boolean isArchived() {
@@ -59,15 +62,15 @@ public class Project extends Model {
     }
 
     public void setArchived(boolean archived) {
-        isArchived = archived;
+        this.isArchived = archived;
     }
 
-    public long getUser_id() {
-        return user_id;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public List<Listt> getListts() {
@@ -76,6 +79,14 @@ public class Project extends Model {
 
     public void setListts(List<Listt> listts) {
         this.listts = listts;
+    }
+
+    public List<CurrentState> getCurrentStates() {
+        return currentStates;
+    }
+
+    public void setCurrentStates(List<CurrentState> currentStates) {
+        this.currentStates = currentStates;
     }
 
     public double getTotal() {
@@ -95,8 +106,8 @@ public class Project extends Model {
     }
 
     public int getCurrentTimeBlock() {
-        long startAtLong = DateConverter.toLong(start_at);
-        long endAtLong = DateConverter.toLong(end_at);
+        long startAtLong = DateConverter.toLong(startAt);
+        long endAtLong = DateConverter.toLong(endAt);
         long projectTimeLong = (endAtLong - startAtLong);
         long timeBlockLong = projectTimeLong / 5;
         long currentPartTimeLong = startAtLong;
@@ -119,11 +130,12 @@ public class Project extends Model {
         return "Project{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", start_at='" + start_at + '\'' +
-                ", end_at='" + end_at + '\'' +
+                ", startAt='" + startAt + '\'' +
+                ", endAt='" + endAt + '\'' +
                 ", isArchived=" + isArchived +
-                ", user_id=" + user_id +
+                ", userId=" + userId +
                 ", listts=" + listts +
+                ", currentStates=" + currentStates +
                 '}';
     }
 }

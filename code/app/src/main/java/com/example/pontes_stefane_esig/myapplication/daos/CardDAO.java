@@ -72,7 +72,7 @@ public class CardDAO extends DAO {
         data.put("name", card.getName());
         data.put("points", card.getPoints());
         data.put("position", card.getPosition());
-        data.put("listt_id", card.getListt_id());
+        data.put("listt_id", card.getListtId());
         return data;
     }
 

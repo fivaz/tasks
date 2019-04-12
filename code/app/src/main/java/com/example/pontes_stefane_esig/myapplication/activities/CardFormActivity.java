@@ -54,7 +54,7 @@ public class CardFormActivity extends AppCompatActivity {
             CardDAO dao = new CardDAO(this);
 
             if (card.getId() == 0) {
-                card.setListt_id(listt_id);
+                card.setListtId(listt_id);
                 card.setPosition(position);
                 dao.insert(card);
             } else

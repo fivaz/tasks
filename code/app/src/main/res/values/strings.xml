@@ -34,8 +34,8 @@
     <string name="register">S\'inscrire</string>
     <string name="email">Adresse mail</string>
     <string name="password">Mot de passe</string>
-    <string name="first_name">Prénom</string>
-    <string name="last_name">Nom</string>
+    <string name="firstName">Prénom</string>
+    <string name="lastName">Nom</string>
     <string name="error_msg_first_name_required">Le prénom est obligatoire</string>
     <string name="error_msg_last_name_required">Le nom est obligatoire</string>
     <string name="error_msg_email_required">L\'adresse mail est obligatoire</string>

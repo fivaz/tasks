@@ -27,11 +27,9 @@ import com.example.pontes_stefane_esig.myapplication.models.All;
 import com.example.pontes_stefane_esig.myapplication.models.CurrentState;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
-import com.example.pontes_stefane_esig.myapplication.models.User;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 public class ProjectActivity extends AppCompatActivity {
 
@@ -66,8 +64,8 @@ public class ProjectActivity extends AppCompatActivity {
     public void checkCurrentState() {
         Date now = Calendar.getInstance().getTime();
         //TODO check it later
-        long end_at_long = DateConverter.toLong(project.getEnd_at());
-        long start_at_long = DateConverter.toLong(project.getStart_at());
+        long end_at_long = DateConverter.toLong(project.getEndAt());
+        long start_at_long = DateConverter.toLong(project.getStartAt());
         if (now.getTime() > end_at_long)
             Log.e("A P#checkCurrentState", "your project has already ended");
         if (now.getTime() < start_at_long)
@@ -116,7 +114,7 @@ public class ProjectActivity extends AppCompatActivity {
         if (lastCurrentState == null) {
             return true;
         } else {
-            int lastTimeBlock = lastCurrentState.getTimePart();
+            int lastTimeBlock = lastCurrentState.getTimeBlock();
             Log.e("A P#checkNewCurrentS", "lastTimeBlock: " + lastTimeBlock);
             return (project.getCurrentTimeBlock() > lastTimeBlock);
         }

@@ -52,7 +52,7 @@ public class ListtFormActivity extends AppCompatActivity {
             ListtDAO dao = new ListtDAO(this);
 
             if (listt.getId() == 0) {
-                listt.setProject_id(project_id);
+                listt.setProjectId(project_id);
                 listt.setPosition(position);
                 dao.insert(listt);
             } else

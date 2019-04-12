@@ -52,8 +52,8 @@ public class ProjectHelper {
             Date startDate = dateTimeFormat.parse(startDateString + " " + startTimeString);
 
             project.setName(name);
-            project.setStart_at(DateConverter.toStringEN(startDate));
-            project.setEnd_at(DateConverter.toStringEN(endDate));
+            project.setStartAt(DateConverter.toStringEN(startDate));
+            project.setEndAt(DateConverter.toStringEN(endDate));
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -67,11 +67,11 @@ public class ProjectHelper {
         DateFormat dateFormat = new SimpleDateFormat(datePattern, Locale.FRENCH);
         DateFormat timeFormat = new SimpleDateFormat(timePattern, Locale.FRENCH);
 
-        inputStartDate.setText(dateFormat.format(project.getStart_at()));
-        inputStartTime.setText(timeFormat.format(project.getStart_at()));
+        inputStartDate.setText(dateFormat.format(project.getStartAt()));
+        inputStartTime.setText(timeFormat.format(project.getStartAt()));
 
-        inputEndDate.setText(dateFormat.format(project.getEnd_at()));
-        inputEndTime.setText(timeFormat.format(project.getEnd_at()));
+        inputEndDate.setText(dateFormat.format(project.getEndAt()));
+        inputEndTime.setText(timeFormat.format(project.getEndAt()));
 
         this.project = project;
     }

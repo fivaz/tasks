@@ -68,8 +68,8 @@ public class UserDAO extends DAO {
         ContentValues data = new ContentValues();
         if (user.getId() != 0)
             data.put("id", user.getId());
-        data.put("first_name", user.getFirst_name());
-        data.put("last_name", user.getLast_name());
+        data.put("first_name", user.getFirstName());
+        data.put("last_name", user.getLastName());
         data.put("email", user.getEmail());
         data.put("password", user.getPassword());
         data.put("isArchived", user.isArchived());

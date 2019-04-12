@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Listt extends Model {
 
-    private long project_id;
+    private long projectId;
     private String name;
     private int position;
     private boolean isDone;
@@ -31,23 +31,23 @@ public class Listt extends Model {
         cards = new ArrayList<>();
     }
 
-    public Listt(Context context, long id, String name, int position, boolean isDone, long project_id) {
+    public Listt(Context context, long id, String name, int position, boolean isDone, long projectId) {
         this.context = context;
         this.id = id;
         this.name = name;
         this.position = position;
         this.isDone = isDone;
-        this.project_id = project_id;
+        this.projectId = projectId;
         this.isArchived = false;
         cards = new ArrayList<>();
     }
 
-    public long getProject_id() {
-        return project_id;
+    public long getProjectId() {
+        return projectId;
     }
 
-    public void setProject_id(long project_id) {
-        this.project_id = project_id;
+    public void setProjectId(long projectId) {
+        this.projectId = projectId;
     }
 
     public String getName() {
@@ -92,7 +92,7 @@ public class Listt extends Model {
         for (int i = 0; i < cards.size(); i++) {
             Card card = cards.get(i);
             card.setPosition(i);
-            card.setListt_id(id);
+            card.setListtId(id);
             dao.update(card);
         }
         dao.close();
@@ -117,7 +117,7 @@ public class Listt extends Model {
     public String toString() {
         return "Listt{" +
                 "id=" + id +
-                ", project_id=" + project_id +
+                ", projectId=" + projectId +
                 ", name='" + name + '\'' +
                 ", position=" + position +
                 ", isDone=" + isDone +
