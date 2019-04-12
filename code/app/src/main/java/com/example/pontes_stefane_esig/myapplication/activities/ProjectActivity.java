@@ -146,7 +146,7 @@ public class ProjectActivity extends AppCompatActivity
 
     private void goToEditProject() {
         Intent intent = new Intent(this, ProjectFormActivity.class);
-        intent.putExtra("id", project.getId());
+        intent.putExtra("project_id", project.getId());
         startActivity(intent);
     }
 
