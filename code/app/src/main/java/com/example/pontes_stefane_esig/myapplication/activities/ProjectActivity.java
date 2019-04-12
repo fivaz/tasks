@@ -15,15 +15,15 @@ import android.view.View;
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.adapters.ProjectAdapter;
 import com.example.pontes_stefane_esig.myapplication.converters.DateConverter;
-import com.example.pontes_stefane_esig.myapplication.converters.ObjectInJSON;
-import com.example.pontes_stefane_esig.myapplication.converters.SQLinJSON;
+import com.example.pontes_stefane_esig.myapplication.converters.ObjectToJSON;
 import com.example.pontes_stefane_esig.myapplication.daos.CardDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.CurrentStateDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.ListtDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
-import com.example.pontes_stefane_esig.myapplication.helpers.DataBaseSync;
+import com.example.pontes_stefane_esig.myapplication.converters.SQLtoObject;
 import com.example.pontes_stefane_esig.myapplication.helpers.MyItemTouchHelperCallback;
 import com.example.pontes_stefane_esig.myapplication.helpers.WebClient;
+import com.example.pontes_stefane_esig.myapplication.models.All;
 import com.example.pontes_stefane_esig.myapplication.models.CurrentState;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
@@ -202,11 +202,17 @@ public class ProjectActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                DataBaseSync dataBaseSync = new DataBaseSync(ProjectActivity.this);
-                String users = dataBaseSync.upload();
+                SQLtoObject sqLtoObject = new SQLtoObject(ProjectActivity.this);
+
+                All all = new All();
+                sqLtoObject.getUsers(all);
+
+                String allJSON = new ObjectToJSON().convert(all);
+                System.err.println(allJSON);
 
                 WebClient client = new WebClient();
-                client.uploadAll(users);
+                String response = client.uploadAll(allJSON);
+                System.out.println(response);
             }
         }).start();
     }

@@ -4,7 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://C:\Users\PONTES_STEFANE-ESIG\Documents\trello_android\code\app\app.iml" filepath="C:\Users\PONTES_STEFANE-ESIG\Documents\trello_android\code\app\app.iml" />
+      <module fileurl="file://C:\Users\PONTES_STEFANE-ESIG\AndroidStudioProjects\trello_android\code\app\app.iml" filepath="C:\Users\PONTES_STEFANE-ESIG\AndroidStudioProjects\trello_android\code\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/code.iml" filepath="$PROJECT_DIR$/code.iml" />
+      <module fileurl="file://C:\Users\PONTES_STEFANE-ESIG\AndroidStudioProjects\trello_android\code\code.iml" filepath="C:\Users\PONTES_STEFANE-ESIG\AndroidStudioProjects\trello_android\code\code.iml" />
       <module fileurl="file://C:\Users\PONTES_STEFANE-ESIG\Documents\trello_android\code\code.iml" filepath="C:\Users\PONTES_STEFANE-ESIG\Documents\trello_android\code\code.iml" />
       <module fileurl="file://C:\Users\PONTES_STEFANE-ESIG\AndroidStudioProjects\trello_android\code\trello_android.iml" filepath="C:\Users\PONTES_STEFANE-ESIG\AndroidStudioProjects\trello_android\code\trello_android.iml" />
     </modules>

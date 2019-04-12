@@ -6,13 +6,9 @@ import com.google.gson.Gson;
 
 import java.util.List;
 
-public class ObjectInJSON {
+public class JSONtoObject {
 
-    public static String convert(List<User> users) {
-        All all = new All(users);
-
-        System.err.println(all);
-
-        return new Gson().toJson(all);
+    public static All convertAll(String allJSON) {
+        return new Gson().fromJson(allJSON, All.class);
     }
 }

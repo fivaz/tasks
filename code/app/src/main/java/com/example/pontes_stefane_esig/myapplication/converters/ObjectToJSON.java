@@ -1,9 +1,7 @@
 package com.example.pontes_stefane_esig.myapplication.converters;
 
-import android.content.Context;
-
-import com.example.pontes_stefane_esig.myapplication.daos.ListtDAO;
-import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
+import com.example.pontes_stefane_esig.myapplication.models.All;
+import com.example.pontes_stefane_esig.myapplication.models.Card;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
 import com.example.pontes_stefane_esig.myapplication.models.User;
@@ -11,58 +9,53 @@ import com.example.pontes_stefane_esig.myapplication.models.User;
 import org.json.JSONException;
 import org.json.JSONStringer;
 
-import java.util.List;
+public class ObjectToJSON {
 
-public class SQLinJSON {
-
-    private Context context;
     private JSONStringer json;
-    private User user;
 
-    public SQLinJSON(Context context, User user) {
-        this.context = context;
+    public ObjectToJSON() {
         json = new JSONStringer();
-        this.user = user;
     }
 
-    public String getJSON() {
-        return json.toString();
-    }
-
-    public void convert() {
+    public String convert(All all) {
         try {
-            buildHeader();
-            buildUser();
-            buildFooter();
-
+            buildAll(all);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return json.toString();
     }
 
-    private void buildHeader() throws JSONException {
-        json.object()
-                .key("user");
+    private void buildAll(All all) throws JSONException {
+        json.object();
+        buildUsers(all);
+        json.endObject();
     }
 
-    private void buildUser() throws JSONException {
+    private void buildUsers(All all) throws JSONException {
+        json.key("users").array();
+
+        for (User user : all.getUsers())
+            buildUser(user);
+
+        json.endArray();
+    }
+
+    private void buildUser(User user) throws JSONException {
         json.object()
+                .key("id").value(user.getId())
                 .key("first_name").value(user.getFirst_name())
                 .key("last_name").value(user.getLast_name())
                 .key("email").value(user.getEmail())
                 .key("password").value(user.getPassword());
-        buildProjects();
+        buildProjects(user);
         json.endObject();
     }
 
-    private void buildProjects() throws JSONException {
-        ProjectDAO projectDAO = new ProjectDAO(context);
-        List<Project> projects = projectDAO.getAll(user);
-        projectDAO.close();
-
+    private void buildProjects(User user) throws JSONException {
         json.key("projects").array();
 
-        for (Project project : projects)
+        for (Project project : user.getProjects())
             buildProject(project);
 
         json.endArray();
@@ -74,19 +67,16 @@ public class SQLinJSON {
                 .key("name").value(project.getName())
                 .key("start_at").value(project.getStart_at())
                 .key("end_at").value(project.getEnd_at())
-                .key("isArchived").value(project.isArchived());
+                .key("isArchived").value(project.isArchived())
+                .key("user_id").value(project.getUser_id());
         buildListts(project);
         json.endObject();
     }
 
     private void buildListts(Project project) throws JSONException {
-        ListtDAO listtDAO = new ListtDAO(context);
-        List<Listt> listts = listtDAO.getAll(project);
-        listtDAO.close();
-
         json.key("listts").array();
 
-        for (Listt listt : listts)
+        for (Listt listt : project.getListts())
             buildListt(listt);
 
         json.endArray();
@@ -97,13 +87,29 @@ public class SQLinJSON {
                 .key("id").value(listt.getId())
                 .key("name").value(listt.getName())
                 .key("position").value(listt.getPosition())
-                .key("project_id").value(listt.getProject_id())
                 .key("isDone").value(listt.isDone())
-                .key("isArchived").value(listt.isArchived());
+                .key("isArchived").value(listt.isArchived())
+                .key("project_id").value(listt.getProject_id());
+        buildCards(listt);
         json.endObject();
     }
 
-    private void buildFooter() throws JSONException {
+    private void buildCards(Listt listt) throws JSONException {
+        json.key("cards").array();
+
+        for (Card card : listt.getCards())
+            buildCard(card);
+
+        json.endArray();
+    }
+
+    private void buildCard(Card card) throws JSONException {
+        json.object()
+                .key("id").value(card.getId())
+                .key("name").value(card.getName())
+                .key("points").value(card.getPoints())
+                .key("position").value(card.getPosition())
+                .key("listt_id").value(card.getListt_id());
         json.endObject();
     }
 }

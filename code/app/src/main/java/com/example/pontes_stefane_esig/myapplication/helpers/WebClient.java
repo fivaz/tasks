@@ -10,9 +10,14 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class WebClient {
-    public void uploadAll(String json) {
+
+    private static String site = "https://www.esig-sandbox.ch/stefanepntsf/dmob/";
+//    private static String site = "https://192.168.116.1/stefanepntsf/dmob/";
+
+    public String uploadAll(String json) {
         try {
-            URL url = new URL("https://www.esig-sandbox.ch/stefanepntsf/dmob/upload.php");
+            StringBuilder response = new StringBuilder();
+            URL url = new URL(site + "upload.php");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
             connection.setRequestProperty("Content-type", "application/json");
@@ -22,25 +27,33 @@ public class WebClient {
             PrintStream output = new PrintStream(connection.getOutputStream());
             output.println(json);
 
+            Scanner scanner = new Scanner(connection.getInputStream());
+            while (scanner.hasNextLine())
+                response.append(scanner.nextLine());
+            return response.toString();
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     public String downloadAll() {
         try {
-            URL url = new URL("https://www.esig-sandbox.ch/stefanepntsf/dmob/download.php");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            StringBuilder response = new StringBuilder();
 
+            URL url = new URL(site + "download.php");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestProperty("Content-type", "application/json");
             connection.setRequestProperty("Accept", "application/json");
-
             connection.setDoOutput(true);
 
             Scanner scanner = new Scanner(connection.getInputStream());
-            return scanner.nextLine();
+            while (scanner.hasNextLine())
+                response.append(scanner.nextLine());
+            return response.toString();
 
         } catch (MalformedURLException e) {
             e.printStackTrace();

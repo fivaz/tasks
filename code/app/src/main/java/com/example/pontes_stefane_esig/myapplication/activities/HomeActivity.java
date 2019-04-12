@@ -7,10 +7,13 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.pontes_stefane_esig.myapplication.R;
+import com.example.pontes_stefane_esig.myapplication.converters.JSONtoObject;
+import com.example.pontes_stefane_esig.myapplication.converters.ObjectToSQL;
 import com.example.pontes_stefane_esig.myapplication.daos.UserDAO;
-import com.example.pontes_stefane_esig.myapplication.helpers.DataBaseSync;
+import com.example.pontes_stefane_esig.myapplication.converters.SQLtoObject;
 import com.example.pontes_stefane_esig.myapplication.helpers.LoginHelper;
 import com.example.pontes_stefane_esig.myapplication.helpers.WebClient;
+import com.example.pontes_stefane_esig.myapplication.models.All;
 import com.example.pontes_stefane_esig.myapplication.models.User;
 
 public class HomeActivity extends AppCompatActivity {
@@ -34,12 +37,12 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void run() {
                 WebClient client = new WebClient();
-                String json = client.downloadAll();
-
-                System.err.println(json);
-
-                DataBaseSync dataBaseSync = new DataBaseSync(HomeActivity.this);
-                dataBaseSync.download(json);
+                String allJSON = client.downloadAll();
+                System.err.println(allJSON);
+                All all = JSONtoObject.convertAll(allJSON);
+                System.err.println(all);
+                ObjectToSQL objectToSQL = new ObjectToSQL(HomeActivity.this);
+                objectToSQL.setUsers(all.getUsers());
             }
         }).start();
     }

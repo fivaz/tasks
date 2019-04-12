@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
-import com.example.pontes_stefane_esig.myapplication.converters.SQLinJSON;
 import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.UserDAO;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
@@ -63,10 +62,6 @@ public class ProjectsActivity extends AppCompatActivity {
         registerForContextMenu(lvProjects);
 
         setTitle(getString(R.string.home_title));
-
-        SQLinJSON converter = new SQLinJSON(this, user);
-        converter.convert();
-        System.err.println(converter.getJSON());
     }
 
     @Override
