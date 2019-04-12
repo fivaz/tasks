@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.pontes_stefane_esig.myapplication"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="26" />
+
+    <application
+        android:allowBackup="true"
+        android:debuggable="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:testOnly="true"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.example.pontes_stefane_esig.myapplication.activities.CardFormActivity"
+            android:screenOrientation="sensor" />
+        <activity
+            android:name="com.example.pontes_stefane_esig.myapplication.activities.ListtFormActivity"
+            android:screenOrientation="sensor" />
+        <activity
+            android:name="com.example.pontes_stefane_esig.myapplication.activities.HomeActivity"
+            android:screenOrientation="sensor" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.pontes_stefane_esig.myapplication.activities.ProjectFormActivity"
+            android:screenOrientation="sensor" />
+        <activity
+            android:name="com.example.pontes_stefane_esig.myapplication.activities.ProjectActivity"
+            android:screenOrientation="sensor" />
+        <activity
+            android:name="com.example.pontes_stefane_esig.myapplication.activities.BurnDownChartActivity"
+            android:screenOrientation="sensor" >
+        </activity>
+
+        <meta-data
+            android:name="android.support.VERSION"
+            android:value="26.1.0" />
+        <meta-data
+            android:name="android.arch.lifecycle.VERSION"
+            android:value="27.0.0-SNAPSHOT" />
+
+        <provider
+            android:name="com.android.tools.ir.server.InstantRunContentProvider"
+            android:authorities="com.example.pontes_stefane_esig.myapplication.com.android.tools.ir.server.InstantRunContentProvider"
+            android:multiprocess="true" />
+    </application>
+
+</manifest>
