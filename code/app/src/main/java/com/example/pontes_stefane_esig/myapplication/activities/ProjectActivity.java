@@ -2,13 +2,10 @@ package com.example.pontes_stefane_esig.myapplication.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
-import android.view.MenuInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -44,7 +41,8 @@ public class ProjectActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_project_nd);
+        setContentView(R.layout.activity_project);
+        //nav
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -88,6 +86,7 @@ public class ProjectActivity extends AppCompatActivity
         checkCurrentState();
     }
 
+    //nav
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -112,23 +111,43 @@ public class ProjectActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-            goToBurnDownChart();
-        } else if (id == R.id.nav_share) {
-            uploadAll();
+        switch (item.getItemId()) {
+            case (R.id.nav_user_edit):
+                gotToEditUser();
+                break;
+            case (R.id.nav_user_delete):
+                gotToHome();
+                break;
+            case (R.id.nav_project_edit):
+                goToEditProject();
+                break;
+            case (R.id.nav_check_burndown_chart):
+                goToBurnDownChart();
+                break;
+            case (R.id.nav_project_sync):
+                uploadAll();
+                break;
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void gotToEditUser() {
+        Intent intent = new Intent(this, UserFormActivity.class);
+        intent.putExtra("user_id", project.getUserId());
+        startActivity(intent);
+    }
+
+    private void gotToHome() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+    }
+
+    private void goToEditProject() {
+        Intent intent = new Intent(this, ProjectFormActivity.class);
+        intent.putExtra("id", project.getId());
+        startActivity(intent);
     }
 
     //logic
@@ -217,7 +236,6 @@ public class ProjectActivity extends AppCompatActivity
     }
 
     private void updateView() {
-
 //        tvCurrentTimePart.setText(String.valueOf(project.getCurrentTimeBlock()));
 
         ProjectAdapter adapter = new ProjectAdapter(this, project.getListts());
