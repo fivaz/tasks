@@ -7,6 +7,7 @@ import com.example.pontes_stefane_esig.myapplication.daos.CurrentStateDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.ListtDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.UserDAO;
+import com.example.pontes_stefane_esig.myapplication.models.All;
 import com.example.pontes_stefane_esig.myapplication.models.Card;
 import com.example.pontes_stefane_esig.myapplication.models.CurrentState;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
@@ -21,6 +22,10 @@ public class ObjectToSQL {
 
     public ObjectToSQL(Context context) {
         this.context = context;
+    }
+
+    public void setAll(All all) {
+        setUsers(all.getUsers());
     }
 
     public void setUsers(List<User> users) {

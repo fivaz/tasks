@@ -7,13 +7,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.pontes_stefane_esig.myapplication.R;
-import com.example.pontes_stefane_esig.myapplication.converters.JSONtoObject;
-import com.example.pontes_stefane_esig.myapplication.converters.ObjectToSQL;
 import com.example.pontes_stefane_esig.myapplication.daos.UserDAO;
-import com.example.pontes_stefane_esig.myapplication.converters.SQLtoObject;
+import com.example.pontes_stefane_esig.myapplication.helpers.SyncDataTask;
 import com.example.pontes_stefane_esig.myapplication.helpers.LoginHelper;
-import com.example.pontes_stefane_esig.myapplication.helpers.WebClient;
-import com.example.pontes_stefane_esig.myapplication.models.All;
 import com.example.pontes_stefane_esig.myapplication.models.User;
 
 public class HomeActivity extends AppCompatActivity {
@@ -33,18 +29,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void downloadAll() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                WebClient client = new WebClient();
-                String allJSON = client.downloadAll();
-                System.err.println(allJSON);
-                All all = JSONtoObject.convertAll(allJSON);
-                System.err.println(all);
-                ObjectToSQL objectToSQL = new ObjectToSQL(HomeActivity.this);
-                objectToSQL.setUsers(all.getUsers());
-            }
-        }).start();
+        new SyncDataTask(this).execute(SyncDataTask.DOWNLOAD);
     }
 
     public void register(View view) {
