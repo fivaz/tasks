@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+//TODO remove it
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:contecom.example.pontes_stefane_esig.myapplication.activities.ProjectActivityty"
+    tools:showIn="@layout/app_bar_project_nd">
+
+</android.support.constraint.ConstraintLayout>
+-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:activity="com.example.pontes_stefane_esig.myapplication.activities.oldProjectActivity">
+    tools:activity="com.example.pontes_stefane_esig.myapplication.activities.ProjectActivity">
 
     <!--<TextView
         android:id="@+id/tv_current_time_part"

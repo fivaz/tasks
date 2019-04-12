@@ -2,22 +2,15 @@ package com.example.pontes_stefane_esig.myapplication.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
-import android.view.MenuInflater;
-import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.adapters.ProjectAdapter;
@@ -26,8 +19,8 @@ import com.example.pontes_stefane_esig.myapplication.daos.CardDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.CurrentStateDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.ListtDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
-import com.example.pontes_stefane_esig.myapplication.helpers.MyItemTouchHelperCallback;
 import com.example.pontes_stefane_esig.myapplication.helpers.SyncDataTask;
+import com.example.pontes_stefane_esig.myapplication.helpers.MyItemTouchHelperCallback;
 import com.example.pontes_stefane_esig.myapplication.models.CurrentState;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
@@ -35,8 +28,8 @@ import com.example.pontes_stefane_esig.myapplication.models.Project;
 import java.util.Calendar;
 import java.util.Date;
 
-public class ProjectActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+//TODO delete this later
+public class oldProjectActivity extends AppCompatActivity {
 
     private RecyclerView rvLists;
     private Project project;
@@ -44,30 +37,8 @@ public class ProjectActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_project_nd);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_project);
 
-        //TODO use this for my add button
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        //logic
         long project_id = getIntent().getLongExtra("project_id", 0);
         ProjectDAO dao = new ProjectDAO(this);
         project = dao.get(project_id);
@@ -88,50 +59,6 @@ public class ProjectActivity extends AppCompatActivity
         checkCurrentState();
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.project, menu);
-
-        MenuItem item = menu.findItem(R.id.it_project_total);
-        item.setTitle(String.valueOf(project.getTotal()));
-
-        return true;
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-            goToBurnDownChart();
-        } else if (id == R.id.nav_share) {
-            uploadAll();
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    //logic
     public void checkCurrentState() {
         Date now = Calendar.getInstance().getTime();
         //TODO check it later
@@ -220,12 +147,12 @@ public class ProjectActivity extends AppCompatActivity
 
 //        tvCurrentTimePart.setText(String.valueOf(project.getCurrentTimeBlock()));
 
-        ProjectAdapter adapter = new ProjectAdapter(this, project.getListts());
-        rvLists.setAdapter(adapter);
+//        ProjectAdapter adapter = new ProjectAdapter(this, project.getListts());
+//        rvLists.setAdapter(adapter);
 
-        ItemTouchHelper.Callback callback = new MyItemTouchHelperCallback(adapter, "horizontal");
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(rvLists);
+//        ItemTouchHelper.Callback callback = new MyItemTouchHelperCallback(adapter, "horizontal");
+//        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+//        touchHelper.attachToRecyclerView(rvLists);
 
         invalidateOptionsMenu();
     }
@@ -243,6 +170,28 @@ public class ProjectActivity extends AppCompatActivity
 
         intent.putExtra("project_total", project.getTotal());
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.project, menu);
+
+        MenuItem item = menu.findItem(R.id.it_project_total);
+        item.setTitle(String.valueOf(project.getTotal()));
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        /*if (item.getItemId() == R.id.menu_check_burndown_chart)
+            goToBurnDownChart();
+
+        if (item.getItemId() == R.id.menu_upload)
+            uploadAll();*/
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void uploadAll() {

@@ -24,7 +24,7 @@
             android:name=".activities.ProjectFormActivity"
             android:screenOrientation="sensor" />
         <activity
-            android:name=".activities.ProjectActivity"
+            android:name=".activities.oldProjectActivity"
             android:screenOrientation="sensor"
             android:theme="@style/MenuItems" />
         <activity
@@ -38,7 +38,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.UserFormActivity"></activity>
+        <activity android:name=".activities.UserFormActivity" />
+        <activity
+            android:name=".activities.ProjectActivity"
+            android:label="@string/title_activity_project_nd"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

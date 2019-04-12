@@ -9,12 +9,12 @@
         android:title="@string/total"
         app:showAsAction="always" />
 
-    <item
+<!--    <item
         android:id="@+id/menu_check_burndown_chart"
         android:title="@string/check_burndown_chart" />
 
     <item
         android:id="@+id/menu_upload"
-        android:title="@string/upload" />
+        android:title="@string/upload" />-->
 
 </menu>
