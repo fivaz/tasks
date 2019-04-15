@@ -53,15 +53,23 @@ public class CardFormActivity extends AppCompatActivity {
             Card card = helper.getCard();
             CardDAO dao = new CardDAO(this);
 
+            String message;
+
             if (card.getId() == 0) {
                 card.setListtId(listt_id);
                 card.setPosition(position);
                 dao.insert(card);
-            } else
+
+                message = "tâche " + card.getName() + " ajoutée";
+
+            } else {
                 dao.update(card);
+
+                message = "tâche " + card.getName() + " modifiée";
+            }
             dao.close();
 
-            Toast.makeText(this, card.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
             finish();
         }
     }

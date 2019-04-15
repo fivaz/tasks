@@ -64,50 +64,65 @@ public class ProjectHelper {
     public void setProject(Project project) {
         inputName.setText(project.getName());
 
-        DateFormat dateFormat = new SimpleDateFormat(datePattern, Locale.FRENCH);
-        DateFormat timeFormat = new SimpleDateFormat(timePattern, Locale.FRENCH);
+        inputStartDate.setText(DateConverter.toOnlyDateFR(project.getStartAt()));
+        inputStartTime.setText(DateConverter.toOnlyTimeFR(project.getStartAt()));
 
-        inputStartDate.setText(dateFormat.format(project.getStartAt()));
-        inputStartTime.setText(timeFormat.format(project.getStartAt()));
-
-        inputEndDate.setText(dateFormat.format(project.getEndAt()));
-        inputEndTime.setText(timeFormat.format(project.getEndAt()));
+        inputEndDate.setText(DateConverter.toOnlyDateFR(project.getEndAt()));
+        inputEndTime.setText(DateConverter.toOnlyTimeFR(project.getEndAt()));
 
         this.project = project;
     }
 
     public boolean isOk() {
         String name = inputName.getText().toString();
-        String startDate = inputStartDate.getText().toString();
-        String startTime = inputStartTime.getText().toString();
-        String endDate = inputEndDate.getText().toString();
-        String endTime = inputEndTime.getText().toString();
+        String startDateString = inputStartDate.getText().toString();
+        String startTimeString = inputStartTime.getText().toString();
+        String endDateString = inputEndDate.getText().toString();
+        String endTimeString = inputEndTime.getText().toString();
 
         if (name.isEmpty()) {
             String message = context.getString(R.string.error_msg_name_required);
             inputName.setError(message);
             return false;
         }
-        if (startDate.isEmpty()) {
+        if (startDateString.isEmpty()) {
             String message = context.getString(R.string.error_msg_start_date_required);
             inputStartDate.setError(message);
             return false;
         }
-        if (startTime.isEmpty()) {
+        if (startTimeString.isEmpty()) {
             String message = context.getString(R.string.error_msg_start_hour_required);
             inputStartTime.setError(message);
             return false;
         }
-        if (endDate.isEmpty()) {
+        if (endDateString.isEmpty()) {
             String message = context.getString(R.string.error_msg_end_date_required);
             inputEndDate.setError(message);
             return false;
         }
-        if (endTime.isEmpty()) {
+        if (endTimeString.isEmpty()) {
             String message = context.getString(R.string.error_msg_end_hour_required);
             inputEndTime.setError(message);
             return false;
         }
+
+        DateFormat dateTimeFormat = new SimpleDateFormat(dateTimePattern, Locale.FRENCH);
+
+        try {
+            Date endDate = dateTimeFormat.parse(endDateString + " " + endTimeString);
+
+            Date startDate = dateTimeFormat.parse(startDateString + " " + startTimeString);
+
+            if (endDate.getTime() < startDate.getTime()) {
+                String message = context.getString(R.string.error_msg_end_date_before_start_date);
+                inputEndDate.setError(message);
+                return false;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
+
         return true;
     }
 }

@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-
 public class DateConverter {
 
     public static Date toDate(String stringDate) {
@@ -36,6 +35,26 @@ public class DateConverter {
     public static String toStringEN(Date date) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return dateFormat.format(date);
+    }
+
+    public static String toOnlyDateFR(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
+        return dateFormat.format(date);
+    }
+
+    public static String toOnlyDateFR(String dateString) {
+        Date date = toDate(dateString);
+        return toOnlyDateFR(date);
+    }
+
+    public static String toOnlyTimeFR(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss", Locale.FRENCH);
+        return dateFormat.format(date);
+    }
+
+    public static String toOnlyTimeFR(String dateString) {
+        Date date = toDate(dateString);
+        return toOnlyTimeFR(date);
     }
 }
 

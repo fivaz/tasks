@@ -127,15 +127,6 @@ public class Project extends Model {
 
     @Override
     public String toString() {
-        return "Project{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", startAt='" + startAt + '\'' +
-                ", endAt='" + endAt + '\'' +
-                ", isArchived=" + isArchived +
-                ", userId=" + userId +
-                ", listts=" + listts +
-                ", currentStates=" + currentStates +
-                '}';
+        return name;
     }
 }

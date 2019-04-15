@@ -51,4 +51,5 @@
     <string name="project">Projet</string>
     <string name="logout">Déconnexion</string>
     <string name="title_activity_projects1">Projects1Activity</string>
+    <string name="error_msg_end_date_before_start_date">La date début ne peut pas être avant la date fin</string>
 </resources>

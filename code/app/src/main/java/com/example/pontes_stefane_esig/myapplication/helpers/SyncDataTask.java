@@ -72,6 +72,7 @@ public class SyncDataTask extends AsyncTask<Integer, Object, String> {
 
     @Override
     protected void onPostExecute(String message) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+        if (message.equals("database uploaded!"))
+            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 }
