@@ -67,6 +67,7 @@ public class ProjectsActivity extends AppCompatActivity
 
                 Intent goToProject = new Intent(ProjectsActivity.this, ProjectActivity.class);
                 goToProject.putExtra("project_id", project.getId());
+                goToProject.putExtra("user_id", user.getId());
                 startActivity(goToProject);
             }
         });
@@ -196,7 +197,7 @@ public class ProjectsActivity extends AppCompatActivity
 
     void loadProjects() {
         ProjectDAO dao = new ProjectDAO(this);
-        projects = dao.getAll(user);
+        projects = dao.getAllProjects(user);
         dao.close();
     }
 

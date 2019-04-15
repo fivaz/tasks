@@ -17,6 +17,7 @@ public class UserDAO extends DAO {
 
     private final String SELECT_STATEMENT = "SELECT * FROM " + TB_USER_NAME;
     private final String SELECT_WHERE = SELECT_STATEMENT + " WHERE id = %d";
+    private final String SELECT_BY_EMAIL = SELECT_STATEMENT + " WHERE email = '%s'";
     private final String SELECT_ALL = SELECT_STATEMENT + " WHERE isArchived = 0";
     private Context context;
 
@@ -123,5 +124,16 @@ public class UserDAO extends DAO {
         } else {
             update(user);
         }
+    }
+
+    public User getUserByEmail(String email) {
+        SQLiteDatabase db = getReadableDatabase();
+        String sql = String.format(SELECT_BY_EMAIL, email);
+        Cursor cursor = db.rawQuery(sql, null);
+        User user = null;
+        if (cursor.moveToNext())
+            user = buildUser(cursor);
+        cursor.close();
+        return user;
     }
 }

@@ -11,6 +11,7 @@ public class DAO extends SQLiteOpenHelper {
     static final String TB_LISTT_NAME = "listt";
     static final String TB_CARD_NAME = "card";
     static final String TB_CURRENT_STATE_NAME = "current_state";
+    static final String TB_PROJECTS_USERS_MAP_NAME = "projects_users_map";
 
     private final String CREATE_TABLE_USER_STATEMENT =
             "CREATE TABLE " + TB_USER_NAME + " (" +
@@ -58,11 +59,19 @@ public class DAO extends SQLiteOpenHelper {
                     "project_id INT, " +
                     "FOREIGN KEY(project_id) REFERENCES " + TB_PROJECT_NAME + "(id)" +
                     ")";
+    private final String CREATE_TABLE_PROJECTS_USERS_MAP_STATEMENT =
+            "CREATE TABLE " + TB_PROJECTS_USERS_MAP_NAME + " (" +
+                    "id INTEGER PRIMARY KEY, " +
+                    "project_id INT NOT NULL, " +
+                    "user_id INT NOT NULL, " +
+                    "FOREIGN KEY(project_id) REFERENCES " + TB_PROJECT_NAME + "(id)," +
+                    "FOREIGN KEY(user_id) REFERENCES " + TB_USER_NAME + "(id)" +
+                    ")";
 
     private final String DROP_STATEMENT = "DROP TABLE IF EXISTS ";
 
     DAO(Context context) {
-        super(context, "trello", null, 14);
+        super(context, "trello", null, 15);
     }
 
     @Override
@@ -70,6 +79,7 @@ public class DAO extends SQLiteOpenHelper {
         System.out.println("Creating tables");
         db.execSQL(CREATE_TABLE_USER_STATEMENT);
         db.execSQL(CREATE_TABLE_PROJECT_STATEMENT);
+        db.execSQL(CREATE_TABLE_PROJECTS_USERS_MAP_STATEMENT);
         db.execSQL(CREATE_TABLE_CURRENT_STATE_STATEMENT);
         db.execSQL(CREATE_TABLE_LISTT_STATEMENT);
         db.execSQL(CREATE_TABLE_CARD_STATEMENT);
@@ -86,6 +96,7 @@ public class DAO extends SQLiteOpenHelper {
         db.execSQL(DROP_STATEMENT + TB_CARD_NAME);
         db.execSQL(DROP_STATEMENT + TB_LISTT_NAME);
         db.execSQL(DROP_STATEMENT + TB_CURRENT_STATE_NAME);
+        db.execSQL(DROP_STATEMENT + TB_PROJECTS_USERS_MAP_NAME);
         db.execSQL(DROP_STATEMENT + TB_PROJECT_NAME);
         db.execSQL(DROP_STATEMENT + TB_USER_NAME);
     }

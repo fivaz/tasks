@@ -132,10 +132,19 @@ public class ProjectActivity extends AppCompatActivity
             case (R.id.nav_project_sync):
                 uploadAll();
                 break;
+            case (R.id.nav_project_invite):
+                goToInviteForm();
+                break;
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void goToInviteForm() {
+        Intent intent = new Intent(this, InviteFormActivity.class);
+        intent.putExtra("project_id", project.getId());
+        startActivity(intent);
     }
 
     private void gotToEditUser() {
@@ -241,8 +250,6 @@ public class ProjectActivity extends AppCompatActivity
     }
 
     private void updateView() {
-//        tvCurrentTimePart.setText(String.valueOf(project.getCurrentTimeBlock()));
-
         ProjectAdapter adapter = new ProjectAdapter(this, project.getListts());
         rvLists.setAdapter(adapter);
 
@@ -277,7 +284,7 @@ public class ProjectActivity extends AppCompatActivity
         TextView userName = header.findViewById(R.id.tv_user_name_project);
         TextView userEmail = header.findViewById(R.id.tv_user_email_project);
 
-        long userId = project.getUserId();
+        long userId = getIntent().getLongExtra("user_id", 0);
         UserDAO userDao = new UserDAO(this);
         User user = userDao.get(userId);
         userDao.close();

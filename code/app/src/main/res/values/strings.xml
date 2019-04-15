@@ -62,4 +62,5 @@
     <string name="project_updated">Projet %s modifié</string>
     <string name="card_added">Tâche %s ajoutée</string>
     <string name="card_updated">Tâche %s modifiée</string>
+    <string name="invite">Partager le Projet</string>
 </resources>

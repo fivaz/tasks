@@ -9,11 +9,13 @@ import android.support.annotation.NonNull;
 import com.example.pontes_stefane_esig.myapplication.converters.DateConverter;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
+import com.example.pontes_stefane_esig.myapplication.models.ProjectsUsersMap;
 import com.example.pontes_stefane_esig.myapplication.models.User;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Stream;
 
 //TODO use prepared statements
 //TODO after update and insert
@@ -141,5 +143,24 @@ public class ProjectDAO extends DAO {
         } else {
             update(project);
         }
+    }
+
+    public List<Project> getAllProjects(User user) {
+        List<Project> allProjects = getAll(user);
+        List<Project> sharedProjects = getSharedProjects(user);
+        allProjects.addAll(sharedProjects);
+        return allProjects;
+    }
+
+    private List<Project> getSharedProjects(User user) {
+        List<Project> sharedProjects = new ArrayList<>();
+        ProjectsUsersMapDAO projectsUsersMapDAO = new ProjectsUsersMapDAO(context);
+        List<ProjectsUsersMap> projectsUsersMaps = projectsUsersMapDAO.getAll(user);
+        projectsUsersMapDAO.close();
+        for (ProjectsUsersMap projectsUsersMap : projectsUsersMaps) {
+            Project project = get(projectsUsersMap.getProjectId());
+            sharedProjects.add(project);
+        }
+        return sharedProjects;
     }
 }

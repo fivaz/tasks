@@ -5,6 +5,7 @@ import com.example.pontes_stefane_esig.myapplication.models.Card;
 import com.example.pontes_stefane_esig.myapplication.models.CurrentState;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
+import com.example.pontes_stefane_esig.myapplication.models.ProjectsUsersMap;
 import com.example.pontes_stefane_esig.myapplication.models.User;
 
 import org.json.JSONException;
@@ -50,6 +51,7 @@ public class ObjectToJSON {
                 .key("email").value(user.getEmail())
                 .key("password").value(user.getPassword());
         buildProjects(user);
+        buildProjectsUsersMaps(user);
         json.endObject();
     }
 
@@ -72,6 +74,23 @@ public class ObjectToJSON {
                 .key("userId").value(project.getUserId());
         buildListts(project);
         buildCurrentStates(project);
+        json.endObject();
+    }
+
+    private void buildProjectsUsersMaps(User user) throws JSONException {
+        json.key("projectsUsersMaps").array();
+
+        for (ProjectsUsersMap projectsUsersMap : user.getProjectUsersMaps())
+            buildProjectsUsersMap(projectsUsersMap);
+
+        json.endArray();
+    }
+
+    private void buildProjectsUsersMap(ProjectsUsersMap projectsUsersMap) throws JSONException {
+        json.object()
+                .key("id").value(projectsUsersMap.getId())
+                .key("project_id").value(projectsUsersMap.getProjectId())
+                .key("user_id").value(projectsUsersMap.getUserId());
         json.endObject();
     }
 

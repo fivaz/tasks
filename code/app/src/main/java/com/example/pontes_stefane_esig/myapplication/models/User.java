@@ -11,10 +11,12 @@ public class User extends Model {
     private String password;
     private boolean isArchived;
     private List<Project> projects;
+    private List<ProjectsUsersMap> projectUsersMaps;
 
     public User() {
         isArchived = false;
         projects = new ArrayList<>();
+        projectUsersMaps = new ArrayList<>();
     }
 
     public User(long id, String firstName, String lastName, String email, String password) {
@@ -25,6 +27,7 @@ public class User extends Model {
         this.password = password;
         this.isArchived = false;
         projects = new ArrayList<>();
+        projectUsersMaps = new ArrayList<>();
     }
 
     public String getFirstName() {
@@ -75,6 +78,14 @@ public class User extends Model {
         this.projects = projects;
     }
 
+    public List<ProjectsUsersMap> getProjectUsersMaps() {
+        return projectUsersMaps;
+    }
+
+    public void setProjectUsersMaps(List<ProjectsUsersMap> projectUsersMaps) {
+        this.projectUsersMaps = projectUsersMaps;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -85,6 +96,7 @@ public class User extends Model {
                 ", password='" + password + '\'' +
                 ", isArchived=" + isArchived +
                 ", projects=" + projects +
+                ", projectUsersMaps=" + projectUsersMaps +
                 '}';
     }
 }
