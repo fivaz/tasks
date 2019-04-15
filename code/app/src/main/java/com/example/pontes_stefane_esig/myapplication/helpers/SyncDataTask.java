@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
-import android.widget.Toast;
 
 import com.example.pontes_stefane_esig.myapplication.converters.JSONtoObject;
 import com.example.pontes_stefane_esig.myapplication.converters.ObjectToJSON;
@@ -69,10 +68,11 @@ public class SyncDataTask extends AsyncTask<Integer, Object, String> {
 
         return "database uploaded!";
     }
-
+    /*
     @Override
     protected void onPostExecute(String message) {
         if (message.equals("database uploaded!"))
             Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
+    */
 }

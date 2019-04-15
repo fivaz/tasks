@@ -23,8 +23,6 @@ public class HomeActivity extends AppCompatActivity {
 
         helper = new LoginHelper(this);
 
-        System.err.println("downloading...");
-
         downloadAll();
     }
 
