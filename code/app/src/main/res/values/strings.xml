@@ -54,4 +54,12 @@
     <string name="error_msg_end_date_before_start_date">La date début ne peut pas être avant la date fin</string>
     <string name="this_user_name">Android Studio</string>
     <string name="this_user_email">android.studio@android.com</string>
+    <string name="user_added">Utilisateur %s ajouté</string>
+    <string name="user_updated">Utilisateur %s modifié</string>
+    <string name="listt_added">Liste %s ajoutée</string>
+    <string name="listt_updated">Liste %s modifiée</string>
+    <string name="project_added">Projet %s ajouté</string>
+    <string name="project_updated">Projet %s modifié</string>
+    <string name="card_added">Tâche %s ajoutée</string>
+    <string name="card_updated">Tâche %s modifiée</string>
 </resources>

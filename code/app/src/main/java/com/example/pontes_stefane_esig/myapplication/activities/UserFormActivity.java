@@ -51,13 +51,19 @@ public class UserFormActivity extends AppCompatActivity {
             User user = helper.getUser();
             UserDAO dao = new UserDAO(this);
 
+            String message;
+
             if (user.getId() == 0) {
                 dao.insert(user);
-            } else
+
+                message = String.format(getString(R.string.user_added), user.getFirstName());
+            } else {
                 dao.update(user);
+                message = String.format(getString(R.string.user_updated), user.getFirstName());
+            }
             dao.close();
 
-            Toast.makeText(this, user.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
             finish();
         }
     }

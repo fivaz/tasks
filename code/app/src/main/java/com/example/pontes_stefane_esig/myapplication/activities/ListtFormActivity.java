@@ -51,15 +51,21 @@ public class ListtFormActivity extends AppCompatActivity {
             Listt listt = helper.getListt();
             ListtDAO dao = new ListtDAO(this);
 
+            String message;
+
             if (listt.getId() == 0) {
                 listt.setProjectId(project_id);
                 listt.setPosition(position);
                 dao.insert(listt);
-            } else
+
+                message = String.format(getString(R.string.listt_added), listt.getName());
+            } else {
                 dao.update(listt);
+                message = String.format(getString(R.string.listt_updated), listt.getName());
+            }
             dao.close();
 
-            Toast.makeText(this, listt.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
             finish();
         }
     }

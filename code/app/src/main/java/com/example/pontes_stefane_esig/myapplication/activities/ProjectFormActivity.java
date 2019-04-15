@@ -85,16 +85,22 @@ public class ProjectFormActivity extends AppCompatActivity implements View.OnCli
         if (helper.isOk()) {
             Project project = helper.getProject();
 
+            String message;
+
             ProjectDAO dao = new ProjectDAO(this);
             if (project.getId() == 0) {
                 project.setUserId(userId);
                 dao.insert(project);
+
+                message = String.format(getString(R.string.project_added), project.getName());
             } else {
                 dao.update(project);
+
+                message = String.format(getString(R.string.project_updated), project.getName());
             }
             dao.close();
 
-            Toast.makeText(this, project.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
             finish();
         }
     }

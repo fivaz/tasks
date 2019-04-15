@@ -60,12 +60,12 @@ public class CardFormActivity extends AppCompatActivity {
                 card.setPosition(position);
                 dao.insert(card);
 
-                message = "tâche " + card.getName() + " ajoutée";
+                message = String.format(getString(R.string.card_added), card.getName());
 
             } else {
                 dao.update(card);
 
-                message = "tâche " + card.getName() + " modifiée";
+                message = String.format(getString(R.string.card_updated), card.getName());
             }
             dao.close();
 
