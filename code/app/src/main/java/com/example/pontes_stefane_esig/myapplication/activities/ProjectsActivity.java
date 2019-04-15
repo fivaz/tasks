@@ -2,6 +2,7 @@ package com.example.pontes_stefane_esig.myapplication.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -16,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
@@ -37,7 +39,7 @@ public class ProjectsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_projects);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar_projects);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -46,7 +48,7 @@ public class ProjectsActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view_projects);
         navigationView.setNavigationItemSelectedListener(this);
 
         //logic
@@ -57,11 +59,6 @@ public class ProjectsActivity extends AppCompatActivity
         UserDAO userDao = new UserDAO(this);
         user = userDao.get(user_id);
         userDao.close();
-
-
-        
-
-
 
         lvProjects.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -86,6 +83,17 @@ public class ProjectsActivity extends AppCompatActivity
         registerForContextMenu(lvProjects);
 
         setTitle(getString(R.string.home_title));
+
+        setUserInfo(navigationView);
+    }
+
+    private void setUserInfo(NavigationView navigationView) {
+        View header = navigationView.getHeaderView(0);
+        TextView userName = header.findViewById(R.id.tv_user_name_projects);
+        TextView userEmail = header.findViewById(R.id.tv_user_email_projects);
+
+        userName.setText(user.getFirstName() + " " + user.getLastName());
+        userEmail.setText(user.getEmail());
     }
 
     @Override

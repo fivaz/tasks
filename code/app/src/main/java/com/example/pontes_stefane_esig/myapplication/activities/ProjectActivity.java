@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.pontes_stefane_esig.myapplication.R;
 import com.example.pontes_stefane_esig.myapplication.adapters.ProjectAdapter;
@@ -23,11 +24,13 @@ import com.example.pontes_stefane_esig.myapplication.daos.CardDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.CurrentStateDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.ListtDAO;
 import com.example.pontes_stefane_esig.myapplication.daos.ProjectDAO;
+import com.example.pontes_stefane_esig.myapplication.daos.UserDAO;
 import com.example.pontes_stefane_esig.myapplication.helpers.MyItemTouchHelperCallback;
 import com.example.pontes_stefane_esig.myapplication.helpers.SyncDataTask;
 import com.example.pontes_stefane_esig.myapplication.models.CurrentState;
 import com.example.pontes_stefane_esig.myapplication.models.Listt;
 import com.example.pontes_stefane_esig.myapplication.models.Project;
+import com.example.pontes_stefane_esig.myapplication.models.User;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -43,7 +46,7 @@ public class ProjectActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project);
         //nav
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar_project);
         setSupportActionBar(toolbar);
 
         //TODO use this for my add button
@@ -77,6 +80,8 @@ public class ProjectActivity extends AppCompatActivity
         rvLists.setLayoutManager(layoutManager);
 
         setTitle(project.getName());
+
+        setUserInfo(navigationView);
     }
 
     @Override
@@ -265,5 +270,19 @@ public class ProjectActivity extends AppCompatActivity
 
     private void uploadAll() {
         new SyncDataTask(this).execute(SyncDataTask.UPLOAD);
+    }
+
+    private void setUserInfo(NavigationView navigationView) {
+        View header = navigationView.getHeaderView(0);
+        TextView userName = header.findViewById(R.id.tv_user_name_project);
+        TextView userEmail = header.findViewById(R.id.tv_user_email_project);
+
+        long userId = project.getUserId();
+        UserDAO userDao = new UserDAO(this);
+        User user = userDao.get(userId);
+        userDao.close();
+
+        userName.setText(user.getFirstName() + " " + user.getLastName());
+        userEmail.setText(user.getEmail());
     }
 }
