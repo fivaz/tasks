@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <!--burn down chart-->
+    <color name="actual">#f70e48</color>
+    <color name="ideal">#0e39f7</color>
+    <!--activity_project-->
+    <color name="text">#132EB1</color>
+    <!--card_item-->
+    <color name="card_text">#C1EBE5E5</color>
+    <color name="card_bg">#303F9F</color>
+    <!--listt_item-->
+    <color name="cards_bg">#95A3B1CC</color>
+</resources>

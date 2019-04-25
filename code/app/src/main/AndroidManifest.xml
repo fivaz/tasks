@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.pontes_stefane_esig.myapplication">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_app"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_app"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".activities.CardFormActivity"
+            android:screenOrientation="sensor" />
+        <activity
+            android:name=".activities.ListtFormActivity"
+            android:screenOrientation="sensor" />
+        <activity
+            android:name=".activities.ProjectFormActivity"
+            android:screenOrientation="sensor" />
+        <activity
+            android:name=".activities.BurnDownChartActivity"
+            android:label="@string/burndown_chart_title"
+            android:screenOrientation="sensor" />
+        <activity android:name=".activities.HomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.UserFormActivity" />
+        <activity
+            android:name=".activities.ProjectActivity"
+            android:label="@string/title_activity_project_nd"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.ProjectsActivity"
+            android:label="@string/title_activity_projects1"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activities.InviteFormActivity"></activity>
+    </application>
+
+</manifest>
