@@ -10,5 +10,6 @@ It contains a task board where you can create your tasks and the app creates a B
 * Gson
 * RecyclerView
 * ContextMenu
-and more
-
+* Drag and Drop inside and outside RecyclerViews
+* SQLiteOpenHelper for offline persistence but you can sync your data on clound too
+* and much more.
